@@ -17,7 +17,6 @@ public class ManagePartCreation : MonoBehaviour
     private bool objectInPlace;
     private GameObject partToCreate;
     private GameObject fixed_PartToClone;
-    private int currentPartIndex;
 
     private Vector3 tmpArrowPos;
     private Vector3 tmpCirclePos;
@@ -41,21 +40,23 @@ public class ManagePartCreation : MonoBehaviour
         }
         objectInPlace = false;
         partInPlace = true;
-        currentPartIndex = 0;
+        partsManager.currentPartIndex = 0;
     }
 
     void Update()
     {
-        if (partInPlace && currentPartIndex < partsManager.fixed_parts.Length)
+        if (partInPlace && partsManager.currentPartIndex < partsManager.fixed_parts.Length)
         {
             SetTheNextPart();
 
-            currentPartIndex++;
+            partsManager.currentPartIndex++;
             partInPlace = false;
         }
 
         if (objectInPlace) 
         {
+            objectInPlace = false;
+
             partsManager.finalWellDone.SetActive(true);
 
             partsManager.arrowForPartsPos.SetActive(false);
@@ -75,11 +76,11 @@ public class ManagePartCreation : MonoBehaviour
 
     void SetTheNextPart()
     {
-        partsManager.colliders[currentPartIndex].SetActive(true);
+        partsManager.colliders[partsManager.currentPartIndex].SetActive(true);
         partsManager.buttonCreatorParts.GetComponent<Image>().sprite =
-            partsManager.parts_sprites[currentPartIndex];
-        partToCreate = partsManager.parts[currentPartIndex];
-        fixed_PartToClone = partsManager.fixed_parts[currentPartIndex];
+            partsManager.parts_sprites[partsManager.currentPartIndex];
+        partToCreate = partsManager.parts[partsManager.currentPartIndex];
+        fixed_PartToClone = partsManager.fixed_parts[partsManager.currentPartIndex];
     }
 
     private void SetArropwAndCirclePos()
@@ -115,17 +116,17 @@ public class ManagePartCreation : MonoBehaviour
 
         SetArropwAndCirclePos();
 
-        if (currentPartIndex == 1)
+        if (partsManager.currentPartIndex == 1)
         {
             panelAndImageTXT.gameObject.SetActive(false);
             partsCreationTXT.gameObject.SetActive(true);
         }
-        if (currentPartIndex == 2)
+        if (partsManager.currentPartIndex == 2)
         {
             partsCreationTXT.gameObject.SetActive(false);
             slowTouchImageTXT.gameObject.SetActive(true);
         }
-        if (currentPartIndex >= 3)
+        if (partsManager.currentPartIndex >= 3)
         {
             slowTouchImageTXT.gameObject.SetActive(false);
             partsManager.imageTutorialCanvas.gameObject.SetActive(false);
@@ -141,7 +142,7 @@ public class ManagePartCreation : MonoBehaviour
         partsManager.arrowForPartsPos.SetActive(false);
         partsManager.circleForPartsPos.SetActive(false);
 
-        if (currentPartIndex >= partsManager.fixed_parts.Length)
+        if (partsManager.currentPartIndex >= partsManager.fixed_parts.Length)
         {
             objectInPlace = true;
         }
