@@ -57308,6 +57308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partsManager: {fileID: 1530320493}
+  touchManager: {fileID: 1990017921417515485}
   moveJoyStick: {fileID: 7773035545330749444}
   moveJoyStickHand: {fileID: 4862081975069017115}
   rotateJoyStick: {fileID: 7773035544840243493}

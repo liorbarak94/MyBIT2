@@ -28,7 +28,6 @@ public class TouchManager : MonoBehaviour
     public int allOneTouchesCounter;
     public int[] partsCounterTouches;
 
-    //public int allOneTouchesCounter;
     private int currPartIndex;
 
     private void Awake()

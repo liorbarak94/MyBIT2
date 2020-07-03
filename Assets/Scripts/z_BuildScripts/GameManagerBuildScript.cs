@@ -8,6 +8,7 @@ using TMPro;
 public class GameManagerBuildScript : MonoBehaviour
 {
     public PartsManager partsManager;
+    public TouchManager touchManager;
 
     public GameObject moveJoyStick;
     public GameObject moveJoyStickHand;
@@ -217,15 +218,27 @@ public class GameManagerBuildScript : MonoBehaviour
 
         string tmpTimerString = DisplayTime(timer);
         string tmp = "";
-
         for (int i = tmpTimerString.Length-1 ; i >= 0 ; i--)
         {
             tmp += tmpTimerString[i];
         }
 
+        int average = 0;
+
+        for (int i = 0; i < touchManager.partsCounterTouches.Length; i++)
+        {
+            if (touchManager.partsCounterTouches[i] == 0)
+            {
+                touchManager.partsCounterTouches[i] = 1;
+            }
+            average += touchManager.partsCounterTouches[i];
+        }
+
+        average = (int)(average / touchManager.partsCounterTouches.Length);
+
         finishedTheGameTXT.text = "כל הכבוד!!! \n\n";
         finishedTheGameTXT.text += "סיימתם את השלב תוך: " + tmp + "\n\n";
-        finishedTheGameTXT.text += "עם ממוצע נגיעות: " + 1 + "\n\n";
+        finishedTheGameTXT.text += "עם ממוצע נגיעות בחלק: " + average + "\n\n";
     }
 
     public void MenuBtnWasPressed()
