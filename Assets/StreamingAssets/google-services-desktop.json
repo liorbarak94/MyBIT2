@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "477434718242",
+    "firebase_url": "https://mybit-33396.firebaseio.com",
+    "project_id": "mybit-33396",
+    "storage_bucket": "mybit-33396.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477434718242:android:3619792ae46d81b05c427b",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.MYBIT"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477434718242-972f0vp2h3lbte3aq6htekvmn0djj2r2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARBqyn8WFoRd3zuaEknm7VmHHXavDxoFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477434718242-972f0vp2h3lbte3aq6htekvmn0djj2r2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
