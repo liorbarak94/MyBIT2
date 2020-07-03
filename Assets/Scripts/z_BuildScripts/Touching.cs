@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class Touching : MonoBehaviour
 {
+    /*
     [HideInInspector]
     public PartsManager partsManager;
 
-    private float fillAmount = 0.5f;
+    private readonly float fillAmount = 0.5f;
 
     private Vector3 fingerIndicationCanvasPos;
     private Vector3 middle;
 
     private GameObject objectWasTouched;
 
-    private float moveSpeed = 10.0f;
+    private readonly float moveSpeed = 10.0f;
     public float shiftHeight;
 
     private void Awake()
@@ -40,18 +41,18 @@ public class Touching : MonoBehaviour
         partsManager.finger2Indication.GetComponent<Image>().fillAmount = 0;
     }
 
-    public void OneTouch()
+    public void OneTouch(int allOneTouchesCounter)
     {
         Touch firstTouch = Input.GetTouch(0);
         Ray firstRayBefore = partsManager.mainCamera.ScreenPointToRay(firstTouch.position);
-        RaycastHit hitFirst;
 
-        if (Physics.Raycast(firstRayBefore, out hitFirst))
+        if (Physics.Raycast(firstRayBefore, out RaycastHit hitFirst))
         {
             if (CheckIfRayCollideWithParts(hitFirst))
             {
                 partsManager.finger1Indication.GetComponent<Image>().fillAmount = fillAmount;
                 partsManager.finger2Indication.GetComponent<Image>().fillAmount = 0;
+                allOneTouchesCounter++;
             }
         }
     }
@@ -70,20 +71,14 @@ public class Touching : MonoBehaviour
         Plane firstPlane = new Plane(Vector3.up, transform.position);
         Plane secondPlane = new Plane(Vector3.up, transform.position);
 
-        float firstDistance = 0;
-        float secondDistance = 0;
-
-        RaycastHit hitFirst;
-        RaycastHit hitSecond;
-
-        if (Physics.Raycast(firstRayBefore, out hitFirst) &&
-            Physics.Raycast(secondRayBefore, out hitSecond))
+        if (Physics.Raycast(firstRayBefore, out RaycastHit hitFirst) &&
+            Physics.Raycast(secondRayBefore, out RaycastHit hitSecond))
         {
             if (CheckIfRayCollideWithParts(hitFirst) &&
                 CheckIfRayCollideWithParts(hitSecond))
             {
-                if (firstPlane.Raycast(firstRayAfter, out firstDistance) && 
-                    secondPlane.Raycast(secoondRayAfter, out secondDistance))
+                if (firstPlane.Raycast(firstRayAfter, out float firstDistance) && 
+                    secondPlane.Raycast(secoondRayAfter, out float secondDistance))
                 {
                     partsManager.finger1Indication.GetComponent<Image>().fillAmount = fillAmount;
                     partsManager.finger2Indication.GetComponent<Image>().fillAmount = fillAmount;
@@ -119,6 +114,7 @@ public class Touching : MonoBehaviour
                         objectWasTouched = hit.transform.gameObject;
                         ans = true;
                         CanvasPos();
+                        return ans;
                     }
                 }
             }
@@ -134,7 +130,7 @@ public class Touching : MonoBehaviour
         partsManager.fingerIndicationCanvas.transform.LookAt(partsManager.mainCamera.transform);
     }
 
-
+    */
 }
 
 

@@ -38,5 +38,7 @@ public class PartsManager : MonoBehaviour
 
     public GameObject finalWellDone;
 
+    public int currentPartIndex;
+
 
 }

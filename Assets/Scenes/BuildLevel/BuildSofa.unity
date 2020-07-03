@@ -588,17 +588,17 @@ PrefabInstance:
     - target: {fileID: 6895134468379179619, guid: 95cc0032b5584a04398608d5cbdaf567,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.49
+      value: -53.99
       objectReference: {fileID: 0}
     - target: {fileID: 6895134468379179619, guid: 95cc0032b5584a04398608d5cbdaf567,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.55
+      value: 9.01
       objectReference: {fileID: 0}
     - target: {fileID: 6895134468379179619, guid: 95cc0032b5584a04398608d5cbdaf567,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -53.16
+      value: -61.54
       objectReference: {fileID: 0}
     - target: {fileID: 6895134468379179619, guid: 95cc0032b5584a04398608d5cbdaf567,
         type: 3}
@@ -12328,6 +12328,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cf542e135154bdf43b095ebb61066e06, type: 3}
   - {fileID: 21300000, guid: 189ff3f23c1c1434d99df542b1201611, type: 3}
   finalWellDone: {fileID: 2115818544}
+  currentPartIndex: 0
 --- !u!4 &1530320494
 Transform:
   m_ObjectHideFlags: 0
@@ -15054,7 +15055,7 @@ Transform:
   - {fileID: 1136329275}
   - {fileID: 1085347549}
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1842002584
 PrefabInstance:
@@ -15388,8 +15389,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -51228,8 +51229,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5e5dad15c8d534fa94b2863c6f641f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchStatus: 0
-  touching: {fileID: 8038922023417522603}
+  partsManager: {fileID: 1530320493}
+  shiftHeight: 2.1
+  currentTouchCounterStatus: 0
+  previousTouchCounterStatus: 0
+  isCountingTouches: 0
+  allOneTouchesCounter: 0
+  partsCounterTouches: 
 --- !u!1001 &2335971380368870483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53571,7 +53577,7 @@ MonoBehaviour:
     \u05DC\u05D4 \u05DC\u05D1\u05E0\u05D5\u05EA \u05D0\u05D5\u05EA\u05D4. \n\r\n\u05D0\u05E0\u05D0,
     \u05E2\u05D6\u05E8\u05D5 \u05DC\u05D4 \u05DC\u05D1\u05E0\u05D5\u05EA \u05D1\u05D9\u05D7\u05D3
     \u05D0\u05EA \u05D4\u05E1\u05E4\u05D4. \r\n\n\u05DC\u05E8\u05E9\u05D5\u05EA\u05DB\u05DD
-    7 \u05D3\u05E7\u05D5\u05EA, \u05EA\u05D5\u05DB\u05DC\u05D5 \u05DC\u05E8\u05D0\u05D5\u05EA
+    5 \u05D3\u05E7\u05D5\u05EA, \u05EA\u05D5\u05DB\u05DC\u05D5 \u05DC\u05E8\u05D0\u05D5\u05EA
     \u05D0\u05EA \u05D4\u05D6\u05DE\u05DF \u05E9\u05E0\u05D5\u05EA\u05E8 \u05D1\u05E9\u05E2\u05D5\u05DF
     \u05D4\u05DE\u05DE\u05D5\u05E7\u05DD \u05D1\u05E6\u05D3 \u05E9\u05DE\u05D0\u05DC
     \u05DC\u05DE\u05E2\u05DC\u05D4 \u05E9\u05DC \u05D4\u05DE\u05E1\u05DA. "
@@ -57310,6 +57316,7 @@ MonoBehaviour:
   managePartCreation: {fileID: 7695112370498149289}
   timerTXT: {fileID: 915759676}
   timer: 0
+  currentTimer: 0
   timerIsRunning: 0
   introTXTMeshPro: {fileID: 4862081974821080439}
   nextBtn: {fileID: 4862081975772076424}
@@ -57883,51 +57890,6 @@ Transform:
   - {fileID: 439516351954599207}
   m_Father: {fileID: 0}
   m_RootOrder: 28
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8038922023417522602
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8038922023417522644}
-  - component: {fileID: 8038922023417522603}
-  m_Layer: 0
-  m_Name: Touching
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &8038922023417522603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8038922023417522602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a5224c9168ea92439c9fbd1aa73991c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partsManager: {fileID: 0}
-  shiftHeight: 2.1
---- !u!4 &8038922023417522644
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8038922023417522602}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8159269329794855738
 GameObject:

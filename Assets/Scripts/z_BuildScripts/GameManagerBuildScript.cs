@@ -20,6 +20,7 @@ public class GameManagerBuildScript : MonoBehaviour
 
     public TextMeshProUGUI timerTXT;
     public float timer;
+    public float currentTimer;
     public bool timerIsRunning;
 
     public TextMeshProUGUI introTXTMeshPro;
@@ -60,6 +61,7 @@ public class GameManagerBuildScript : MonoBehaviour
         nextBtn.gameObject.SetActive(true);
         menuIsOpen = false;
         timerIsRunning = false;
+        timer = 0;
     }
 
     private void DeActiveAllGameObjectsAtStart()
@@ -105,20 +107,23 @@ public class GameManagerBuildScript : MonoBehaviour
 
     public void GetTimerFromPlayerPrefs()
     {
-        timer = PlayerPrefs.GetFloat(
+        currentTimer = PlayerPrefs.GetFloat(
             FinalValues.CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME, 5);
-        timer *= 60;
+        currentTimer *= 60;
+        timer = 0;
     }
 
     void Update()
     {
         if (timerIsRunning)
         {
-            if (timer > 0)
+            if (currentTimer > 0)
             {
-                timer -= Time.deltaTime;
-                DisplayTime(timer);
-                if (timer < 30)
+                currentTimer -= Time.deltaTime;
+                timer += Time.deltaTime;
+
+                timerTXT.text = DisplayTime(currentTimer);
+                if (currentTimer < 30)
                 {
                     timerTXT.color = Color.red;
                 }
@@ -126,7 +131,7 @@ public class GameManagerBuildScript : MonoBehaviour
             else
             {
                 Debug.Log("Time has run out!");
-                timer = 0;
+                currentTimer = 0;
                 timerIsRunning = false;
                 timerTXT.text = "";
             }
@@ -138,12 +143,11 @@ public class GameManagerBuildScript : MonoBehaviour
         timerIsRunning = toRunTimer;
     }
 
-    void DisplayTime(float timeToDisplay)
+    private string DisplayTime(float timeToDisplay)
     {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
-        timerTXT.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void PressedIntroNextBtn()
@@ -161,6 +165,7 @@ public class GameManagerBuildScript : MonoBehaviour
     {
         tutorialManagerScript.gameObject.SetActive(true);
         partsManager.imageTutorialCanvas.gameObject.SetActive(true);
+
         imageIntroCanvas.gameObject.SetActive(false);
 
         tutorialTXT.gameObject.SetActive(false);
@@ -191,6 +196,7 @@ public class GameManagerBuildScript : MonoBehaviour
 
         partsManager.buttonCreatorParts.gameObject.SetActive(true);
         partsManager.planeForPartsPos.gameObject.SetActive(true);
+        partsManager.fingerIndicationCanvas.gameObject.SetActive(true);
 
         tutorialTXT.gameObject.SetActive(false);
         v.gameObject.SetActive(false);
@@ -203,9 +209,23 @@ public class GameManagerBuildScript : MonoBehaviour
 
     public void FinishedTheGame()
     {
+        timerIsRunning = false;
+
         imageIntroCanvas.gameObject.SetActive(true);
         finishedTheGameTXT.gameObject.SetActive(true);
         finishedTheGameBtn.gameObject.SetActive(true);
+
+        string tmpTimerString = DisplayTime(timer);
+        string tmp = "";
+
+        for (int i = tmpTimerString.Length-1 ; i >= 0 ; i--)
+        {
+            tmp += tmpTimerString[i];
+        }
+
+        finishedTheGameTXT.text = "כל הכבוד!!! \n\n";
+        finishedTheGameTXT.text += "סיימתם את השלב תוך: " + tmp + "\n\n";
+        finishedTheGameTXT.text += "עם ממוצע נגיעות: " + 1 + "\n\n";
     }
 
     public void MenuBtnWasPressed()
