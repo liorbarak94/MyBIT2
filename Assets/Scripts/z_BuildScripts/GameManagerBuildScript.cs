@@ -61,7 +61,7 @@ public class GameManagerBuildScript : MonoBehaviour
         introTXTMeshPro.gameObject.SetActive(true);
         nextBtn.gameObject.SetActive(true);
         menuIsOpen = false;
-        timerIsRunning = false;
+        TimerActivation(false);
         timer = 0;
     }
 
@@ -133,7 +133,7 @@ public class GameManagerBuildScript : MonoBehaviour
             {
                 Debug.Log("Time has run out!");
                 currentTimer = 0;
-                timerIsRunning = false;
+                TimerActivation(false);
                 timerTXT.text = "";
             }
         }
@@ -166,6 +166,7 @@ public class GameManagerBuildScript : MonoBehaviour
     {
         tutorialManagerScript.gameObject.SetActive(true);
         partsManager.imageTutorialCanvas.gameObject.SetActive(true);
+        partsManager.fingerIndicationCanvas.gameObject.SetActive(true);
 
         imageIntroCanvas.gameObject.SetActive(false);
 
@@ -210,7 +211,7 @@ public class GameManagerBuildScript : MonoBehaviour
 
     public void FinishedTheGame()
     {
-        timerIsRunning = false;
+        TimerActivation(false);
 
         imageIntroCanvas.gameObject.SetActive(true);
         finishedTheGameTXT.gameObject.SetActive(true);

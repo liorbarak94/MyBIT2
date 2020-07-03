@@ -120,6 +120,7 @@ public class ManagePartCreation : MonoBehaviour
         {
             panelAndImageTXT.gameObject.SetActive(false);
             partsCreationTXT.gameObject.SetActive(true);
+            gameManagerBuildScript.TimerActivation(true);
         }
         if (partsManager.currentPartIndex == 2)
         {
