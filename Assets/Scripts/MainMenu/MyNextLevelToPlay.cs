@@ -23,6 +23,10 @@ public class MyNextLevelToPlay : MonoBehaviour
     {
         if (db_Manager.showNextLevelToPlay)
         {
+            PlayerPrefs.SetInt(
+                FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME,
+                db_Manager.me_User.userIndex);
+
             ShowLevelsToPlay();
 
             AI_CalculateTheTypeOfLevelToPlay();
@@ -46,28 +50,46 @@ public class MyNextLevelToPlay : MonoBehaviour
 
     public void BuildLevelWasPressed()
     {
-        waitLoadingBarManager.WaitLoadingBar_Activation(true);
+        Debug.Log("BuildLevelWasPressed");
 
         int level_Index_InUnity = db_Manager.me_User.buildLevels_Arr
             [db_Manager.me_User.currentBuildLevelToPlay].level_Index;
 
-        PlayerPrefs.SetInt(
-            FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME,
-            db_Manager.me_User.userIndex);
+        SaveDitailsToPlayerPrefs(level_Index_InUnity, 
+            db_Manager.me_User.currentBuildLevelToPlay,
+            db_Manager.me_User.buildLevels_Arr
+            [db_Manager.me_User.currentBuildLevelToPlay].level_Timer);
+    }
+
+    public void SituationLevelWasPressed()
+    {
+        Debug.Log("SituationLevelWasPressed");
+
+        int level_Index_InUnity = db_Manager.me_User.situationLevels_Arr
+            [db_Manager.me_User.currentSituationLevelToPlay].level_Index;
+
+        SaveDitailsToPlayerPrefs(level_Index_InUnity, 
+            db_Manager.me_User.currentSituationLevelToPlay,
+            db_Manager.me_User.situationLevels_Arr
+            [db_Manager.me_User.currentSituationLevelToPlay].level_Timer);
+    }
+
+    public void SaveDitailsToPlayerPrefs(int level_Index_InUnity, int currentLevelToPlay,
+        float timer)
+    {
+        waitLoadingBarManager.WaitLoadingBar_Activation(true);
 
         PlayerPrefs.SetInt(
             FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
-            db_Manager.me_User.currentBuildLevelToPlay);
+            currentLevelToPlay);
 
         PlayerPrefs.SetFloat(
-            FinalValues.CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME,
-            db_Manager.me_User.buildLevels_Arr
-            [db_Manager.me_User.currentBuildLevelToPlay].level_Timer);
+            FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, timer);
 
-        StartCoroutine(LoadNextBuildLevelToPlay(level_Index_InUnity));
+        StartCoroutine(LoadNextLevelToPlay(level_Index_InUnity));
     }
 
-    public IEnumerator LoadNextBuildLevelToPlay(int level_Index)
+    public IEnumerator LoadNextLevelToPlay(int level_Index)
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -79,14 +101,8 @@ public class MyNextLevelToPlay : MonoBehaviour
         else
         {
             Debug.Log("level Index Does NOT Exist");
-        } 
+        }
     }
-
-    public void SituationLevelWasPressed()
-    {
-        Debug.Log("SituationLevelWasPressed");
-    }
-
 
     public void AI_CalculateTheTypeOfLevelToPlay()
     {

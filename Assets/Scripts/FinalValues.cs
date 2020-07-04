@@ -59,13 +59,6 @@ public class FinalValues : MonoBehaviour
     public static string LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME = "isUserDidTheLevel";
     public static string LEVEL_TOTAL_TIME_DB_NAME = "totalTime";
 
-    //public static string SILVER_STAR_LEVEL_PATH = "Assets/Textures/levelImages/SilverStar.png";
-    //public static string GOLD_STAR_LEVEL_PATH = "Assets/Textures/levelImages/GoldStar.png";
-
-    //public static string INFO_ID_DB_NAME = "infoID";
-    //public static string INFO_NAME_DB_NAME = "info_name";
-    //public static string INFO_TEXT_DB_NAME = "info_Text";
-    
     public const string SITUATIONS_DB_NAME = "Situations";
     public const string QUESTIONS_DB_NAME = "Questions";
     public const string THE_QUESTION_DB_NAME = "TheQuestion";
@@ -115,32 +108,7 @@ public class FinalValues : MonoBehaviour
     public static string MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME =
       "MyBIT_Game_User_Current_Level_Index";
 
-
-    public static string CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME =
-        "Current_Timer_Build_Level";
-
-    /*
-    public static string DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME =
-         "Did_Finished_Current_Build_Level";
-
-    public static string CURRENT_FINISHED_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME =
-        "Current_Finished_Timer_Build_Level";
-    
-    public static string CURRENT_AVERAGE_TOUCHES_FINISHED_BUILD_LEVEL_PLAYER_PREFS_NAME =
-        "Current_Average_Touches_Finished_Build_Level";
-
-
-    public static string DID_FIFNISHED_CURRENT_SITUATION_LEVEL_PLAYER_PREFS_NAME =
-         "Did_Finished_Current_Situation_Level";
-
-    public static string CURRENT_TIMER_SITUATION_LEVEL_PLAYER_PREFS_NAME =
-        "Current_Timer_Situation_Level";
-
-    public static string CURRENT_FINISHED_TIMER_SITUATION_LEVEL_PLAYER_PREFS_NAME =
-        "Current_Finished_Timer_Situation_Level";
-
-    public static string CURRENT_AVERAGE_TOUCHES_FINISHED_SITUATION_LEVEL_PLAYER_PREFS_NAME =
-        "Current_Average_Touches_Finished_Situation_Level";
-    */
+    public static string CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME =
+        "Current_Timer_Level";
 
 }

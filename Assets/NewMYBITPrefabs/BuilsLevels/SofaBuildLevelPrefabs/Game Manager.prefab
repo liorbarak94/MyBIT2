@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5865950900982193332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5865950900982193330}
+  - component: {fileID: 5865950900982193333}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5865950900982193330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865950900982193332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5865950900982193333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5865950900982193332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc17a45bcd728b4caa13a6732fdac45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partsManager: {fileID: 0}
+  touchManager: {fileID: 0}
+  moveJoyStick: {fileID: 0}
+  moveJoyStickHand: {fileID: 0}
+  rotateJoyStick: {fileID: 0}
+  rotateJoyStickHand: {fileID: 0}
+  tutorialManagerScript: {fileID: 0}
+  managePartCreation: {fileID: 0}
+  timerTXT: {fileID: 0}
+  timer: 0
+  currentTimer: 0
+  timerIsRunning: 0
+  introTXTMeshPro: {fileID: 0}
+  nextBtn: {fileID: 0}
+  tutorialTXT: {fileID: 0}
+  v: {fileID: 0}
+  x: {fileID: 0}
+  imageIntroCanvas: {fileID: 0}
+  missionTXT: {fileID: 0}
+  missionNextBtn: {fileID: 0}
+  pigMoneyImage: {fileID: 0}
+  pigAnimator: {fileID: 0}
+  finishedTheGameTXT: {fileID: 0}
+  finishedTheGameBtn: {fileID: 0}
+  menuIsOpen: 0
+  menuBtn: {fileID: 0}
+  allBtnInMenu:
+  - {fileID: 0}
+  - {fileID: 0}
+  averageNumberOfTouches: 0
+  userIndex: 0
+  levelIndex: 0

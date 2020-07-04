@@ -129,7 +129,7 @@ public class GameManagerBuildScript : MonoBehaviour
     public void GetTimerFromPlayerPrefs()
     {
         currentTimer = PlayerPrefs.GetFloat(
-            FinalValues.CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME, 3);
+            FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);
         currentTimer *= 60;
         timer = 0;
     }
