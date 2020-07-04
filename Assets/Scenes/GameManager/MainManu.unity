@@ -9110,9 +9110,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 4b01f769e82e94840b7b1ddfcef9c893, type: 3}
   - {fileID: 2800000, guid: 4b01f769e82e94840b7b1ddfcef9c893, type: 3}
   - {fileID: 2800000, guid: 4b01f769e82e94840b7b1ddfcef9c893, type: 3}
-  saveTimerToPlayerPrefs: 0
-  saveUserFinishedBuildLevelDetailsToDB: 0
-  saveUserFinishedSituationLevelDetailsToDB: 0
 --- !u!4 &2083032793
 Transform:
   m_ObjectHideFlags: 0

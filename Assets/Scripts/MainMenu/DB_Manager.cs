@@ -43,10 +43,6 @@ public class DB_Manager : MonoBehaviour
     public Texture[] all_BuildLevels_Images;
     public Texture[] all_SituationLevels_Images;
 
-    public bool saveTimerToPlayerPrefs;
-    public bool saveUserFinishedBuildLevelDetailsToDB;
-    public bool saveUserFinishedSituationLevelDetailsToDB;
-
     void Start()
     {
         //PlayerPrefs.DeleteAll();
@@ -65,66 +61,9 @@ public class DB_Manager : MonoBehaviour
         showSituationLevels = false;
         isBuildShown = false;
         isSituationShown = false;
-        saveTimerToPlayerPrefs = false;
-
-        saveUserFinishedBuildLevelDetailsToDB = false;
-        saveUserFinishedSituationLevelDetailsToDB = false;
 
         TakeProfileDataFromDB();
         InitInfornationArr();
-    }
-
-    void Update()
-    {
-        if (saveTimerToPlayerPrefs)
-        {
-            SaveUserDitailsToPlayerPrefs();
-        }
-
-        if (saveUserFinishedBuildLevelDetailsToDB)
-        {
-            ReturnFromPlayingBuildLevel();
-        }
-
-        /*
-        if (PlayerPrefs.GetInt(
-            FinalValues.DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME,
-            -1) == 1 && (showProfile || saveUserBuildLevelDetails))
-        {
-            ReturnFromPlayingBuildLevel();
-        }
-        */
-
-        if (PlayerPrefs.GetInt(
-            FinalValues.DID_FIFNISHED_CURRENT_SITUATION_LEVEL_PLAYER_PREFS_NAME,
-            -1) == 1)
-        {
-            ReturnFromPlayingSituationLevel();
-        }
-    }
-
-    public void SaveUserDitailsToPlayerPrefs()
-    {
-        if (me_User != null)
-        {
-            if (me_User.buildLevels_Arr != null)
-            {
-                if (me_User.currentBuildLevelToPlay >= 0)
-                {
-                    if (me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay] != null)
-                    {
-                        float timer = me_User.buildLevels_Arr
-                        [me_User.currentBuildLevelToPlay].level_Timer;
-
-                        PlayerPrefs.SetFloat(
-                            FinalValues.CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME,
-                            timer);
-
-                        saveTimerToPlayerPrefs = false;
-                    }
-                }
-            }
-        }
     }
 
     public void InitInfornationArr()
@@ -152,7 +91,8 @@ public class DB_Manager : MonoBehaviour
         FirebaseDatabase.DefaultInstance
             .GetReference(FinalValues.USERS_DB_NAME)
             .GetValueAsync()
-            .ContinueWith(task => {
+            .ContinueWith(task =>
+            {
 
                 if (task.IsFaulted)
                 {
@@ -255,7 +195,8 @@ public class DB_Manager : MonoBehaviour
         FirebaseDatabase.DefaultInstance
             .GetReference(FinalValues.USERS_DB_NAME)
             .GetValueAsync()
-            .ContinueWith(task => {
+            .ContinueWith(task =>
+            {
 
                 if (task.IsFaulted)
                 {
@@ -315,7 +256,8 @@ public class DB_Manager : MonoBehaviour
         FirebaseDatabase.DefaultInstance
             .GetReference(FinalValues.USERS_DB_NAME)
             .GetValueAsync()
-            .ContinueWith(task => {
+            .ContinueWith(task =>
+            {
 
                 if (task.IsFaulted)
                 {
@@ -360,7 +302,6 @@ public class DB_Manager : MonoBehaviour
                             }
                         }
                     }
-                    saveTimerToPlayerPrefs = true;
                 }
             });
     }
@@ -378,108 +319,5 @@ public class DB_Manager : MonoBehaviour
     public void SetShowInformationAtivation(bool toShow)
     {
         showInfo = toShow;
-    }
-
-    public void ReturnFromPlayingBuildLevel()
-    {
-        if (me_User != null)
-        {
-            if (me_User.buildLevels_Arr != null)
-            {
-                saveUserFinishedBuildLevelDetailsToDB = false;
-
-                me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay]
-                            .isUserDidTheLevel = true;
-
-                //PlayerPrefs.SetInt(
-                //   FinalValues.DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME,
-                //  -1);
-
-                me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay].totalTime =
-                    PlayerPrefs.GetFloat(
-                        FinalValues.CURRENT_FINISHED_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME,
-                        0);
-
-                me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay]
-                    .numberOfMistakesOrAverageNumberOfTouches =
-                    PlayerPrefs.GetInt(
-                        FinalValues.CURRENT_AVERAGE_TOUCHES_FINISHED_BUILD_LEVEL_PLAYER_PREFS_NAME,
-                        -1);
-
-                Debug.Log(me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay].isUserDidTheLevel);
-                Debug.Log(me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay].totalTime);
-                Debug.Log(me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay].numberOfMistakesOrAverageNumberOfTouches);
-
-                SaveUserDetailsToDBAfterBuildLevel();
-
-                showProfile = false;
-            } 
-        }
-    }
-
-    public void ReturnFromPlayingSituationLevel()
-    {
-        PlayerPrefs.SetInt(
-            FinalValues.DID_FIFNISHED_CURRENT_SITUATION_LEVEL_PLAYER_PREFS_NAME,
-            -1);
-
-
-    }
-
-    public void SaveUserDetailsToDBAfterBuildLevel()
-    {
-        FirebaseDatabase.DefaultInstance
-            .GetReference(FinalValues.USERS_DB_NAME)
-            .GetValueAsync()
-            .ContinueWith(task => {
-
-                if (task.IsFaulted)
-                {
-                    Debug.Log("SaveUserDetailsToDBAfterLevel IsFaulted");
-                }
-
-                if (task.IsCompleted)
-                {
-                    Level level = me_User.buildLevels_Arr[me_User.currentBuildLevelToPlay];
-                   
-                    me_User.currentBuildLevelToPlay++;
-
-                    reference
-                        .Child(FinalValues.USERS_DB_NAME)
-                        .Child(me_User.userIndex + "")
-                        .Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME)
-                        .SetValueAsync(me_User.currentBuildLevelToPlay);
-
-                    reference
-                        .Child(FinalValues.USERS_DB_NAME)
-                        .Child(me_User.userIndex + "")
-                        .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
-                        .Child(level.level_ID + "")
-                        .Child(FinalValues.LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME)
-                        .SetValueAsync(level.isUserDidTheLevel);
-
-                    reference
-                        .Child(FinalValues.USERS_DB_NAME)
-                        .Child(me_User.userIndex + "")
-                        .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
-                        .Child(level.level_ID + "")
-                        .Child(FinalValues.LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME)
-                        .SetValueAsync(level.numberOfMistakesOrAverageNumberOfTouches);
-
-                    reference
-                        .Child(FinalValues.USERS_DB_NAME)
-                        .Child(me_User.userIndex + "")
-                        .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
-                        .Child(level.level_ID + "")
-                        .Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME)
-                        .SetValueAsync(level.totalTime);
-
-                    Debug.LogFormat(
-                        "Saved User Details To DB After Level successfully");
-                }
-            });
     }
 }

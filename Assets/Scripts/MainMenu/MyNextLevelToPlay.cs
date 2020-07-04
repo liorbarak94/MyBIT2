@@ -40,10 +40,18 @@ public class MyNextLevelToPlay : MonoBehaviour
     {
         waitLoadingBarManager.WaitLoadingBar_Activation(true);
 
-        int level_Index = db_Manager.me_User.buildLevels_Arr
+        int level_Index_InUnity = db_Manager.me_User.buildLevels_Arr
             [db_Manager.me_User.currentBuildLevelToPlay].level_Index;
 
-        StartCoroutine(LoadNextBuildLevelToPlay(level_Index));
+        PlayerPrefs.SetInt(
+            FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME,
+            db_Manager.me_User.userIndex);
+
+        PlayerPrefs.SetInt(
+            FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
+            db_Manager.me_User.currentBuildLevelToPlay);
+
+        StartCoroutine(LoadNextBuildLevelToPlay(level_Index_InUnity));
     }
 
     public IEnumerator LoadNextBuildLevelToPlay(int level_Index)

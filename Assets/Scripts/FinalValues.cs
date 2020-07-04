@@ -108,7 +108,15 @@ public class FinalValues : MonoBehaviour
 
 
     ////////// PlayerPrefs ///////////////////////////////
-    
+
+    public static string MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME =
+     "MyBIT_Game_User_Index";
+
+    public static string MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME =
+      "MyBIT_Game_User_Current_Level_Index";
+
+
+
     public static string DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME =
          "Did_Finished_Current_Build_Level";
 

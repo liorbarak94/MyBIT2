@@ -1,12 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Firebase.Database;
+using Firebase;
+using Firebase.Unity.Editor;
 
 public class GameManagerBuildScript : MonoBehaviour
 {
+    public DatabaseReference reference;
+
     public PartsManager partsManager;
     public TouchManager touchManager;
 
@@ -46,6 +49,12 @@ public class GameManagerBuildScript : MonoBehaviour
     public Button menuBtn;
     public Button[] allBtnInMenu;
 
+    public int averageNumberOfTouches;
+
+    public int userIndex;
+    public int levelIndex;
+
+
     private void Awake()
     {
         partsManager = GameObject.FindObjectOfType<PartsManager>();
@@ -53,6 +62,17 @@ public class GameManagerBuildScript : MonoBehaviour
 
     void Start()
     {
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(FinalValues.FIREBASE_URL);
+        reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        userIndex = PlayerPrefs.GetInt(
+            FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME,
+            0);
+
+        levelIndex = PlayerPrefs.GetInt(
+            FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
+            0);
+
         DeActiveAllGameObjectsAtStart();
         HideAllObjectPartsAndItsClliders();
         GetTimerFromPlayerPrefs();
@@ -209,51 +229,6 @@ public class GameManagerBuildScript : MonoBehaviour
         managePartCreation.gameObject.SetActive(true);
     }
 
-    public void FinishedTheGame()
-    {
-        TimerActivation(false);
-
-        imageIntroCanvas.gameObject.SetActive(true);
-        finishedTheGameTXT.gameObject.SetActive(true);
-        finishedTheGameBtn.gameObject.SetActive(true);
-
-        string tmpTimerString = DisplayTime(timer);
-        string tmp = "";
-        for (int i = tmpTimerString.Length-1 ; i >= 0 ; i--)
-        {
-            tmp += tmpTimerString[i];
-        }
-
-        int average = 0;
-
-        for (int i = 0; i < touchManager.partsCounterTouches.Length; i++)
-        {
-            if (touchManager.partsCounterTouches[i] == 0)
-            {
-                touchManager.partsCounterTouches[i] = 1;
-            }
-            average += touchManager.partsCounterTouches[i];
-        }
-
-        average = (int)(average / touchManager.partsCounterTouches.Length);
-
-        finishedTheGameTXT.text = "כל הכבוד!!! \n\n";
-        finishedTheGameTXT.text += "סיימתם את השלב תוך: " + tmp + "\n\n";
-        finishedTheGameTXT.text += "עם ממוצע נגיעות בחלק: " + average + "\n\n";
-
-        PlayerPrefs.SetFloat(
-            FinalValues.CURRENT_FINISHED_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME, 
-            timer);
-
-        PlayerPrefs.SetInt(
-            FinalValues.CURRENT_AVERAGE_TOUCHES_FINISHED_BUILD_LEVEL_PLAYER_PREFS_NAME,
-            average);
-
-        PlayerPrefs.SetInt(
-            FinalValues.DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME,
-            1);
-    }
-
     public void MenuBtnWasPressed()
     {
         if (menuIsOpen)
@@ -306,4 +281,92 @@ public class GameManagerBuildScript : MonoBehaviour
     {
         SceneManager.LoadScene(FinalValues.MAIN_MANU_SCENE_INDEX);
     }
+
+    public void FinishedTheGame()
+    {
+        TimerActivation(false);
+
+        imageIntroCanvas.gameObject.SetActive(true);
+        finishedTheGameTXT.gameObject.SetActive(true);
+        finishedTheGameBtn.gameObject.SetActive(true);
+
+        string tmpTimerString = DisplayTime(timer);
+        string tmp = "";
+        for (int i = tmpTimerString.Length - 1; i >= 0; i--)
+        {
+            tmp += tmpTimerString[i];
+        }
+
+        for (int i = 0; i < touchManager.partsCounterTouches.Length; i++)
+        {
+            if (touchManager.partsCounterTouches[i] == 0)
+            {
+                touchManager.partsCounterTouches[i] = 1;
+            }
+            averageNumberOfTouches += touchManager.partsCounterTouches[i];
+        }
+
+        averageNumberOfTouches = (int)(averageNumberOfTouches / touchManager.partsCounterTouches.Length);
+
+        finishedTheGameTXT.text = "כל הכבוד!!! \n\n";
+        finishedTheGameTXT.text += "סיימתם את השלב תוך: " + tmp + "\n\n";
+        finishedTheGameTXT.text += "עם ממוצע נגיעות בחלק: " + averageNumberOfTouches + "\n\n";
+
+        SaveUserDetailsToDBAfterBuildLevel();
+    }
+
+    public void SaveUserDetailsToDBAfterBuildLevel()
+    {
+        FirebaseDatabase.DefaultInstance
+            .GetReference(FinalValues.USERS_DB_NAME)
+            .GetValueAsync()
+            .ContinueWith(task => {
+
+                if (task.IsFaulted)
+                {
+                    Debug.Log("SaveUserDetailsToDBAfterLevel IsFaulted");
+                }
+
+                if (task.IsCompleted)
+                {
+                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME)
+                        .SetValueAsync(averageNumberOfTouches);
+
+                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME)
+                        .SetValueAsync(true);
+
+                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME)
+                        .SetValueAsync(timer);
+
+                    levelIndex++;
+                    reference
+                       .Child(FinalValues.USERS_DB_NAME)
+                       .Child(userIndex + "")
+                       .Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME)
+                       .SetValueAsync(levelIndex);
+
+                    Debug.LogFormat(
+                        "Saved User Details To DB After Finished Level Successfully");
+                }
+            });
+    }
+
 }
