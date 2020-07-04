@@ -5,8 +5,6 @@ using Firebase.Unity.Editor;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.UI;
-
 
 public class RegisterNewUser : MonoBehaviour
 {
@@ -17,8 +15,6 @@ public class RegisterNewUser : MonoBehaviour
 
     protected Firebase.Auth.FirebaseAuth auth;
     protected Firebase.Auth.FirebaseUser myUser;
-
-    private string displayName;
 
     public TMP_InputField userNickname_InputField_Login;
     public TMP_InputField userEmailAddress_InputField_Login;
@@ -54,7 +50,6 @@ public class RegisterNewUser : MonoBehaviour
     private bool isUserExist_Login;
 
     private bool loadMainManuScene;
-
 
     void Start()
     {
@@ -101,7 +96,6 @@ public class RegisterNewUser : MonoBehaviour
 
             if (signedIn)
             {
-                displayName = myUser.DisplayName ?? "";
                 Debug.Log("Signed in " + myUser.UserId);
             }
         }
@@ -127,8 +121,10 @@ public class RegisterNewUser : MonoBehaviour
         user_NicknameName = userNickname_InputField_Register.text;
         user_Email = userEmailAddress_InputField_Register.text;
 
-        user = new User(user_First_Name, user_Last_Name, user_Gender,
-            user_Age, user_NicknameName, user_Email);
+        user = new User();
+
+        user.InitAllUserParams("0", 0, user_First_Name, user_Last_Name,
+            user_Gender, user_Age, user_NicknameName, user_Email, 0, 0);
     }
 
     public void DownloadLevelsFromDB(string counter_DB_Name, 
@@ -161,36 +157,31 @@ public class RegisterNewUser : MonoBehaviour
                     for (int i = 0; i < counter; i++)
                     {
                         int levelID = int.Parse(refToLevels
-                           .Child(i + "")
-                           .Child(FinalValues.LEVEL_ID_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString());
+                            .Child(i + "")
+                            .Child(FinalValues.LEVEL_ID_DB_NAME)
+                            .GetValueAsync().Result.GetValue(true).ToString());
 
                         int index = int.Parse(refToLevels
-                           .Child(i + "")
-                           .Child(FinalValues.LEVEL_INDEX_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString());
+                            .Child(i + "")
+                            .Child(FinalValues.LEVEL_INDEX_DB_NAME)
+                            .GetValueAsync().Result.GetValue(true).ToString());
 
                         string name = refToLevels
                             .Child(i + "")
-                           .Child(FinalValues.LEVEL_NAME_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString();
+                            .Child(FinalValues.LEVEL_NAME_DB_NAME)
+                            .GetValueAsync().Result.GetValue(true).ToString();
 
                         string type = refToLevels
-                           .Child(i + "")
-                           .Child(FinalValues.LEVEL_TYPE_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString();
-
-                        string path = refToLevels
-                           .Child(i + "")
-                           .Child(FinalValues.LEVEL_IMAGE_PATH_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString();
+                            .Child(i + "")
+                            .Child(FinalValues.LEVEL_TYPE_DB_NAME)
+                            .GetValueAsync().Result.GetValue(true).ToString();
 
                         float timer = float.Parse(refToLevels
-                           .Child(i + "")
-                           .Child(FinalValues.LEVEL_TIMER_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString());
+                            .Child(i + "")
+                            .Child(FinalValues.LEVEL_TIMER_DB_NAME)
+                            .GetValueAsync().Result.GetValue(true).ToString());
 
-                        Level level = new Level(levelID, index, name, type, path, timer);
+                        Level level = new Level(levelID, index, name, type, timer);
 
                         if (type_Of_Level == FinalValues.TypeOfLevel.BUILD)
                         {
@@ -339,8 +330,8 @@ public class RegisterNewUser : MonoBehaviour
                     Firebase.Auth.FirebaseUser newUser = task.Result;
 
                     tmpUserCounter = int.Parse(reference
-                           .Child(FinalValues.USERS_COUNTER_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString());
+                        .Child(FinalValues.USERS_COUNTER_DB_NAME)
+                        .GetValueAsync().Result.GetValue(true).ToString());
 
                     for (int i = 0; i < tmpUserCounter && tmpUserCounter > 0; i++)
                     {
@@ -367,6 +358,8 @@ public class RegisterNewUser : MonoBehaviour
                     if (!isUserExist_Or_IsMistake_Signin)
                     {
                         user.userID = newUser.UserId;
+                        user.userIndex = tmpUserCounter;
+
                         string userJson = JsonUtility.ToJson(user);
 
                         reference

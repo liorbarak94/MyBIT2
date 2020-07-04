@@ -12,7 +12,7 @@ public class UploaderInfo : MonoBehaviour
     DatabaseReference reference;
 
     public TextMeshProUGUI info_Name;
-    public TextMeshProUGUI info_Image_Path;
+    //public TextMeshProUGUI info_Image_Path;
     public TextMeshProUGUI info_Text;
 
     public int tmpInfoCounter;
@@ -20,13 +20,13 @@ public class UploaderInfo : MonoBehaviour
 
     public TextMeshProUGUI build_Level_Name;
     public TextMeshProUGUI build_Level_Index;
-    public TextMeshProUGUI build_Level_Image_Path;
+    //public TextMeshProUGUI build_Level_Image_Path;
     public TextMeshProUGUI build_Level_Timer;
     public string build_Level_Type = "build";
 
     public TextMeshProUGUI situation_Level_Name;
     public TextMeshProUGUI situation_Level_Index;
-    public TextMeshProUGUI situation_Level_Image_Path;
+    //public TextMeshProUGUI situation_Level_Image_Path;
     public TextMeshProUGUI situation_Level_Timer;
     public string situation_Level_Type = "situation";
 
@@ -62,8 +62,10 @@ public class UploaderInfo : MonoBehaviour
 
                     tmpInfoCounter = int.Parse(stringInfoCounter);
 
-                    info = new Info(info_Name.text, info_Image_Path.text, info_Text.text);
-                    info.infoID = tmpInfoCounter;
+                    info = new Info(info_Name.text, info_Text.text)
+                    {
+                        infoID = tmpInfoCounter
+                    };
 
                     string json = JsonUtility.ToJson(info);
 
@@ -105,12 +107,13 @@ public class UploaderInfo : MonoBehaviour
                     
                     tmpBuildLevelsCounter = int.Parse(stringBuildLevelsCounter);
 
-                    level = new Level(int.Parse(build_Level_Index.text), 
+                    level = new Level(int.Parse(build_Level_Index.text),
                         build_Level_Name.text,
-                        build_Level_Type, 
-                        build_Level_Image_Path.text,
-                        float.Parse(build_Level_Timer.text));
-                    level.level_ID = tmpBuildLevelsCounter;
+                        build_Level_Type,
+                        float.Parse(build_Level_Timer.text))
+                    {
+                        level_ID = tmpBuildLevelsCounter
+                    };
 
                     string json = JsonUtility.ToJson(level);
 
@@ -170,9 +173,10 @@ public class UploaderInfo : MonoBehaviour
                     level = new Level(int.Parse(situation_Level_Index.text),
                         situation_Level_Name.text,
                         situation_Level_Type,
-                        situation_Level_Image_Path.text,
-                        float.Parse(situation_Level_Timer.text));
-                    level.level_ID = tmpSituationLevelsCounter;
+                        float.Parse(situation_Level_Timer.text))
+                    {
+                        level_ID = tmpSituationLevelsCounter
+                    };
 
                     string json = JsonUtility.ToJson(level);
 

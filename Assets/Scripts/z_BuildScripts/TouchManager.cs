@@ -18,12 +18,11 @@ public class TouchManager : MonoBehaviour
     private readonly float moveSpeed = 10.0f;
     public float shiftHeight;
 
+    private enum TouchCounterStatus {ZERO, ONE, TWO};
+    private TouchCounterStatus currentTouchCounterStatus;
+    private TouchCounterStatus previousTouchCounterStatus;
 
-    public enum TouchCounterStatus { ZERO, ONE, TWO};
-    public TouchCounterStatus currentTouchCounterStatus;
-    public TouchCounterStatus previousTouchCounterStatus;
-
-    public bool isCountingTouches;
+    private bool isCountingTouches;
 
     public int allOneTouchesCounter;
     public int[] partsCounterTouches;

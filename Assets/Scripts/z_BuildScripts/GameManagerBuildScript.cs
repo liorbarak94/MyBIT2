@@ -240,6 +240,18 @@ public class GameManagerBuildScript : MonoBehaviour
         finishedTheGameTXT.text = "כל הכבוד!!! \n\n";
         finishedTheGameTXT.text += "סיימתם את השלב תוך: " + tmp + "\n\n";
         finishedTheGameTXT.text += "עם ממוצע נגיעות בחלק: " + average + "\n\n";
+
+        PlayerPrefs.SetFloat(
+            FinalValues.CURRENT_FINISHED_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME, 
+            timer);
+
+        PlayerPrefs.SetInt(
+            FinalValues.CURRENT_AVERAGE_TOUCHES_FINISHED_BUILD_LEVEL_PLAYER_PREFS_NAME,
+            average);
+
+        PlayerPrefs.SetInt(
+            FinalValues.DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME,
+            1);
     }
 
     public void MenuBtnWasPressed()

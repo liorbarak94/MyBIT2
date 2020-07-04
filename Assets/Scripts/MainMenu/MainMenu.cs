@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("QuitGame");
+        PlayerPrefs.DeleteAll();
         //mainMenuManager.GetAuth().SignOut();
         Application.Quit();
     }

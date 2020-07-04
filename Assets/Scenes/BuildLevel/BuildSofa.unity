@@ -51231,9 +51231,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partsManager: {fileID: 1530320493}
   shiftHeight: 2.1
-  currentTouchCounterStatus: 0
-  previousTouchCounterStatus: 0
-  isCountingTouches: 0
   allOneTouchesCounter: 0
   partsCounterTouches: 
 --- !u!1001 &2335971380368870483

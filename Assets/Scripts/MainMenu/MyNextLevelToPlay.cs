@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using UnityEngine.SceneManagement;
 
 public class MyNextLevelToPlay : MonoBehaviour
@@ -59,7 +58,6 @@ public class MyNextLevelToPlay : MonoBehaviour
         else
         {
             Debug.Log("level Index Does NOT Exist");
-            //db_Manager.txt.text += "level Index Does NOT Exist\n";
         } 
     }
 

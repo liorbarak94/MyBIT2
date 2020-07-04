@@ -32,6 +32,7 @@ public class FinalValues : MonoBehaviour
     public static string USERS_COUNTER_DB_NAME = "UsersCounter";
 
     public static string USER_ID_DB_NAME = "userID";
+    public static string USER_INDEX_DB_NAME = "userIndex";
     public static string USER_FIRST_NAME_DB_NAME = "userFirstName";
     public static string USER_LAST_NAME_DB_NAME = "userLastName";
     public static string USER_GENDER_DB_NAME = "userGender";
@@ -48,19 +49,21 @@ public class FinalValues : MonoBehaviour
     public static string BUILD_LEVELS_COUNTER_DB_NAME = "BuildLevelsCounter";
     public static string SITUATION_LEVELS_COUNTER_DB_NAME = "SituationLevelsCounter";
 
-    public static string LEVEL_INDEX_DB_NAME = "level_Index";
     public static string LEVEL_ID_DB_NAME = "level_ID";
+    public static string LEVEL_INDEX_DB_NAME = "level_Index";
     public static string LEVEL_NAME_DB_NAME = "level_Name";
     public static string LEVEL_TYPE_DB_NAME = "level_Type";
-    public static string LEVEL_IMAGE_PATH_DB_NAME = "level_Image_Path";
     public static string LEVEL_TIMER_DB_NAME = "level_Timer";
+    public static string LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME =
+        "numberOfMistakesOrAverageNumberOfTouches";
+    public static string LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME = "isUserDidTheLevel";
+    public static string LEVEL_TOTAL_TIME_DB_NAME = "totalTime";
 
     public static string SILVER_STAR_LEVEL_PATH = "Assets/Textures/levelImages/SilverStar.png";
     public static string GOLD_STAR_LEVEL_PATH = "Assets/Textures/levelImages/GoldStar.png";
 
     public static string INFO_ID_DB_NAME = "infoID";
     public static string INFO_NAME_DB_NAME = "info_name";
-    public static string INFO_IMAGE_PATH_DB_NAME = "info_Image_Path";
     public static string INFO_TEXT_DB_NAME = "info_Text";
     
     public const string SITUATIONS_DB_NAME = "Situations";
@@ -79,9 +82,10 @@ public class FinalValues : MonoBehaviour
 
     ////////// Main Menu - Achievements ///////////////////////////////
     public static string LEVEL_TITALE_AREA_IN_ACHIEVEMENTS_PREFAB = "Title";
+    public static string LEVEL_TIMER_AREA_IN_ACHIEVEMENTS_PREFAB = "Timer";
     public static string LEVEL_IMAGE_AREA_IN_ACHIEVEMENTS_PREFAB = "Level Image";
     public static string LEVEL_STAR_IMAGE_AREA_IN_ACHIEVEMENTS_PREFAB = "Star Image";
-
+    
 
     ////////// Build ///////////////////////////////
     public static string BUILD_TYPE = "build";
@@ -104,8 +108,31 @@ public class FinalValues : MonoBehaviour
 
 
     ////////// PlayerPrefs ///////////////////////////////
+    
+    public static string DID_FIFNISHED_CURRENT_BUILD_LEVEL_PLAYER_PREFS_NAME =
+         "Did_Finished_Current_Build_Level";
+
     public static string CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME = 
         "Current_Timer_Build_Level";
 
+    public static string CURRENT_FINISHED_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME =
+        "Current_Finished_Timer_Build_Level";
+    
+    public static string CURRENT_AVERAGE_TOUCHES_FINISHED_BUILD_LEVEL_PLAYER_PREFS_NAME =
+        "Current_Average_Touches_Finished_Build_Level";
 
+
+
+
+    public static string DID_FIFNISHED_CURRENT_SITUATION_LEVEL_PLAYER_PREFS_NAME =
+         "Did_Finished_Current_Situation_Level";
+
+    public static string CURRENT_TIMER_SITUATION_LEVEL_PLAYER_PREFS_NAME =
+        "Current_Timer_Situation_Level";
+
+    public static string CURRENT_FINISHED_TIMER_SITUATION_LEVEL_PLAYER_PREFS_NAME =
+        "Current_Finished_Timer_Situation_Level";
+
+    public static string CURRENT_AVERAGE_TOUCHES_FINISHED_SITUATION_LEVEL_PLAYER_PREFS_NAME =
+        "Current_Average_Touches_Finished_Situation_Level";
 }
