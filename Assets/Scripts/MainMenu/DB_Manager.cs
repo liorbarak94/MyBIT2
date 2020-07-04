@@ -38,7 +38,7 @@ public class DB_Manager : MonoBehaviour
     public Texture[] all_Informations_Images;
     public string[] all_Informations_Texts;
 
-    public List<Info> informations_Arr = new List<Info>();
+    public List<Info> informations_Arr;
 
     public Texture[] all_BuildLevels_Images;
     public Texture[] all_SituationLevels_Images;
@@ -53,6 +53,7 @@ public class DB_Manager : MonoBehaviour
         authUser = auth.CurrentUser;
 
         me_User = new User();
+        informations_Arr = new List<Info>();
 
         showNextLevelToPlay = false;
         showProfile = false;
@@ -188,6 +189,10 @@ public class DB_Manager : MonoBehaviour
     {
         TakeCurrentLevelsFromUserDB(FinalValues.TypeOfLevel.BUILD);
         TakeCurrentLevelsFromUserDB(FinalValues.TypeOfLevel.SITUATION);
+        if (!showNextLevelToPlay)
+        {
+            showNextLevelToPlay = true;
+        }
     }
 
     public void TakeCurrentLevelsFromUserDB(FinalValues.TypeOfLevel typeOfLevel)
@@ -195,8 +200,7 @@ public class DB_Manager : MonoBehaviour
         FirebaseDatabase.DefaultInstance
             .GetReference(FinalValues.USERS_DB_NAME)
             .GetValueAsync()
-            .ContinueWith(task =>
-            {
+            .ContinueWith(task => {
 
                 if (task.IsFaulted)
                 {
@@ -213,11 +217,6 @@ public class DB_Manager : MonoBehaviour
                             .Child(me_User.userIndex + "")
                             .Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME)
                             .GetValueAsync().Result.GetRawJsonValue());
-
-                        if (!showNextLevelToPlay)
-                        {
-                            showNextLevelToPlay = true;
-                        }
                     }
 
                     else if (typeOfLevel == FinalValues.TypeOfLevel.SITUATION)
@@ -228,11 +227,6 @@ public class DB_Manager : MonoBehaviour
                             .Child(me_User.userIndex + "")
                             .Child(FinalValues.USER_CURRENT_SITUATION_LEVEL_DB_NAME)
                             .GetValueAsync().Result.GetRawJsonValue());
-
-                        if (!showNextLevelToPlay)
-                        {
-                            showNextLevelToPlay = true;
-                        }
                     }
                 }
             });

@@ -14,11 +14,19 @@ public class MyNextLevelToPlay : MonoBehaviour
     public Button situation_Btn_Level;
     public RawImage situation_Image_Level;
 
+    public RawImage recommendationImage;
+
+    public Texture buildIconImage;
+    public Texture situationIconImage;
+
     void Update()
     {
         if (db_Manager.showNextLevelToPlay)
         {
             ShowLevelsToPlay();
+
+            AI_CalculateTheTypeOfLevelToPlay();
+
             db_Manager.showNextLevelToPlay = false;
         }
     }
@@ -51,6 +59,11 @@ public class MyNextLevelToPlay : MonoBehaviour
             FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
             db_Manager.me_User.currentBuildLevelToPlay);
 
+        PlayerPrefs.SetFloat(
+            FinalValues.CURRENT_TIMER_BUILD_LEVEL_PLAYER_PREFS_NAME,
+            db_Manager.me_User.buildLevels_Arr
+            [db_Manager.me_User.currentBuildLevelToPlay].level_Timer);
+
         StartCoroutine(LoadNextBuildLevelToPlay(level_Index_InUnity));
     }
 
@@ -72,5 +85,26 @@ public class MyNextLevelToPlay : MonoBehaviour
     public void SituationLevelWasPressed()
     {
         Debug.Log("SituationLevelWasPressed");
+    }
+
+
+    public void AI_CalculateTheTypeOfLevelToPlay()
+    {
+        if (db_Manager.me_User.currentBuildLevelToPlay == 0 
+            && db_Manager.me_User.currentSituationLevelToPlay == 0
+            || db_Manager.me_User.currentBuildLevelToPlay == 0
+            && db_Manager.me_User.currentSituationLevelToPlay >= 1)
+        {
+            recommendationImage.texture = buildIconImage;
+        }
+
+        if (db_Manager.me_User.currentBuildLevelToPlay >= 1
+            && db_Manager.me_User.currentSituationLevelToPlay == 0)
+        {
+            recommendationImage.texture = situationIconImage;
+        }
+
+
+
     }
 }
