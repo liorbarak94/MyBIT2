@@ -406,7 +406,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1127238563}
         m_MethodName: MenuBtnWasPressed
         m_Mode: 1
         m_Arguments:
@@ -739,12 +739,12 @@ GameObject:
   - component: {fileID: 259547108}
   - component: {fileID: 259547107}
   m_Layer: 5
-  m_Name: Exit btn
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &259547106
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1593,12 +1593,12 @@ GameObject:
   - component: {fileID: 486330728}
   - component: {fileID: 486330727}
   m_Layer: 5
-  m_Name: Pause btn
+  m_Name: PauseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &486330726
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1732,12 +1732,12 @@ GameObject:
   - component: {fileID: 512862832}
   - component: {fileID: 512862831}
   m_Layer: 5
-  m_Name: Menu Image List
+  m_Name: MenuImageList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &512862830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1882,7 +1882,7 @@ GameObject:
   - component: {fileID: 636545682}
   - component: {fileID: 636545681}
   m_Layer: 5
-  m_Name: Pig Money Jur
+  m_Name: PigMoneyJur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3810,6 +3810,10 @@ MonoBehaviour:
   restartButton: {fileID: 850798692}
   startButton: {fileID: 1051354730}
   goBackToQuestButton: {fileID: 1040673828}
+  menuButton: {fileID: 55648998}
+  pauseButton: {fileID: 486330728}
+  exitButton: {fileID: 259547108}
+  pigyButton: {fileID: 636545682}
   imagesSwap: {fileID: 300256375}
   storyObjects: {fileID: 55777069}
   qusetionsObjects: {fileID: 1316537072}
@@ -3817,6 +3821,7 @@ MonoBehaviour:
   startLevelCanvas: {fileID: 1545050433}
   answersObjects: {fileID: 2048191493}
   answerExplain: {fileID: 2143904949}
+  menuImageList: {fileID: 512862829}
   story1Images:
   - {fileID: 21300000, guid: 530f403223b9bb84aa18c18e6196db9d, type: 3}
   - {fileID: 21300000, guid: 38ebfd47e57d02041af4d48d88031fb5, type: 3}

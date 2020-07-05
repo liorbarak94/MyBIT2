@@ -14,7 +14,8 @@ public class ReadNewSituation : MonoBehaviour
     protected FirebaseUser currentUser;
 
     private string titleStr;
-    private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes, currentUserIndex;
+    private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes,
+        currentUserIndex;
     private string[] partsOfStoryArr = new string[FinalValues.STORY_SIZE];
     private Situation situation;
     private Question[] questionsArr;
@@ -22,13 +23,14 @@ public class ReadNewSituation : MonoBehaviour
 
     public TMP_Text storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
         questionText, answer1Text, answer2Text, answer3Text, answer4Text;
-    public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton;
+    public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton, menuButton, pauseButton,
+        exitButton, pigyButton;
 
-    private bool isLoaded = false;
+    private bool isLoaded = false, menuIsOpen = false;
 
     //public Animator animatorController;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
-        answersObjects, answerExplain;
+        answersObjects, answerExplain, menuImageList;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] story2Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
@@ -501,9 +503,19 @@ public class ReadNewSituation : MonoBehaviour
         nextQuestionArrow.gameObject.SetActive(false);
     }
 
-    public void PreviousQuestion()
+    public void MenuBtnWasPressed()
     {
-        currentQuestionNumber--;
-        QusetionsManeger();
+        if (menuIsOpen)
+        {
+            menuButton.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            menuImageList.gameObject.SetActive(false);
+            menuIsOpen = false;
+        }
+        else
+        {
+            menuButton.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+            menuImageList.gameObject.SetActive(true);
+            menuIsOpen = true;
+        }
     }
 }
