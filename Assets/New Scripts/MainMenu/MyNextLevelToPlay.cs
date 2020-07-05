@@ -68,7 +68,7 @@ public class MyNextLevelToPlay : MonoBehaviour
         int level_Index_InUnity = db_Manager.me_User.situationLevels_Arr
             [db_Manager.me_User.currentSituationLevelToPlay].level_Index;
 
-        SaveDitailsToPlayerPrefs(level_Index_InUnity, 
+        SaveDitailsToPlayerPrefs(level_Index_InUnity,
             db_Manager.me_User.currentSituationLevelToPlay,
             db_Manager.me_User.situationLevels_Arr
             [db_Manager.me_User.currentSituationLevelToPlay].level_Timer);

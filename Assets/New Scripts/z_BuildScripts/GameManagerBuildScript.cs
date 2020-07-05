@@ -368,5 +368,4 @@ public class GameManagerBuildScript : MonoBehaviour
                 }
             });
     }
-
 }

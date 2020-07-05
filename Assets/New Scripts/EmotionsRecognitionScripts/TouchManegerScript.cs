@@ -50,7 +50,7 @@ public class TouchManegerScript : MonoBehaviour
                         isPressedRight = false;
                 }
 
-                if (i == 1)
+                if (i == 1 && t.phase == TouchPhase.Began)
                     CheckAnswers();
 
                 ++i;

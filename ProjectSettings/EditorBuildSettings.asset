@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/New Scenes/BuildLevel/BuildSofa.unity
     guid: 0bce5907d797a4cd8b0660dc119867e8
+  - enabled: 1
+    path: Assets/New Scenes/EmotionsLevel/TellTheStory.unity
+    guid: e4b7f77a471ef214ea1bc4f7a6a936b0
   m_configObjects: {}

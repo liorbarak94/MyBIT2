@@ -14,30 +14,33 @@ public class ReadNewSituation : MonoBehaviour
     protected FirebaseUser currentUser;
 
     private string titleStr;
-    private int situationsCounter, partOfStoryIndex = 0, currentSituationNumber = 0, currentQuestionNumber = 0, usersCounter;
+    private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes, currentUserIndex;
     private string[] partsOfStoryArr = new string[FinalValues.STORY_SIZE];
-    private Question question;
-    private Situation situation = new Situation();
-    private Question[] questionsArr = new Question[FinalValues.NUMBER_OF_QUESTIONS];
+    private Situation situation;
+    private Question[] questionsArr;
     private string[] answers;
 
-    public TMP_Text storyText, titleText, rightAnswerExplainText, worngAnswerExplainText;
+    public TMP_Text storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
+        questionText, answer1Text, answer2Text, answer3Text, answer4Text;
     public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton;
 
     private bool isLoaded = false;
 
-    public Animator animatorController;
+    //public Animator animatorController;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
         answersObjects, answerExplain;
-
-    public Text questionText;
-    public Text answer1Text, answer2Text, answer3Text, answer4Text;
-    public Sprite answer1Sprite, answer2Sprite, answer3Sprite, answer4Sprite, answer5Sprite,
-        answer6Sprite, answer7Sprite, answer8Sprite, answer9Sprite;
+    public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
+    public Sprite[] story2Images = new Sprite[FinalValues.STORY_SIZE];
+    public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
+    public Sprite[] answers2Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
     public Image answer1Image, answer2Image, answer3Image, answer4Image;
     public Image previousQuestArrow, nextQuestionArrow;
     public Image returnToStory;
     public Image backToQuestions;
+
+    public TMP_Text timerTXT;
+    public float timer, currentTimer;
+    public bool timerIsRunning;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +51,13 @@ public class ReadNewSituation : MonoBehaviour
         // Get the root reference location of the database.
         reference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        animatorController = imagesSwap.GetComponent<Animator>();
+        numberOfMistekes = 0;
+        //animatorController = imagesSwap.GetComponent<Animator>();
+        currentUserIndex = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME, 0);
+        Debug.Log("currentUserIndex: " + currentUserIndex);
         GetSituationCounter();
-        GetUsersCounter();
+        GetTimerFromPlayerPrefs();
+        GetCurrentSituationLevelFromPlayerPrefs();
     }
 
     void Update()
@@ -63,6 +70,41 @@ public class ReadNewSituation : MonoBehaviour
             isLoaded = true;
         }
         titleText.text = titleStr;
+
+        if (timerIsRunning)
+        {
+            if (currentTimer > 0)
+            {
+                currentTimer -= Time.deltaTime;
+                timer += Time.deltaTime;
+
+                timerTXT.text = DisplayTime(currentTimer);
+                if (currentTimer < 30)
+                {
+                    timerTXT.color = Color.red;
+                }
+            }
+            else
+            {
+                Debug.Log("Time has run out!");
+                currentTimer = 0;
+                TimerActivation(false);
+                timerTXT.text = "";
+                // TODO: SHOW THE RIGHT ANSWER AND EXPLAINE
+            }
+        }
+    }
+
+    public void TimerActivation(bool toRunTimer)
+    {
+        timerIsRunning = toRunTimer;
+    }
+
+    private string DisplayTime(float timeToDisplay)
+    {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void GetSituationCounter()
@@ -81,20 +123,20 @@ public class ReadNewSituation : MonoBehaviour
         });
     }
 
-    private void GetUsersCounter()
+    private void GetCurrentSituationLevelFromPlayerPrefs()
     {
-        reference.Child(FinalValues.USERS_COUNTER_DB_NAME).GetValueAsync().ContinueWith(task =>
-        {
-            if (task.IsFaulted)
-            {
-                // Handle the error...
-            }
-            else if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                usersCounter = int.Parse(snapshot.GetValue(true).ToString());
-            }
-        });
+        currentSituationLevel = 1;
+        //currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
+        partOfStoryIndex = 0;
+        currentQuestionNumber = 0;
+        Debug.Log("currentSituationNumber: " + currentSituationLevel);
+    }
+
+    public void GetTimerFromPlayerPrefs()
+    {
+        currentTimer = PlayerPrefs.GetFloat(FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);
+        currentTimer *= 60;
+        timer = 0;
     }
 
     public void GetSituationTitle()
@@ -109,7 +151,7 @@ public class ReadNewSituation : MonoBehaviour
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                titleStr = snapshot.Child(currentSituationNumber + "").Child(FinalValues.SITUATION_TITLE_TEXT)
+                titleStr = snapshot.Child(currentSituationLevel + "").Child(FinalValues.SITUATION_TITLE_TEXT)
                     .GetValue(true).ToString();
             }
         });
@@ -128,41 +170,43 @@ public class ReadNewSituation : MonoBehaviour
             {
                 DataSnapshot snapshot = task.Result;
 
+                questionsArr = new Question[FinalValues.NUMBER_OF_QUESTIONS];
                 situation = new Situation();
-                string str = snapshot.Child(currentSituationNumber + "").Child(FinalValues.SITUATION_TITLE_TEXT).GetValue(true).ToString();
+
+                string str = snapshot.Child(currentSituationLevel + "").Child(FinalValues.SITUATION_TITLE_TEXT).GetValue(true).ToString();
                 situation.SetTitle(str);
 
                 // Save the story
-                partsOfStoryArr[0] = snapshot.Child(currentSituationNumber + "").Child(FinalValues.SITUATION_START_TEXT)
+                partsOfStoryArr[0] = snapshot.Child(currentSituationLevel + "").Child(FinalValues.SITUATION_START_TEXT)
                     .GetValue(true).ToString();
-                partsOfStoryArr[1] = snapshot.Child(currentSituationNumber + "").Child(FinalValues.SITUATION_INFO1)
+                partsOfStoryArr[1] = snapshot.Child(currentSituationLevel + "").Child(FinalValues.SITUATION_INFO1)
                    .GetValue(true).ToString();
-                partsOfStoryArr[2] = snapshot.Child(currentSituationNumber + "").Child(FinalValues.SITUATION_INFO2)
+                partsOfStoryArr[2] = snapshot.Child(currentSituationLevel + "").Child(FinalValues.SITUATION_INFO2)
                    .GetValue(true).ToString();
-                Debug.Log("Situation " + currentSituationNumber + ": " + partsOfStoryArr[0] + " "
+                Debug.Log("Situation " + currentSituationLevel + ": " + partsOfStoryArr[0] + " "
                    + partsOfStoryArr[1] + " " + partsOfStoryArr[2]);
                 situation.SetPartsOfTheStory(partsOfStoryArr);
 
                 for (int j = 0; j < FinalValues.NUMBER_OF_QUESTIONS; j++)
                 {
-                    question = new Question();
+                    Question question = new Question();
                     // Save the questions and answers
-                    question.SetQuestText(snapshot.Child(currentSituationNumber + "").Child(FinalValues.QUESTIONS_DB_NAME)
+                    question.SetQuestText(snapshot.Child(currentSituationLevel + "").Child(FinalValues.QUESTIONS_DB_NAME)
                         .Child(j + "").Child(FinalValues.THE_QUESTION_DB_NAME).GetValue(true).ToString());
                     Debug.Log("here2");
 
-                    question.SetRightAnswer(snapshot.Child(currentSituationNumber + "").Child(FinalValues.QUESTIONS_DB_NAME)
+                    question.SetRightAnswer(snapshot.Child(currentSituationLevel + "").Child(FinalValues.QUESTIONS_DB_NAME)
                         .Child(j + "").Child(FinalValues.THE_RIGHT_ANSWER_TEXT).GetValue(true).ToString());
                     Debug.Log("here3");
 
                     answers = new string[FinalValues.NUMBER_OF_ANSWERS];
                     for (int k = 0; k < FinalValues.NUMBER_OF_ANSWERS; k++)
-                        answers[k] = snapshot.Child(currentSituationNumber + "").Child(FinalValues.QUESTIONS_DB_NAME)
+                        answers[k] = snapshot.Child(currentSituationLevel + "").Child(FinalValues.QUESTIONS_DB_NAME)
                         .Child(j + "").Child(FinalValues.ANSWERS_DB_NAME).Child(k + "").GetValue(true).ToString();
 
                     question.SetAnswers(answers);
                     questionsArr[j] = question;
-                    Debug.Log(question.ToString());
+                    Debug.Log(question.GetQuestText());
                 }
 
                 situation.SetQuestions(questionsArr);
@@ -174,10 +218,16 @@ public class ReadNewSituation : MonoBehaviour
     public void SetFirstPartOfStory()
     {
         new WaitForSeconds(3);
-        Debug.Log("currentSituationNumber: " + currentSituationNumber);
+        Debug.Log("currentSituationNumber: " + currentSituationLevel);
         nextButton.gameObject.SetActive(true);
         startLevelCanvas.SetActive(false);
+        if (currentSituationLevel == 0)
+            imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
+        //animatorController.SetInteger("partOfStory", partOfStoryIndex);
+        if (currentSituationLevel == 1)
+            imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
         storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
+        TimerActivation(true);
     }
 
     public void OnRestartButtonClick()
@@ -202,12 +252,20 @@ public class ReadNewSituation : MonoBehaviour
                 partOfStoryIndex++;
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
                 backButton.gameObject.SetActive(true);
-                animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 0)
+                    imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
+                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 1)
+                    imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 break;
             case 1:
                 partOfStoryIndex++;
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
-                animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 0)
+                    imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
+                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 1)
+                    imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 break;
             case 2:
                 startQuestionsObjects.SetActive(true);
@@ -222,13 +280,21 @@ public class ReadNewSituation : MonoBehaviour
             case 1:
                 backButton.gameObject.SetActive(false);
                 partOfStoryIndex--;
-                animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 0)
+                    imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
+                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 1)
+                    imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
                 break;
             case 2:
                 backButton.gameObject.SetActive(true);
                 partOfStoryIndex--;
-                animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 0)
+                    imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
+                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
+                if (currentSituationLevel == 1)
+                    imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
                 break;
         }
@@ -255,48 +321,45 @@ public class ReadNewSituation : MonoBehaviour
 
         if (currentQuestionNumber >= FinalValues.NUMBER_OF_QUESTIONS)
         {
-            // TODO: FINISH THE LEVEL
+            // FINISH THE LEVEL
             UpdateDatabasePlayerInfo();
         }
     }
 
     private void UpdateDatabasePlayerInfo()
     {
-        FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync("dana@gmail.com", "דנדושה").ContinueWith(task =>
-        {
+        DatabaseReference databaseReferenceForUpdate = reference.Child(FinalValues.USERS_DB_NAME)
+            .Child(currentUserIndex + "").Child(FinalValues.LEVELS_DB_NAME).Child(FinalValues.SITUATION_LEVELS_DB_NAME)
+            .Child(currentSituationLevel + "");
+
+        databaseReferenceForUpdate.GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
-                Debug.Log(task.Exception.ToString());
-
+                Debug.Log("UpdateDatabasePlayerInfo: IsFaulted");
             }
-            else if (task.IsCompleted)
+
+            if (task.IsCompleted)
             {
-                currentUser = FirebaseAuth.DefaultInstance.CurrentUser;
-                Debug.Log("currentUser: " + currentUser.UserId);
+                databaseReferenceForUpdate.Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME).SetValueAsync(timer);
+
+                databaseReferenceForUpdate.Child(FinalValues.LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME)
+                    .SetValueAsync(numberOfMistekes);
+
+                databaseReferenceForUpdate.Child(FinalValues.LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME).SetValueAsync(true);
+
+                currentSituationLevel++;
+                reference.Child(FinalValues.USERS_DB_NAME).Child(currentUserIndex + "")
+                    .Child(FinalValues.USER_CURRENT_SITUATION_LEVEL_DB_NAME).SetValueAsync(currentSituationLevel);
+
+                Debug.LogFormat("Saved User Details To DB After Finished Level Successfully");
             }
         });
-
-        for (int i = 0; i < usersCounter; i++)
-            reference.Child(FinalValues.USERS_DB_NAME).Child(i + "").Child(FinalValues.USER_ID_DB_NAME).EqualTo(currentUser.UserId)
-                .GetValueAsync().ContinueWith(task =>
-                {
-                    if (task.IsFaulted)
-                    {
-                        // Handle the error...
-                        Debug.Log("user : " + currentUser.Email + " Doesnt found. ");
-                    }
-                    else if (task.IsCompleted)
-                    {
-                        DataSnapshot snapshot = task.Result;
-                        Debug.Log("user: " + snapshot.Child("userNickname").GetValue(true).ToString() + " is found. ");
-                    }
-                });
     }
 
     public void NextSituation()
     {
         currentQuestionNumber = 0;
-        currentSituationNumber++;
+        currentSituationLevel++;
         answersObjects.SetActive(false);
         SetActiveAnswersObjects(false);
         storyObjects.SetActive(true);
@@ -305,6 +368,8 @@ public class ReadNewSituation : MonoBehaviour
 
     public void UploadAnswers()
     {
+        Debug.Log("UploadAnswers Starts");
+
         SetActiveAnswersObjects(true);
 
         answer1Text.text = situation.GetQuestions()[currentQuestionNumber].GetAnswers()[0];
@@ -315,28 +380,56 @@ public class ReadNewSituation : MonoBehaviour
         switch (currentQuestionNumber)
         {
             case 0:
-                answer1Image.GetComponent<Image>().sprite = answer1Sprite;
-                answer2Image.GetComponent<Image>().sprite = answer2Sprite;
-                answer3Image.GetComponent<Image>().sprite = answer3Sprite;
-                answer4Image.GetComponent<Image>().sprite = answer4Sprite;
+                if (currentSituationLevel == 0)
+                {
+                    answer1Image.GetComponent<Image>().sprite = answers1Images[0];
+                    answer2Image.GetComponent<Image>().sprite = answers1Images[1];
+                    answer3Image.GetComponent<Image>().sprite = answers1Images[2];
+                    answer4Image.GetComponent<Image>().sprite = answers1Images[3];
+                }
+                if (currentSituationLevel == 1)
+                {
+                    answer1Image.GetComponent<Image>().sprite = answers2Images[0];
+                    answer2Image.GetComponent<Image>().sprite = answers2Images[1];
+                    answer3Image.GetComponent<Image>().sprite = answers2Images[2];
+                    answer4Image.GetComponent<Image>().sprite = answers2Images[3];
+                }
                 break;
             case 1:
-                Debug.Log("UploadAnswers Starts");
-                answer1Image.GetComponent<Image>().sprite = answer7Sprite;
-                answer2Image.GetComponent<Image>().sprite = answer9Sprite;
-                answer3Image.GetComponent<Image>().sprite = answer4Sprite;
-                answer4Image.GetComponent<Image>().sprite = answer3Sprite;
-                Debug.Log("UploadAnswers ends");
+                if (currentSituationLevel == 0)
+                {
+                    answer1Image.GetComponent<Image>().sprite = answers1Images[4];
+                    answer2Image.GetComponent<Image>().sprite = answers1Images[5];
+                    answer3Image.GetComponent<Image>().sprite = answers1Images[6];
+                    answer4Image.GetComponent<Image>().sprite = answers1Images[7];
+                }
+                if (currentSituationLevel == 1)
+                {
+                    answer1Image.GetComponent<Image>().sprite = answers2Images[4];
+                    answer2Image.GetComponent<Image>().sprite = answers2Images[5];
+                    answer3Image.GetComponent<Image>().sprite = answers2Images[6];
+                    answer4Image.GetComponent<Image>().sprite = answers2Images[7];
+                }
                 break;
             case 2:
-                Debug.Log("UploadAnswers Starts");
-                answer1Image.GetComponent<Image>().sprite = null;
-                answer2Image.GetComponent<Image>().sprite = null;
-                answer3Image.GetComponent<Image>().sprite = null;
-                answer4Image.GetComponent<Image>().sprite = null;
-                Debug.Log("UploadAnswers ends");
+                if (currentSituationLevel == 0)
+                {
+                    answer1Image.GetComponent<Image>().sprite = answers1Images[8];
+                    answer2Image.GetComponent<Image>().sprite = answers1Images[9];
+                    answer3Image.GetComponent<Image>().sprite = answers1Images[10];
+                    answer4Image.GetComponent<Image>().sprite = answers1Images[11];
+                }
+                if (currentSituationLevel == 1)
+                {
+                    answer1Image.GetComponent<Image>().sprite = answers2Images[8];
+                    answer2Image.GetComponent<Image>().sprite = answers2Images[9];
+                    answer3Image.GetComponent<Image>().sprite = answers2Images[10];
+                    answer4Image.GetComponent<Image>().sprite = answers2Images[11];
+                }
                 break;
         }
+        Debug.Log("UploadAnswers ends");
+
     }
 
     private void SetActiveAnswersObjects(bool b)
@@ -370,7 +463,7 @@ public class ReadNewSituation : MonoBehaviour
         {
             Debug.Log("Worng Answer");
             yield return new WaitForSeconds(1);
-
+            numberOfMistekes++;
             answerExplain.SetActive(true);
             rightAnswerExplainText.gameObject.SetActive(false);
             worngAnswerExplainText.gameObject.SetActive(true);
