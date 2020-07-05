@@ -306,6 +306,7 @@ public class ReadNewSituation : MonoBehaviour
     {
         Debug.Log("QusetionsManeger Starts");
         qusetionsObjects.SetActive(true);
+        restartButton.gameObject.SetActive(true);
         answerExplain.SetActive(false);
         storyObjects.SetActive(false);
         startQuestionsObjects.SetActive(false);
