@@ -5070,7 +5070,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95000011848008184, guid: 1b94ae05025ef3f46ae988df48f631f4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b94ae05025ef3f46ae988df48f631f4, type: 3}
 --- !u!4 &579060768 stripped
 Transform:
@@ -10497,6 +10498,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4000013137938756, guid: 9d10197870d1b0d4faefe30b1a81d689, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013137938756, guid: 9d10197870d1b0d4faefe30b1a81d689, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 95000013604395658, guid: 9d10197870d1b0d4faefe30b1a81d689,
         type: 3}
       propertyPath: m_Enabled
@@ -12550,7 +12559,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9822453, b: 0.9338235, a: 1}
-  m_Intensity: 0.9
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -15421,6 +15430,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 877312412415239306}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1793502976 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2229391156019473669, guid: c5cf3956462a272439f4e54af12bd7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4701779132518201954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1793681602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4497011438508190, guid: 7446a392a730ac14d9cc70d21cf7ace0,
@@ -16924,7 +16939,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9822453, b: 0.9338235, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -17708,7 +17723,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9822453, b: 0.9338235, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -50989,7 +51004,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1793502976}
     - target: {fileID: 8127261153655323811, guid: 1941457f2edcc454d94b016be346dc7a,
         type: 3}
       propertyPath: fingerIndicationCanvas
