@@ -119,8 +119,5 @@ public class MyNextLevelToPlay : MonoBehaviour
         {
             recommendationImage.texture = situationIconImage;
         }
-
-
-
     }
 }

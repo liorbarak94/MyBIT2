@@ -208,7 +208,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8517071448778639722}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5072464
+  m_Size: 0.29484203
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -249,7 +249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.09851074}
+  m_AnchoredPosition: {x: 0, y: -9.727339}
   m_SizeDelta: {x: 0, y: -680.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8517071448246393404
@@ -484,18 +484,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f224f4f8d7c9b648a7b09e77ceacc16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 
-  starIconGray: {fileID: 2800000, guid: 19b4b5f293c029f4c8804f6c011fb2b1, type: 3}
-  starIconGold: {fileID: 2800000, guid: ae5c3d8b0a467a347b20b4a0707020e6, type: 3}
-  numOfItems: 0
-  availableIcons:
-  - {fileID: 2800000, guid: dc0c2ce57abe8db4a85040280a4c1355, type: 3}
-  - {fileID: 2800000, guid: c2ad9da8cfc2981448fba752e2ae4ff9, type: 3}
-  - {fileID: 2800000, guid: 33f0960ce67419b4bb402b1348fcfe05, type: 3}
-  - {fileID: 2800000, guid: 80a3ed06236c1234f9874596bec9e1d6, type: 3}
+  db_Manager: {fileID: 0}
+  waitLoadingBarManager: {fileID: 0}
+  silverImageTexture: {fileID: 0}
+  goldImageTexture: {fileID: 0}
   prefab: {fileID: 0}
   scrollerView: {fileID: 8517071448772640687}
   content: {fileID: 8517071448246393406}
+  myType: 
 --- !u!1 &8517071448778639725
 GameObject:
   m_ObjectHideFlags: 0
