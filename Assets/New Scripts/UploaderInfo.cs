@@ -1,198 +1,245 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
+using System.Collections;
 
 public class UploaderInfo : MonoBehaviour
 {
     DatabaseReference reference;
 
-    public TextMeshProUGUI info_Name;
-    //public TextMeshProUGUI info_Image_Path;
-    public TextMeshProUGUI info_Text;
+    public int userIndex;
+    public int levelIndex;
+    public float currentTimer;
 
-    public int tmpInfoCounter;
-    public Info info;
+    public TMP_InputField averageNumberOfTouches_BUILD;
+    public TMP_InputField time_BUILD;
 
-    public TextMeshProUGUI build_Level_Name;
-    public TextMeshProUGUI build_Level_Index;
-    //public TextMeshProUGUI build_Level_Image_Path;
-    public TextMeshProUGUI build_Level_Timer;
-    public string build_Level_Type = "build";
+    public TMP_InputField numberOfMistakes_SITUATION;
+    public TMP_InputField time_SITUATION;
 
-    public TextMeshProUGUI situation_Level_Name;
-    public TextMeshProUGUI situation_Level_Index;
-    //public TextMeshProUGUI situation_Level_Image_Path;
-    public TextMeshProUGUI situation_Level_Timer;
-    public string situation_Level_Type = "situation";
+    public bool showStatuseUpload;
+    public int statuseUpload;
 
-    public int tmpBuildLevelsCounter;
-    public int tmpSituationLevelsCounter;
-    public Level level;
+    public bool loadMainMenuScene;
+
+    public GameObject waitCircleLoadinBar;
+
+    public TextMeshProUGUI goodTXT;
+    public TextMeshProUGUI badTXT;
+
 
     void Start()
     {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(FinalValues.FIREBASE_URL);
         reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        goodTXT.gameObject.SetActive(false);
+        badTXT.gameObject.SetActive(false);
+
+        userIndex = PlayerPrefs.GetInt(
+            FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME,
+            0);
+
+        levelIndex = PlayerPrefs.GetInt(
+            FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
+            0);
+
+        currentTimer = PlayerPrefs.GetFloat(
+            FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);
+
+        showStatuseUpload = false;
+        statuseUpload = 0;
+
+        loadMainMenuScene = false;
     }
 
-    public void UploadInfo()
+    void Update()
     {
-        FirebaseDatabase.DefaultInstance
-            .GetReference(FinalValues.INFORMATIONS_DB_NAME)
-            .GetValueAsync()
-            .ContinueWith(task =>
+        if (loadMainMenuScene)
+        {
+            loadMainMenuScene = false;
+            SceneManager.LoadScene(FinalValues.MAIN_MANU_SCENE_INDEX);
+        }
+
+        if (showStatuseUpload)
+        {
+            showStatuseUpload = false;
+
+            if (statuseUpload == 1) // GOOD
             {
+                waitCircleLoadinBar.SetActive(false);
+
+                goodTXT.gameObject.SetActive(true);
+                badTXT.gameObject.SetActive(false);
+
+                loadMainMenuScene = true;
+
+                StartCoroutine(LoadMainManu());
+
+            }
+            else if (statuseUpload == 2) // BAD
+            {
+                goodTXT.gameObject.SetActive(false);
+                badTXT.gameObject.SetActive(true);
+                
+                loadMainMenuScene = false;
+            }
+        }
+    }
+
+    public IEnumerator LoadMainManu()
+    {
+        yield return new WaitForSeconds(1f);
+        loadMainMenuScene = false;
+        SceneManager.LoadScene(FinalValues.MAIN_MANU_SCENE_INDEX);
+    }
+
+    public void CheckValidationOfBuildInput()
+    {
+        if (int.Parse(averageNumberOfTouches_BUILD.text) >= 1 
+            && float.Parse(time_BUILD.text) >= 0.01f)
+        {
+            SaveUserDetailsToDBAfterBuildLevel();
+        }
+        else
+        {
+            showStatuseUpload = true;
+            statuseUpload = 2; // BAD
+        }
+    }
+
+    public void CheckValidationOfSituationInput()
+    {
+        if (int.Parse(numberOfMistakes_SITUATION.text) >= 1
+            && float.Parse(time_SITUATION.text) >= 0.01f)
+        {
+            SaveUserDetailsToDBAfterSituationLevel();
+        }
+        else
+        {
+            showStatuseUpload = true;
+            statuseUpload = 2; // BAD
+        }
+    }
+
+    public void SaveUserDetailsToDBAfterBuildLevel()
+    {
+        waitCircleLoadinBar.SetActive(true);
+
+        FirebaseDatabase.DefaultInstance
+            .GetReference(FinalValues.USERS_DB_NAME)
+            .GetValueAsync()
+            .ContinueWith(task => {
+
                 if (task.IsFaulted)
                 {
-                    Debug.Log("UploadInfo IsFaulted");
+                    Debug.Log("SaveUserDetailsToDBAfterLevel IsFaulted");
+                    statuseUpload = 2; // BAD
                 }
 
                 if (task.IsCompleted)
                 {
-                    DataSnapshot snapshot = task.Result;
-
-                    string stringInfoCounter = reference
-                           .Child(FinalValues.INFORMATIONS_COUNTER_DB_NAME)
-                           .GetValueAsync().Result.GetValue(true).ToString();
-
-                    tmpInfoCounter = int.Parse(stringInfoCounter);
-
-                    info = new Info(info_Name.text, info_Text.text)
-                    {
-                        infoID = tmpInfoCounter
-                    };
-
-                    string json = JsonUtility.ToJson(info);
+                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME)
+                        .SetValueAsync(int.Parse(averageNumberOfTouches_BUILD.text));
 
                     reference
-                            .Child(FinalValues.INFORMATIONS_DB_NAME)
-                            .Child(info.infoID + "")
-                            .SetRawJsonValueAsync(json);
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME)
+                        .SetValueAsync(true);
 
-                    tmpInfoCounter++;
                     reference
-                        .Child(FinalValues.INFORMATIONS_COUNTER_DB_NAME)
-                        .SetValueAsync(tmpInfoCounter);
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME)
+                        .SetValueAsync(float.Parse(time_BUILD.text));
 
-                    Debug.LogFormat("Upload Info successfully");
+                    levelIndex++;
+                    reference
+                       .Child(FinalValues.USERS_DB_NAME)
+                       .Child(userIndex + "")
+                       .Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME)
+                       .SetValueAsync(levelIndex);
+
+                    showStatuseUpload = true;
+                    statuseUpload = 1; // GOOD
+
+                    Debug.LogFormat(
+                        "Saved User Details To DB After Finished Build Level Successfully");
                 }
             });
     }
 
-    public void UploadBuildLevel()
+    public void SaveUserDetailsToDBAfterSituationLevel()
     {
         FirebaseDatabase.DefaultInstance
-            .GetReference(FinalValues.LEVELS_DB_NAME)
+            .GetReference(FinalValues.USERS_DB_NAME)
             .GetValueAsync()
-            .ContinueWith(task =>
-            {
+            .ContinueWith(task => {
+
                 if (task.IsFaulted)
                 {
-                    Debug.Log("UploadBuildLevel IsFaulted");
+                    Debug.Log("SaveUserDetailsToDBAfterSituationLevel IsFaulted");
+                    statuseUpload = 2; // BAD
                 }
 
                 if (task.IsCompleted)
                 {
-                    DataSnapshot snapshot = task.Result;
-
-                    string stringBuildLevelsCounter = reference
+                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
                         .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.BUILD_LEVELS_COUNTER_DB_NAME)
-                        .GetValueAsync().Result.GetValue(true).ToString();
-                    
-                    tmpBuildLevelsCounter = int.Parse(stringBuildLevelsCounter);
-
-                    level = new Level(int.Parse(build_Level_Index.text),
-                        build_Level_Name.text,
-                        build_Level_Type,
-                        float.Parse(build_Level_Timer.text))
-                    {
-                        level_ID = tmpBuildLevelsCounter
-                    };
-
-                    string json = JsonUtility.ToJson(level);
+                        .Child(FinalValues.SITUATION_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME)
+                        .SetValueAsync(int.Parse(numberOfMistakes_SITUATION.text));
 
                     reference
-                            .Child(FinalValues.LEVELS_DB_NAME)
-                            .Child(FinalValues.BUILD_LEVELS_DB_NAME)
-                            .Child(level.level_ID + "")
-                            .SetRawJsonValueAsync(json);
-
-                    tmpBuildLevelsCounter++;
-                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
                         .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.BUILD_LEVELS_COUNTER_DB_NAME)
-                        .SetValueAsync(tmpBuildLevelsCounter);
-
-                    Debug.LogFormat("Upload BUILD level successfully");
-                }
-            });
-    }
-
-    public void UploadSituationLevel()
-    {
-        FirebaseDatabase.DefaultInstance
-            .GetReference(FinalValues.LEVELS_DB_NAME)
-            .GetValueAsync()
-            .ContinueWith(task =>
-            {
-                if (task.IsFaulted)
-                {
-                    Debug.Log("UploadSituationLevel IsFaulted");
-                }
-
-                if (task.IsCompleted)
-                {
-                    DataSnapshot snapshot = task.Result;
-
-                    DataSnapshot ref_Situation_Level_Counter = reference
-                        .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.SITUATION_LEVELS_COUNTER_DB_NAME)
-                        .GetValueAsync().Result;
-
-                    if (ref_Situation_Level_Counter.Value == null)
-                    {
-                        reference
-                            .Child(FinalValues.LEVELS_DB_NAME)
-                            .Child(FinalValues.SITUATION_LEVELS_COUNTER_DB_NAME)
-                            .SetValueAsync(0);
-
-                        Debug.Log(ref_Situation_Level_Counter);
-                    }
-
-                    string stringSituationLevelsCounter =
-                        ref_Situation_Level_Counter.GetValue(true).ToString();
-
-                    tmpSituationLevelsCounter = int.Parse(stringSituationLevelsCounter);
-
-                    level = new Level(int.Parse(situation_Level_Index.text),
-                        situation_Level_Name.text,
-                        situation_Level_Type,
-                        float.Parse(situation_Level_Timer.text))
-                    {
-                        level_ID = tmpSituationLevelsCounter
-                    };
-
-                    string json = JsonUtility.ToJson(level);
+                        .Child(FinalValues.SITUATION_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME)
+                        .SetValueAsync(true);
 
                     reference
-                            .Child(FinalValues.LEVELS_DB_NAME)
-                            .Child(FinalValues.SITUATION_LEVELS_DB_NAME)
-                            .Child(level.level_ID + "")
-                            .SetRawJsonValueAsync(json);
-
-                    tmpSituationLevelsCounter++;
-                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
                         .Child(FinalValues.LEVELS_DB_NAME)
-                        .Child(FinalValues.SITUATION_LEVELS_COUNTER_DB_NAME)
-                        .SetValueAsync(tmpSituationLevelsCounter);
+                        .Child(FinalValues.SITUATION_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME)
+                        .SetValueAsync(float.Parse(time_SITUATION.text));
 
-                    Debug.LogFormat("Upload SITUATION level successfully");
+                    levelIndex++;
+                    reference
+                       .Child(FinalValues.USERS_DB_NAME)
+                       .Child(userIndex + "")
+                       .Child(FinalValues.USER_CURRENT_SITUATION_LEVEL_DB_NAME)
+                       .SetValueAsync(levelIndex);
+
+                    Debug.LogFormat(
+                        "Saved User Details To DB After Finished Situation Level Successfully");
+
+                    showStatuseUpload = true;
+                    waitCircleLoadinBar.SetActive(true);
+                    statuseUpload = 1; // GOOD
                 }
             });
     }
