@@ -220,6 +220,7 @@ public class ReadNewSituation : MonoBehaviour
     public void SetFirstPartOfStory()
     {
         new WaitForSeconds(3);
+        storyObjects.SetActive(true);
         Debug.Log("currentSituationNumber: " + currentSituationLevel);
         nextButton.gameObject.SetActive(true);
         startLevelCanvas.SetActive(false);
