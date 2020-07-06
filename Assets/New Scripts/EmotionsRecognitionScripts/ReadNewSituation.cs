@@ -132,8 +132,8 @@ public class ReadNewSituation : MonoBehaviour
 
     private void GetCurrentSituationLevelFromPlayerPrefs()
     {
-        //currentSituationLevel = 1;
-        currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
+        currentSituationLevel = 1;
+        //currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
         partOfStoryIndex = 0;
         currentQuestionNumber = 0;
         Debug.Log("currentSituationNumber: " + currentSituationLevel);
