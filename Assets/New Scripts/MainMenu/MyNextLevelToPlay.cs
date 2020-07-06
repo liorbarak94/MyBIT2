@@ -100,7 +100,7 @@ public class MyNextLevelToPlay : MonoBehaviour
 
         if (level_Index >= 0 && level_Index < SceneManager.sceneCountInBuildSettings)
         {
-            Debug.Log("level Index Does Exist");
+            Debug.Log("level Index Does Exist: " + level_Index);
             SceneManager.LoadScene(level_Index);
         }
         else

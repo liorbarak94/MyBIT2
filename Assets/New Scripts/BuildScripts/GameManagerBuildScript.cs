@@ -48,7 +48,6 @@ public class GameManagerBuildScript : MonoBehaviour
     public int userIndex;
     public int levelIndex;
 
-
     private void Awake()
     {
         partsManager = GameObject.FindObjectOfType<PartsManager>();
