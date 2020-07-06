@@ -21,7 +21,7 @@ public class ReadNewSituation : MonoBehaviour
     private Question[] questionsArr;
     private string[] answers;
 
-    public TMP_Text storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
+    public TMP_Text firstIntroText, secondIntroText, storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
         questionText, answer1Text, answer2Text, answer3Text, answer4Text;
     public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton, menuButton, pauseButton,
         exitButton, pigyButton, finishQestionsButton;
@@ -65,6 +65,12 @@ public class ReadNewSituation : MonoBehaviour
         GetSituationCounter();
         GetTimerFromPlayerPrefs();
         GetCurrentSituationLevelFromPlayerPrefs();
+        if (currentSituationLevel > 0)
+        {
+            firstIntroText.gameObject.SetActive(false);
+            secondIntroText.gameObject.SetActive(true);
+        }
+
     }
 
     void Update()
