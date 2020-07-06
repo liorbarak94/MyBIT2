@@ -468,7 +468,7 @@ public class ReadNewSituation : MonoBehaviour
         if (ansClicked.Equals(situation.GetQuestions()[currentQuestionNumber].GetRightAnswer()))
         {
             Debug.Log("Right");
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
 
             answerExplain.SetActive(true);
             rightAnswerExplainText.gameObject.SetActive(true);
@@ -487,7 +487,7 @@ public class ReadNewSituation : MonoBehaviour
         else
         {
             Debug.Log("Worng Answer");
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             numberOfMistekes++;
             answerExplain.SetActive(true);
             rightAnswerExplainText.gameObject.SetActive(false);
