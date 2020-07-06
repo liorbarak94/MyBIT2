@@ -16,7 +16,7 @@ public class TouchManager : MonoBehaviour
     private GameObject objectWasTouched;
 
     private readonly float moveSpeed = 10.0f;
-    public float shiftHeight;
+    public float fingerIndicationCanvas_ShiftHeight;
 
     private enum TouchCounterStatus {ZERO, ONE, TWO};
     private TouchCounterStatus currentTouchCounterStatus;
@@ -215,7 +215,7 @@ public class TouchManager : MonoBehaviour
     private void CanvasPos()
     {
         fingerIndicationCanvasPos = objectWasTouched.transform.position;
-        fingerIndicationCanvasPos.y += shiftHeight;
+        fingerIndicationCanvasPos.y += fingerIndicationCanvas_ShiftHeight;
         partsManager.fingerIndicationCanvas.transform.position = fingerIndicationCanvasPos;
         partsManager.fingerIndicationCanvas.transform.LookAt(partsManager.mainCamera.transform);
     }

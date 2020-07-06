@@ -15,12 +15,12 @@ public class PlayerMovmentScript : MonoBehaviour
     public float xRotation;
     public float yRotation;
 
-    public float multiple;
+    public float playerSpeed;
 
     public CharacterController characterController;
     private Vector3 move;
 
-    private void Start()
+    void Start()
     {
         if (joystick_move == null)
         {
@@ -34,15 +34,8 @@ public class PlayerMovmentScript : MonoBehaviour
 
     void Update()
     {
-        if (joystick_move.gameObject.activeSelf)
-        {
-            MovePlayer();
-        }
-
-        if (joystick_rotate.gameObject.activeSelf)
-        {
-            RotatePlayer();
-        }
+        MovePlayer();
+        RotatePlayer();  
     }
 
     private void MovePlayer()
@@ -52,7 +45,7 @@ public class PlayerMovmentScript : MonoBehaviour
 
         move = transform.right * moveSpeed * Time.deltaTime * horizontal_moveX +
             transform.forward * moveSpeed * Time.deltaTime * vertical_moveZ;
-        move *= multiple;
+        move *= playerSpeed;
 
         transform.localPosition += move;
     }

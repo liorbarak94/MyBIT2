@@ -12,9 +12,6 @@ public class TutorialManagerScript : MonoBehaviour
     public ManagePartCreation managePartCreation;
     public PartsManager partsManager;
 
-    public Animator handAnimMove;
-    public Animator handAnimRotate;
-
     public TextMeshProUGUI startTXT;
     public TextMeshProUGUI moveTXT;
     public TextMeshProUGUI rotateTXT;
@@ -22,16 +19,8 @@ public class TutorialManagerScript : MonoBehaviour
 
     public Button nextBtn;
 
-    private bool showPartsImage;
-
-    private int currentCoinsMove;
-    private bool showMoveCoins;
-
-    private int currentCoinsRotate;
-    private bool showRotateCoins;
-
-    public GameObject moveJoyStick;
-    public GameObject rotateJoyStick;
+    private int maxMoveCoins;
+    private int maxRotateCoins;
 
 
     private void Awake()
@@ -41,16 +30,9 @@ public class TutorialManagerScript : MonoBehaviour
 
     void Start()
     {
+        maxMoveCoins = partsManager.coins_MoveJoyStick.Length;
+        maxRotateCoins = partsManager.coins_RotateJoyStick.Length;
         sceneStatus = SceneStatus.Start;
-
-        HideCoins(partsManager.coins_MoveJoyStick);
-        currentCoinsMove = 0;
-        showMoveCoins = true;
-        showPartsImage = true;
-
-        HideCoins(partsManager.coins_RotateJoyStick);
-        currentCoinsRotate = 0;
-        showRotateCoins = true;
     }
 
     void Update()
@@ -86,57 +68,41 @@ public class TutorialManagerScript : MonoBehaviour
         startTXT.gameObject.SetActive(false);
         nextBtn.gameObject.SetActive(false);
         sceneStatus = SceneStatus.MoveJoyStick;
-        showMoveCoins = true;
     }
 
     private void SceneStatusMoveJoyStick()
     {
         moveTXT.gameObject.SetActive(true);
 
-        handAnimMove.gameObject.SetActive(true);
-        moveJoyStick.SetActive(true);
+        partsManager.moveJoyStick.SetActive(true);
+        partsManager.moveJoyStickHand.gameObject.SetActive(true);
 
-        if (showMoveCoins)
+        if (maxMoveCoins < partsManager.coins_MoveJoyStick.Length)
         {
-            ShowCoins(partsManager.coins_MoveJoyStick);
-            showMoveCoins = false;
+            partsManager.moveJoyStickHand.gameObject.SetActive(false);
         }
 
-        if (currentCoinsMove >= 1)
-        {
-            handAnimMove.gameObject.SetActive(false);
-        }
-
-        if (currentCoinsMove == partsManager.coins_MoveJoyStick.Length)
+        if (maxMoveCoins == 0)
         {
             sceneStatus = SceneStatus.RotateJoyStick;
             moveTXT.gameObject.SetActive(false);
-            showRotateCoins = true;
+            partsManager.rotateJoyStickHand.gameObject.SetActive(true);
         }
     }
 
-    
     private void SceneStatusRotateJoyStick()
     {
-        rotateJoyStick.SetActive(true);
+        partsManager.rotateJoyStick.SetActive(true);
         rotateTXT.gameObject.SetActive(true);
 
-        if (showRotateCoins)
+        if (maxRotateCoins < partsManager.coins_RotateJoyStick.Length)
         {
-            handAnimRotate.gameObject.SetActive(true);
-            ShowCoins(partsManager.coins_RotateJoyStick);
-            showRotateCoins = false;
+            partsManager.rotateJoyStickHand.gameObject.SetActive(false);
         }
 
-        if (currentCoinsRotate >= 1)
-        {
-            handAnimRotate.gameObject.SetActive(false);
-        }
-
-        if (currentCoinsRotate == partsManager.coins_RotateJoyStick.Length)
+        if (maxRotateCoins == 0)
         {
             sceneStatus = SceneStatus.PartsCreation;
-            showPartsImage = true;
             rotateTXT.gameObject.SetActive(false);
         }
     }
@@ -145,40 +111,22 @@ public class TutorialManagerScript : MonoBehaviour
     {
         panelAndImageTXT.gameObject.SetActive(true);
 
-        if (showPartsImage)
-        {
-            partsManager.planeForPartsPos.SetActive(true);
-            showPartsImage = false;
-            partsManager.buttonCreatorParts.gameObject.SetActive(true);
-            managePartCreation.gameObject.SetActive(true);
-        }
+        partsManager.planeForPartsPos.SetActive(true);
+        partsManager.buttonCreatorParts.gameObject.SetActive(true);
+        managePartCreation.gameObject.SetActive(true);
     }
 
-    private void HideCoins(GameObject[] coins)
+    public void RemoveCoinsFromArr()
     {
-        for (int i = 0; i < coins.Length; i++)
+        switch (sceneStatus)
         {
-            coins[i].SetActive(false);
-        }
-    }
+            case SceneStatus.MoveJoyStick:
+                maxMoveCoins--;
+                break;
 
-    private void ShowCoins(GameObject[] coins)
-    {
-        for (int i = 0; i < coins.Length; i++)
-        {
-            coins[i].SetActive(true);
-        }
-    }
-
-    public void RemoveCoin()
-    {
-        if (sceneStatus == SceneStatus.MoveJoyStick)
-        {
-            currentCoinsMove++;
-        }
-        else if (sceneStatus == SceneStatus.RotateJoyStick)
-        {
-            currentCoinsRotate++;
+            case SceneStatus.RotateJoyStick:
+                maxRotateCoins--;
+                break;
         }
     }
 }

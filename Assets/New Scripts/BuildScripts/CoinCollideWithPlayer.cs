@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class CoinCollideWithPlayer : MonoBehaviour
 {
-    private TutorialManagerScript tutorialManagerScript;
     private GameManagerBuildScript gameManagerBuildScript;
+    public TutorialManagerScript tutorialManagerScript;
 
     private void Start()
     {
-        tutorialManagerScript = FindObjectOfType<TutorialManagerScript>();
         gameManagerBuildScript = FindObjectOfType<GameManagerBuildScript>();
+        //tutorialManagerScript = FindObjectOfType<TutorialManagerScript>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.gameObject.name == FinalValues.PLAYER)
         {
             gameManagerBuildScript.pigAnimator.SetTrigger(
                 FinalValues.TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR);
 
-            tutorialManagerScript.RemoveCoin();
-            FindObjectOfType<AudioManager>().PlayAudio("coin");
+            tutorialManagerScript.RemoveCoinsFromArr();
+            FindObjectOfType<AudioManager>().PlayAudio(FinalValues.COIN_AUDIO);
             Destroy(gameObject);
         }
     }

@@ -11,7 +11,11 @@ public class PartsManager : MonoBehaviour
     public Image finger2Indication;
 
     public GameObject planeForPartsPos;
+
     public GameObject arrowForPartsPos;
+    public Animator arrowForPartsPosAnim;
+    public string arrowAnimBigOrSmall;
+
     public GameObject circleForPartsPos;
 
     public Image imageTutorialCanvas;
@@ -40,5 +44,10 @@ public class PartsManager : MonoBehaviour
 
     public int currentPartIndex;
 
+    public GameObject moveJoyStick;
+    public GameObject rotateJoyStick;
+
+    public Image moveJoyStickHand;
+    public Image rotateJoyStickHand;
 
 }

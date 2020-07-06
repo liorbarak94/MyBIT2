@@ -13,12 +13,6 @@ public class GameManagerBuildScript : MonoBehaviour
     public PartsManager partsManager;
     public TouchManager touchManager;
 
-    public GameObject moveJoyStick;
-    public GameObject moveJoyStickHand;
-
-    public GameObject rotateJoyStick;
-    public GameObject rotateJoyStickHand;
-
     public TutorialManagerScript tutorialManagerScript;
     public ManagePartCreation managePartCreation;
 
@@ -80,6 +74,7 @@ public class GameManagerBuildScript : MonoBehaviour
         imageIntroCanvas.gameObject.SetActive(true);
         introTXTMeshPro.gameObject.SetActive(true);
         nextBtn.gameObject.SetActive(true);
+
         menuIsOpen = false;
         TimerActivation(false);
         timer = 0;
@@ -87,13 +82,16 @@ public class GameManagerBuildScript : MonoBehaviour
 
     private void DeActiveAllGameObjectsAtStart()
     {
+        tutorialManagerScript.gameObject.SetActive(false);
+        managePartCreation.gameObject.SetActive(false);
+
         partsManager.imageTutorialCanvas.gameObject.SetActive(false);
 
-        moveJoyStick.gameObject.SetActive(false);
-        moveJoyStickHand.gameObject.SetActive(false);
+        partsManager.moveJoyStick.gameObject.SetActive(false);
+        partsManager.moveJoyStickHand.gameObject.SetActive(false);
 
-        rotateJoyStick.gameObject.SetActive(false);
-        rotateJoyStickHand.gameObject.SetActive(false);
+        partsManager.rotateJoyStick.gameObject.SetActive(false);
+        partsManager.rotateJoyStickHand.gameObject.SetActive(false);
 
         partsManager.buttonCreatorParts.gameObject.SetActive(false);
         partsManager.fingerIndicationCanvas.gameObject.SetActive(false);
@@ -102,9 +100,6 @@ public class GameManagerBuildScript : MonoBehaviour
         partsManager.arrowForPartsPos.gameObject.SetActive(false);
         partsManager.circleForPartsPos.gameObject.SetActive(false);
         partsManager.finalWellDone.gameObject.SetActive(false);
-
-        tutorialManagerScript.gameObject.SetActive(false);
-        managePartCreation.gameObject.SetActive(false);
 
         tutorialTXT.gameObject.SetActive(false);
         v.gameObject.SetActive(false);
@@ -210,11 +205,11 @@ public class GameManagerBuildScript : MonoBehaviour
         missionTXT.gameObject.SetActive(false);
         missionNextBtn.gameObject.SetActive(false);
 
-        moveJoyStick.gameObject.SetActive(true);
-        moveJoyStickHand.gameObject.SetActive(false);
+        partsManager.moveJoyStick.gameObject.SetActive(true);
+        //partsManager.moveJoyStickHand.gameObject.SetActive(false);
 
-        rotateJoyStick.gameObject.SetActive(true);
-        rotateJoyStickHand.gameObject.SetActive(false);
+        partsManager.rotateJoyStick.gameObject.SetActive(true);
+        //partsManager.rotateJoyStickHand.gameObject.SetActive(false);
 
         partsManager.buttonCreatorParts.gameObject.SetActive(true);
         partsManager.planeForPartsPos.gameObject.SetActive(true);

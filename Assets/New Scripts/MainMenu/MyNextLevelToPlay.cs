@@ -37,14 +37,25 @@ public class MyNextLevelToPlay : MonoBehaviour
 
     public void ShowLevelsToPlay()
     {
-        int buildIndexImage = db_Manager.me_User.currentBuildLevelToPlay;
-        build_Image_Level.texture = 
-            db_Manager.all_BuildLevels_Images[buildIndexImage];
-                
-        int situationIndexImage = db_Manager.me_User.currentSituationLevelToPlay;
-        situation_Image_Level.texture =
-            db_Manager.all_SituationLevels_Images[situationIndexImage];
+        if (build_Image_Level != null)
+        {
+            if (build_Image_Level.texture != null)
+            {
+                int buildIndexImage = db_Manager.me_User.currentBuildLevelToPlay;
+                build_Image_Level.texture =
+                    db_Manager.all_BuildLevels_Images[buildIndexImage];
+            }
+        }
 
+        if (situation_Image_Level != null)
+        {
+            if (situation_Image_Level.texture != null)
+            {
+                int situationIndexImage = db_Manager.me_User.currentSituationLevelToPlay;
+                situation_Image_Level.texture =
+                    db_Manager.all_SituationLevels_Images[situationIndexImage];
+            }
+        }
         waitLoadingBarManager.WaitLoadingBar_Activation(false);
     }
 

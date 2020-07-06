@@ -6,6 +6,10 @@ public class FinalValues : MonoBehaviour
 {
     public enum TypeOfLevel { BUILD, SITUATION };
 
+    public static string COIN_AUDIO = "coin";
+    public static string PLAYER = "Player";
+
+
     ////////// Scene's Indexs ///////////////////////////////
     public static int REGISTRATION_SCENE_INDEX = 0;
     public static int MAIN_MANU_SCENE_INDEX = 1;
@@ -84,6 +88,9 @@ public class FinalValues : MonoBehaviour
     public static string BUILD_TYPE = "build";
     public static int NUM_BUILD_SCENES = 10;
     public static string TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR = "TakeMoney";
+    
+    public static string BRIDGE_BUILD_LEVEL_ARROW_ANIM_BIG = "UpDownBig";
+    public static string BRIDGE_BUILD_LEVEL_ARROW_ANIM_SMALL = "UpDownSmall";
 
 
     ////////// Situation ///////////////////////////////

@@ -24,7 +24,7 @@ public class ManagePartCreation : MonoBehaviour
     public TextMeshProUGUI panelAndImageTXT;
     public TextMeshProUGUI partsCreationTXT;
     public TextMeshProUGUI slowTouchImageTXT;
-    public int shiftHeight;
+    public int arrowShiftHeight;
 
     private void Awake()
     {
@@ -87,7 +87,7 @@ public class ManagePartCreation : MonoBehaviour
     {
         tmpArrowPos = new Vector3(
             fixed_PartToClone.transform.position.x,
-            fixed_PartToClone.transform.position.y + shiftHeight,
+            fixed_PartToClone.transform.position.y + arrowShiftHeight,
             fixed_PartToClone.transform.position.z);
 
         tmpCirclePos = new Vector3(
@@ -96,8 +96,21 @@ public class ManagePartCreation : MonoBehaviour
             fixed_PartToClone.transform.position.z);
 
         partsManager.arrowForPartsPos.SetActive(true);
-        partsManager.circleForPartsPos.SetActive(true);
 
+        if (partsManager.arrowAnimBigOrSmall == 
+            FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_BIG)
+        {
+            partsManager.arrowForPartsPosAnim.SetBool(
+                FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_BIG, true);
+        }
+        else if (partsManager.arrowAnimBigOrSmall ==
+            FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_SMALL)
+        {
+            partsManager.arrowForPartsPosAnim.SetBool(
+                FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_SMALL, true);
+        }
+
+        partsManager.circleForPartsPos.SetActive(true);
         partsManager.arrowForPartsPos.transform.position = tmpArrowPos;
         partsManager.circleForPartsPos.transform.position = tmpCirclePos;
     }
@@ -132,7 +145,6 @@ public class ManagePartCreation : MonoBehaviour
             slowTouchImageTXT.gameObject.SetActive(false);
             partsManager.imageTutorialCanvas.gameObject.SetActive(false);
         }
-
     }
 
     public void SetPartInPlace()

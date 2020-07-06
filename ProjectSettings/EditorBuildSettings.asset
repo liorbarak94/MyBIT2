@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/New Scenes/EmotionsLevel/TellTheStory.unity
     guid: e4b7f77a471ef214ea1bc4f7a6a936b0
+  - enabled: 1
+    path: Assets/New Scenes/Upload Info To DB For Info List.unity
+    guid: a4c9f65f99e35584e80bc7d30e197996
   m_configObjects: {}
