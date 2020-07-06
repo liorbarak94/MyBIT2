@@ -124,7 +124,7 @@ public class GameManagerBuildScript : MonoBehaviour
     public void GetTimerFromPlayerPrefs()
     {
         currentTimer = PlayerPrefs.GetFloat(
-            FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);
+            FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);        
         currentTimer *= 60;
         timer = 0;
     }
@@ -206,10 +206,7 @@ public class GameManagerBuildScript : MonoBehaviour
         missionNextBtn.gameObject.SetActive(false);
 
         partsManager.moveJoyStick.gameObject.SetActive(true);
-        //partsManager.moveJoyStickHand.gameObject.SetActive(false);
-
         partsManager.rotateJoyStick.gameObject.SetActive(true);
-        //partsManager.rotateJoyStickHand.gameObject.SetActive(false);
 
         partsManager.buttonCreatorParts.gameObject.SetActive(true);
         partsManager.planeForPartsPos.gameObject.SetActive(true);

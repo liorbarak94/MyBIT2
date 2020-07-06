@@ -10395,8 +10395,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6963945637630403287}
-        m_MethodName: Resume
+      - m_Target: {fileID: 671301995}
+        m_MethodName: GoBackToMainManue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
