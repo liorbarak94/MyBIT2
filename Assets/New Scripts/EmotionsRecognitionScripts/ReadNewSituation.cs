@@ -24,7 +24,7 @@ public class ReadNewSituation : MonoBehaviour
     public TMP_Text storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
         questionText, answer1Text, answer2Text, answer3Text, answer4Text;
     public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton, menuButton, pauseButton,
-        exitButton, pigyButton;
+        exitButton, pigyButton, finishQestionsButton;
 
     private bool isLoaded = false, menuIsOpen = false;
 
@@ -37,6 +37,10 @@ public class ReadNewSituation : MonoBehaviour
     public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
     public Sprite[] answers2Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
     public Image answer1Image, answer2Image, answer3Image, answer4Image;
+
+    public TMP_Text[] answers1Explains = new TMP_Text[6];
+    public TMP_Text[] answers2Explains = new TMP_Text[6];
+
     public Image previousQuestArrow, nextQuestionArrow;
     public Image returnToStory;
     public Image backToQuestions;
@@ -324,12 +328,6 @@ public class ReadNewSituation : MonoBehaviour
             UploadAnswers();
         }
 
-        if (currentQuestionNumber >= FinalValues.NUMBER_OF_QUESTIONS)
-        {
-            // FINISH THE LEVEL
-            UpdateDatabasePlayerInfo();
-        }
-
         StartQuestionTimer();
     }
 
@@ -339,7 +337,7 @@ public class ReadNewSituation : MonoBehaviour
         TimerActivation(true);
     }
 
-    private void UpdateDatabasePlayerInfo()
+    public void UpdateDatabasePlayerInfo()
     {
         DatabaseReference databaseReferenceForUpdate = reference.Child(FinalValues.USERS_DB_NAME)
             .Child(currentUserIndex + "").Child(FinalValues.LEVELS_DB_NAME).Child(FinalValues.SITUATION_LEVELS_DB_NAME)
@@ -472,6 +470,13 @@ public class ReadNewSituation : MonoBehaviour
             goBackToQuestButton.gameObject.SetActive(false);
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
+            rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+
+            if(currentQuestionNumber == 2)
+            {
+                nextQuestionArrow.gameObject.SetActive(false);
+                finishQestionsButton.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -483,6 +488,7 @@ public class ReadNewSituation : MonoBehaviour
             worngAnswerExplainText.gameObject.SetActive(true);
             goBackToQuestButton.gameObject.SetActive(true);
             nextQuestionArrow.gameObject.SetActive(false);
+            worngAnswerExplainText.text = answers1Explains[(currentSituationLevel * 6) + ((currentQuestionNumber * 2) + 1)].text;
 
             switch (ansClicked)
             {
@@ -508,7 +514,7 @@ public class ReadNewSituation : MonoBehaviour
 
     private void AddCoinToPiggy()
     {
-        // TODO: play sound and piggy animation
+        // play sound and piggy animation
         piggyAnimatorController.SetBool(FinalValues.TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR, true);
         FindObjectOfType<AudioManager>().PlayAudio(FinalValues.COIN_AUDIO);
     }

@@ -105,7 +105,9 @@ public class FinalValues : MonoBehaviour
     public static int NUM_SITUATION_SCENES = 3;
     public static int NUMBER_OF_QUESTIONS = 3;
     public static int NUMBER_OF_ANSWERS = 4;
-
+    public static int SITUATION_NUMBER_0 = 0;
+    public static int SITUATION_NUMBER_1 = 1;
+   
 
     ////////// PlayerPrefs ///////////////////////////////
 
