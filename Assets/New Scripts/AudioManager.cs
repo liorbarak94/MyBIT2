@@ -28,6 +28,5 @@ public class AudioManager : MonoBehaviour
             return;
         }
         s.audioSource.Play();
-
     }
 }
