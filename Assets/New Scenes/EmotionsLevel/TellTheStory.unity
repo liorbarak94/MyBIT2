@@ -1420,6 +1420,55 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &452774653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452774655}
+  - component: {fileID: 452774654}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &452774654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452774653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8eb12c4401a7d846afeaecc84d1675f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: coin
+    audioClip: {fileID: 8300000, guid: cb5ad3945877c2a4ca66b90eeb3620dd, type: 3}
+    volume: 1
+    pitch: 1
+    audioSource: {fileID: 0}
+--- !u!4 &452774655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452774653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 414.15112, y: 258.84964, z: -36.510326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &462329080
 GameObject:
   m_ObjectHideFlags: 0
@@ -4121,6 +4170,8 @@ MonoBehaviour:
   pauseButton: {fileID: 486330728}
   exitButton: {fileID: 259547108}
   pigyButton: {fileID: 636545682}
+  piggyAnimatorController: {fileID: 636545681}
+  audioSource: {fileID: 0}
   imagesSwap: {fileID: 300256375}
   storyObjects: {fileID: 55777069}
   qusetionsObjects: {fileID: 1316537072}
@@ -5216,8 +5267,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14, y: 198}
-  m_SizeDelta: {x: 745.1474, y: 70.02332}
+  m_AnchoredPosition: {x: 38.9, y: 198}
+  m_SizeDelta: {x: 672.4732, y: 70.02332}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1454965840
 MonoBehaviour:
