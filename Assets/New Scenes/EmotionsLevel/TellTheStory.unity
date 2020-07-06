@@ -1066,10 +1066,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u05DC\u05E8\u05E9\u05D5\u05EA\u05DB\u05DD 2 \u05D3\u05E7 \u05DC\u05E7\u05E8\u05D9\u05D0\u05EA
-    \u05D4\u05E1\u05D9\u05E4\u05D5\u05E8.\n\u05D5\u05DC\u05D0\u05D7\u05E8 \u05DE\u05DB\u05DF
-    \u05EA\u05E2\u05E0\u05D5 \u05E2\u05DC \u05E9\u05D0\u05DC\u05D5\u05EA \u05D1\u05E0\u05D5\u05D2\u05E2
-    \u05DC\u05E1\u05D9\u05E4\u05D5\u05E8."
+  m_text: "\u05D5\u05DC\u05D0\u05D7\u05E8 \u05DE\u05DB\u05DF \u05E2\u05DC\u05D9\u05DB\u05DD
+    \u05DC\u05E2\u05E0\u05D5\u05EA \u05E2\u05DC 3 \u05E9\u05D0\u05DC\u05D5\u05EA
+    \u05E9\u05E7\u05E9\u05D5\u05E8\u05D5\u05EA \u05DC\u05E1\u05D9\u05E4\u05D5\u05E8.\n\n\u05DC\u05E8\u05E9\u05D5\u05EA\u05DB\u05DD
+    2 \u05D3\u05E7' \u05DC\u05E7\u05E8\u05D9\u05D0\u05EA \u05D4\u05E1\u05D9\u05E4\u05D5\u05E8.
+    \n\u05D1\u05D4\u05E6\u05DC\u05D7\u05D4!"
   m_isRightToLeft: 1
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -1114,7 +1115,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 80
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1138,12 +1139,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: -78.62503}
   m_textInfo:
     textComponent: {fileID: 326392142}
-    characterCount: 65
+    characterCount: 87
     spriteCount: 0
-    spaceCount: 11
-    wordCount: 12
+    spaceCount: 16
+    wordCount: 15
     linkCount: 0
-    lineCount: 2
+    lineCount: 4
     pageCount: 1
     materialCount: 2
   m_isUsingLegacyAnimationComponent: 0
@@ -4919,9 +4920,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u05D4\u05D2\u05E2\u05EA\u05DD \u05DC\u05E9\u05DC\u05D1 \u05E9\u05DC \u05D6\u05D9\u05D4\u05D5\u05D9
-    \u05E1\u05D9\u05D8\u05D5\u05D0\u05E6\u05D9\u05D5\u05EA \u05D7\u05D1\u05E8\u05EA\u05D9\u05D5\u05EA
-    ! \r\n\r\n\u05DB\u05E2\u05EA \u05EA\u05DC\u05DE\u05D3\u05D5 \u05D0\u05EA \u05D4\u05E1\u05D9\u05E4\u05D5\u05E8:\n"
+  m_text: "\u05D4\u05D2\u05E2\u05EA\u05DD \u05DC\u05E9\u05DC\u05D1 \u05E9\u05DC \"\u05E0\u05D9\u05EA\u05D5\u05D7
+    \u05E1\u05D9\u05D8\u05D5\u05D0\u05E6\u05D9\u05D4 \u05D7\u05D1\u05E8\u05EA\u05D9\u05EA\"
+    ! \r\n\r\n\u05D1\u05E9\u05DC\u05D1 \u05D6\u05D4 \u05EA\u05E7\u05E8\u05D0\u05D5
+    \u05D0\u05EA \u05D4\u05E1\u05D9\u05E4\u05D5\u05E8:\n"
   m_isRightToLeft: 1
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -4990,10 +4992,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -1.249717, w: -154.88109}
   m_textInfo:
     textComponent: {fileID: 1404864736}
-    characterCount: 65
+    characterCount: 69
     spriteCount: 0
-    spaceCount: 13
-    wordCount: 10
+    spaceCount: 14
+    wordCount: 11
     linkCount: 0
     lineCount: 3
     pageCount: 1
