@@ -15,7 +15,7 @@ public class ReadNewSituation : MonoBehaviour
 
     private string titleStr;
     private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes,
-        currentUserIndex;
+        currentUserIndex, readStoryTime = 2, answerQuestTime= 1;
     private string[] partsOfStoryArr = new string[FinalValues.STORY_SIZE];
     private Situation situation;
     private Question[] questionsArr;
@@ -127,8 +127,8 @@ public class ReadNewSituation : MonoBehaviour
 
     private void GetCurrentSituationLevelFromPlayerPrefs()
     {
-        currentSituationLevel = 1;
-        //currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
+        //currentSituationLevel = 1;
+        currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
         partOfStoryIndex = 0;
         currentQuestionNumber = 0;
         Debug.Log("currentSituationNumber: " + currentSituationLevel);
@@ -136,8 +136,8 @@ public class ReadNewSituation : MonoBehaviour
 
     public void GetTimerFromPlayerPrefs()
     {
-        currentTimer = PlayerPrefs.GetFloat(FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);
-        currentTimer *= 60;
+        //currentTimer = PlayerPrefs.GetFloat(FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);
+        currentTimer = readStoryTime * 60;
         timer = 0;
     }
 
@@ -328,6 +328,14 @@ public class ReadNewSituation : MonoBehaviour
             // FINISH THE LEVEL
             UpdateDatabasePlayerInfo();
         }
+
+        StartQuestionTimer();
+    }
+
+    private void StartQuestionTimer()
+    {
+        currentTimer = answerQuestTime * 60;
+        TimerActivation(true);
     }
 
     private void UpdateDatabasePlayerInfo()
