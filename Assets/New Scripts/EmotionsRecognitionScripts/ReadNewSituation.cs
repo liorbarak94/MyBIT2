@@ -28,7 +28,8 @@ public class ReadNewSituation : MonoBehaviour
 
     private bool isLoaded = false, menuIsOpen = false;
 
-    //public Animator animatorController;
+    public Animator piggyAnimatorController;
+    public AudioSource audioSource;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
         answersObjects, answerExplain, menuImageList;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
@@ -470,6 +471,7 @@ public class ReadNewSituation : MonoBehaviour
             worngAnswerExplainText.gameObject.SetActive(false);
             goBackToQuestButton.gameObject.SetActive(false);
             nextQuestionArrow.gameObject.SetActive(true);
+            AddCoinToPiggy();
         }
         else
         {
@@ -503,7 +505,14 @@ public class ReadNewSituation : MonoBehaviour
             }
         }
     }
-    
+
+    private void AddCoinToPiggy()
+    {
+        // TODO: play sound and piggy animation
+        piggyAnimatorController.SetBool(FinalValues.TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR, true);
+        FindObjectOfType<AudioManager>().PlayAudio(FinalValues.COIN_AUDIO);
+    }
+
     public void NextQuestion()
     {
         answerExplain.SetActive(false);
