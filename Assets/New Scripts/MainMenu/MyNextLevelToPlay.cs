@@ -128,13 +128,17 @@ public class MyNextLevelToPlay : MonoBehaviour
         if (db_Manager.me_User.currentBuildLevelToPlay == db_Manager.me_User.currentSituationLevelToPlay
             && db_Manager.me_User.currentBuildLevelToPlay > 1)
         {
-            float improvementBuild = db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime / 10;
+            float improvementBuild = 
+                db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime 
+                / FinalValues.IMPROVEMENT_PRECENT;
             float deltaTimeBuild = db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime
                 - db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 1].totalTime;
             Debug.Log("improvementBuild: " + improvementBuild);
             Debug.Log("deltaTimeBuild: " + deltaTimeBuild);
 
-            float improvementSituation = db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime / 10;
+            float improvementSituation = 
+                db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime 
+                / FinalValues.IMPROVEMENT_PRECENT;
             float deltaTimeSituation = db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime
                 - db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 1].totalTime;
             Debug.Log("improvementSituation: " + improvementSituation);
