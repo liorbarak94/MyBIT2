@@ -111,7 +111,7 @@ public class MyNextLevelToPlay : MonoBehaviour
 
     public void AI_CalculateTheTypeOfLevelToPlay()
     {
-        if (db_Manager.me_User.currentBuildLevelToPlay == 0 
+        if (db_Manager.me_User.currentBuildLevelToPlay == 0
             && db_Manager.me_User.currentSituationLevelToPlay == 0
             || db_Manager.me_User.currentBuildLevelToPlay == 0
             && db_Manager.me_User.currentSituationLevelToPlay >= 1)
@@ -124,5 +124,17 @@ public class MyNextLevelToPlay : MonoBehaviour
         {
             recommendationImage.texture = situationIconImage;
         }
+
+        if (db_Manager.me_User.currentBuildLevelToPlay == db_Manager.me_User.currentSituationLevelToPlay
+            && db_Manager.me_User.currentBuildLevelToPlay > 1)
+        {
+            if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime 
+                < db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 1].totalTime)
+                recommendationImage.texture = buildIconImage;
+            else if (db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime
+                < db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 1].totalTime)
+                recommendationImage.texture = situationIconImage;
+        }
+
     }
 }
