@@ -16,7 +16,7 @@ public class ReadNewSituation : MonoBehaviour
 
     private string titleStr;
     private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes,
-        currentUserIndex, readStoryTime = 2, answerQuestTime= 1;
+        currentUserIndex, readStoryTime = 2, answerQuestTime = 1;
     private string[] partsOfStoryArr = new string[FinalValues.STORY_SIZE];
     private Situation situation;
     private Question[] questionsArr;
@@ -32,7 +32,7 @@ public class ReadNewSituation : MonoBehaviour
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
-        answersObjects, answerExplain, menuImageList, levelCompletedCanvas;
+        answersObjects, answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] story2Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
@@ -104,9 +104,61 @@ public class ReadNewSituation : MonoBehaviour
                 currentTimer = 0;
                 TimerActivation(false);
                 timerTXT.text = "";
-                // TODO: SHOW THE RIGHT ANSWER AND EXPLAINE
+                ShowTheRightAnswerAndExplain();
             }
         }
+    }
+
+    private void ShowTheRightAnswerAndExplain()
+    {
+        switch (situation.GetQuestions()[currentQuestionNumber].GetRightAnswer())
+        {
+            case "0":
+                answer1Image.gameObject.SetActive(true);
+                answer1Text.gameObject.SetActive(true);
+                answer2Image.gameObject.SetActive(false);
+                answer2Text.gameObject.SetActive(false);
+                answer3Image.gameObject.SetActive(false);
+                answer3Text.gameObject.SetActive(false);
+                answer4Image.gameObject.SetActive(false);
+                answer4Text.gameObject.SetActive(false);
+                break;
+            case "1":
+                answer1Image.gameObject.SetActive(false);
+                answer1Text.gameObject.SetActive(false);
+                answer2Image.gameObject.SetActive(true);
+                answer2Text.gameObject.SetActive(true);
+                answer3Image.gameObject.SetActive(false);
+                answer3Text.gameObject.SetActive(false);
+                answer4Image.gameObject.SetActive(false);
+                answer4Text.gameObject.SetActive(false);
+                break;
+            case "2":
+                answer1Image.gameObject.SetActive(false);
+                answer1Text.gameObject.SetActive(false);
+                answer2Image.gameObject.SetActive(false);
+                answer2Text.gameObject.SetActive(false);
+                answer3Image.gameObject.SetActive(true);
+                answer3Text.gameObject.SetActive(true);
+                answer4Image.gameObject.SetActive(false);
+                answer4Text.gameObject.SetActive(false);
+                break;
+            case "3":
+                answer1Image.gameObject.SetActive(false);
+                answer1Text.gameObject.SetActive(false);
+                answer2Image.gameObject.SetActive(false);
+                answer2Text.gameObject.SetActive(false);
+                answer3Image.gameObject.SetActive(false);
+                answer3Text.gameObject.SetActive(false);
+                answer4Image.gameObject.SetActive(true);
+                answer4Text.gameObject.SetActive(true);
+                break;
+        }
+
+        timeOutExplainCanvas.gameObject.SetActive(true);
+        rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+        Debug.Log(rightAnswerExplainText.text);
+        worngAnswerExplainText.gameObject.SetActive(false);
     }
 
     public void TimerActivation(bool toRunTimer)
