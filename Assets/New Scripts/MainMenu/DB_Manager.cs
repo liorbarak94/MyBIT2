@@ -314,4 +314,50 @@ public class DB_Manager : MonoBehaviour
     {
         showInfo = toShow;
     }
+
+    public void UpdateCurrentBuildLevelToPlayInDatabase()
+    {
+        DatabaseReference databaseReferenceToUpdate = reference.Child(FinalValues.USERS_DB_NAME)
+            .Child(me_User.userIndex + "");
+
+        databaseReferenceToUpdate.GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("UpdateCurrentBuildLevelToPlayInDatabase: IsFaulted");
+                }
+
+                if (task.IsCompleted)
+                {
+                    me_User.currentBuildLevelToPlay--;
+                    databaseReferenceToUpdate.Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME).SetValueAsync
+                        (me_User.currentBuildLevelToPlay);
+
+                    Debug.LogFormat("Saved new me_User.currentBuildLevelToPlay Successfully");
+                }
+            });
+    }
+
+    public void UpdateCurrentSituationLevelToPlayInDatabase()
+    {
+        DatabaseReference databaseReferenceToUpdate = reference.Child(FinalValues.USERS_DB_NAME)
+            .Child(me_User.userIndex + "");
+
+        databaseReferenceToUpdate.GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("UpdateCurrentSituationLevelToPlayInDatabase: IsFaulted");
+                }
+
+                if (task.IsCompleted)
+                {
+                    me_User.currentSituationLevelToPlay--;
+                    databaseReferenceToUpdate.Child(FinalValues.USER_CURRENT_SITUATION_LEVEL_DB_NAME).SetValueAsync
+                        (me_User.currentSituationLevelToPlay);
+
+                    Debug.LogFormat("Saved new me_User.currentSituationLevelToPlay Successfully");
+                }
+            });
+    }
 }

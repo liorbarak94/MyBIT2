@@ -82,7 +82,12 @@ public class FinalValues : MonoBehaviour
     public static string LEVEL_TIMER_AREA_IN_ACHIEVEMENTS_PREFAB = "Timer";
     public static string LEVEL_IMAGE_AREA_IN_ACHIEVEMENTS_PREFAB = "Level Image";
     public static string LEVEL_STAR_IMAGE_AREA_IN_ACHIEVEMENTS_PREFAB = "Star Image";
-    
+
+    ////////// My Next Level To Play ///////////////////////////////
+    public static int IMPROVEMENT_PRECENT = 10;
+    public static int LEVEL_0 = 0;
+    public static int LEVEL_1 = 1;
+
 
     ////////// Build ///////////////////////////////
     public static string BUILD_TYPE = "build";

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MyNextLevelToPlay : MonoBehaviour
 {
@@ -27,9 +28,9 @@ public class MyNextLevelToPlay : MonoBehaviour
                 FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME,
                 db_Manager.me_User.userIndex);
 
-            ShowLevelsToPlay();
-
             AI_CalculateTheTypeOfLevelToPlay();
+
+            ShowLevelsToPlay();
 
             db_Manager.showNextLevelToPlay = false;
         }
@@ -39,9 +40,9 @@ public class MyNextLevelToPlay : MonoBehaviour
     {
         if (build_Image_Level != null)
         {
-                int buildIndexImage = db_Manager.me_User.currentBuildLevelToPlay;
-                build_Image_Level.texture =
-                    db_Manager.all_BuildLevels_Images[buildIndexImage];
+            int buildIndexImage = db_Manager.me_User.currentBuildLevelToPlay;
+            build_Image_Level.texture =
+                db_Manager.all_BuildLevels_Images[buildIndexImage];
         }
 
         if (situation_Image_Level != null)
@@ -60,7 +61,7 @@ public class MyNextLevelToPlay : MonoBehaviour
         int level_Index_InUnity = db_Manager.me_User.buildLevels_Arr
             [db_Manager.me_User.currentBuildLevelToPlay].level_Index;
 
-        SaveDitailsToPlayerPrefs(level_Index_InUnity, 
+        SaveDitailsToPlayerPrefs(level_Index_InUnity,
             db_Manager.me_User.currentBuildLevelToPlay,
             db_Manager.me_User.buildLevels_Arr
             [db_Manager.me_User.currentBuildLevelToPlay].level_Timer);
@@ -111,44 +112,73 @@ public class MyNextLevelToPlay : MonoBehaviour
 
     public void AI_CalculateTheTypeOfLevelToPlay()
     {
-        if (db_Manager.me_User.currentBuildLevelToPlay == 0
-            && db_Manager.me_User.currentSituationLevelToPlay == 0
-            || db_Manager.me_User.currentBuildLevelToPlay == 0
-            && db_Manager.me_User.currentSituationLevelToPlay >= 1)
+        // Checks if the player played the first level of build
+        if (db_Manager.me_User.currentBuildLevelToPlay == FinalValues.LEVEL_0
+            && db_Manager.me_User.currentSituationLevelToPlay == FinalValues.LEVEL_0
+            || db_Manager.me_User.currentBuildLevelToPlay == FinalValues.LEVEL_0
+            && db_Manager.me_User.currentSituationLevelToPlay >= FinalValues.LEVEL_1)
         {
             recommendationImage.texture = buildIconImage;
         }
 
-        if (db_Manager.me_User.currentBuildLevelToPlay >= 1
-            && db_Manager.me_User.currentSituationLevelToPlay == 0)
+        // Checks if the player played the first level of situation
+        if (db_Manager.me_User.currentBuildLevelToPlay >= FinalValues.LEVEL_1
+            && db_Manager.me_User.currentSituationLevelToPlay == FinalValues.LEVEL_0)
         {
             recommendationImage.texture = situationIconImage;
         }
-        
+
+        // Check numberOfMistakesOrAverageNumberOfTouches in the last played level
         if (db_Manager.me_User.currentBuildLevelToPlay == db_Manager.me_User.currentSituationLevelToPlay
-            && db_Manager.me_User.currentBuildLevelToPlay > 1)
+            && db_Manager.me_User.currentBuildLevelToPlay > FinalValues.LEVEL_0)
         {
-            float improvementBuild = 
-                db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime 
+            if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 1]
+                .numberOfMistakesOrAverageNumberOfTouches > 4)
+                recommendationImage.texture = buildIconImage;
+
+            else if (db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 1]
+                .numberOfMistakesOrAverageNumberOfTouches > 4)
+                recommendationImage.texture = situationIconImage;
+        }
+
+        // Check if there is improvement between two levels
+        if (db_Manager.me_User.currentBuildLevelToPlay > FinalValues.LEVEL_1)
+        {
+            float improvementBuild =
+                db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime
                 / FinalValues.IMPROVEMENT_PRECENT;
             float deltaTimeBuild = db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime
                 - db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 1].totalTime;
             Debug.Log("improvementBuild: " + improvementBuild);
             Debug.Log("deltaTimeBuild: " + deltaTimeBuild);
 
-            float improvementSituation = 
-                db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime 
+            if (deltaTimeBuild < improvementBuild)
+            {
+                Debug.Log("currentBuildLevelToPlay: " + db_Manager.me_User.currentBuildLevelToPlay);
+                db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
+                recommendationImage.texture = buildIconImage;
+                Debug.Log("currentBuildLevelToPlay: " + db_Manager.me_User.currentBuildLevelToPlay);
+            }
+        }
+
+        else if (db_Manager.me_User.currentSituationLevelToPlay > FinalValues.LEVEL_1)
+        {
+            float improvementSituation =
+                db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime
                 / FinalValues.IMPROVEMENT_PRECENT;
             float deltaTimeSituation = db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime
                 - db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 1].totalTime;
             Debug.Log("improvementSituation: " + improvementSituation);
             Debug.Log("deltaTimeSituation: " + deltaTimeSituation);
 
-            if (deltaTimeBuild < improvementBuild)
-                recommendationImage.texture = buildIconImage;
-            else if (deltaTimeSituation < improvementSituation)
+            if (deltaTimeSituation < improvementSituation)
+            {
+                db_Manager.UpdateCurrentSituationLevelToPlayInDatabase();
                 recommendationImage.texture = situationIconImage;
+            }
         }
 
+        ShowLevelsToPlay();
     }
 }
+

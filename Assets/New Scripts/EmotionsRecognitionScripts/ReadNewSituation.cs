@@ -32,7 +32,7 @@ public class ReadNewSituation : MonoBehaviour
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
-        answersObjects, answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas;
+        answersObjects, answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas, littleTimeCanvas;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] story2Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
@@ -517,9 +517,20 @@ public class ReadNewSituation : MonoBehaviour
         answer4Text.gameObject.SetActive(b);
     }
 
+ /*   public IEnumerator CheckAnswers(string ansClicked)
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (60 - currentTimer <= 5)
+        {
+            littleTimeCanvas.gameObject.SetActive(true);
+        }
+    }*/
+
     public IEnumerator IsRightAnswerClicked(string ansClicked)
     {
         Debug.Log("answerClicked: " + ansClicked);
+
+
 
         if (ansClicked.Equals(situation.GetQuestions()[currentQuestionNumber].GetRightAnswer()))
         {
