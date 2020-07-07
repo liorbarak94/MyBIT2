@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Firebase.Auth;
+using UnityEngine.SceneManagement;
 
 public class ReadNewSituation : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class ReadNewSituation : MonoBehaviour
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
-        answersObjects, answerExplain, menuImageList;
+        answersObjects, answerExplain, menuImageList, levelCompletedCanvas;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] story2Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
@@ -345,6 +346,7 @@ public class ReadNewSituation : MonoBehaviour
 
     public void UpdateDatabasePlayerInfo()
     {
+
         DatabaseReference databaseReferenceForUpdate = reference.Child(FinalValues.USERS_DB_NAME)
             .Child(currentUserIndex + "").Child(FinalValues.LEVELS_DB_NAME).Child(FinalValues.SITUATION_LEVELS_DB_NAME)
             .Child(currentSituationLevel + "");
@@ -371,6 +373,8 @@ public class ReadNewSituation : MonoBehaviour
                 Debug.LogFormat("Saved User Details To DB After Finished Level Successfully");
             }
         });
+
+        levelCompletedCanvas.gameObject.SetActive(true);
     }
 
     public void NextSituation()
@@ -548,5 +552,9 @@ public class ReadNewSituation : MonoBehaviour
             menuImageList.gameObject.SetActive(true);
             menuIsOpen = true;
         }
+    }
+    public void GoBackToMainMenu()
+    {
+        SceneManager.LoadScene(FinalValues.MAIN_MENU_SCENE_INDEX);
     }
 }

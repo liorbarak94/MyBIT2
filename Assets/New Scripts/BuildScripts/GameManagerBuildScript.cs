@@ -268,9 +268,9 @@ public class GameManagerBuildScript : MonoBehaviour
         menuIsOpen = false;
     }
 
-    public void GoBackToMainManue()
+    public void GoBackToMainMenu()
     {
-        SceneManager.LoadScene(FinalValues.MAIN_MANU_SCENE_INDEX);
+        SceneManager.LoadScene(FinalValues.MAIN_MENU_SCENE_INDEX);
     }
 
     public void FinishedTheGame()

@@ -12,7 +12,7 @@ public class FinalValues : MonoBehaviour
 
     ////////// Scene's Indexs ///////////////////////////////
     public static int REGISTRATION_SCENE_INDEX = 0;
-    public static int MAIN_MANU_SCENE_INDEX = 1;
+    public static int MAIN_MENU_SCENE_INDEX = 1;
 
     public static int BUILD_BRIDGE_SCENE_INDEX = 2;
     public static int BUILD_SOFA_SCENE_INDEX = 3;

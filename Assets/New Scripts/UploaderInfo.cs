@@ -61,7 +61,7 @@ public class UploaderInfo : MonoBehaviour
         if (loadMainMenuScene)
         {
             loadMainMenuScene = false;
-            SceneManager.LoadScene(FinalValues.MAIN_MANU_SCENE_INDEX);
+            SceneManager.LoadScene(FinalValues.MAIN_MENU_SCENE_INDEX);
         }
 
         if (showStatuseUpload)
@@ -94,7 +94,7 @@ public class UploaderInfo : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         loadMainMenuScene = false;
-        SceneManager.LoadScene(FinalValues.MAIN_MANU_SCENE_INDEX);
+        SceneManager.LoadScene(FinalValues.MAIN_MENU_SCENE_INDEX);
     }
 
     public void CheckValidationOfBuildInput()
