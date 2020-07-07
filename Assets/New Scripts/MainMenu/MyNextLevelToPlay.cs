@@ -124,15 +124,25 @@ public class MyNextLevelToPlay : MonoBehaviour
         {
             recommendationImage.texture = situationIconImage;
         }
-
+        
         if (db_Manager.me_User.currentBuildLevelToPlay == db_Manager.me_User.currentSituationLevelToPlay
             && db_Manager.me_User.currentBuildLevelToPlay > 1)
         {
-            if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime 
-                < db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 1].totalTime)
+            float improvementBuild = db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime / 10;
+            float deltaTimeBuild = db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 2].totalTime
+                - db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.currentBuildLevelToPlay - 1].totalTime;
+            Debug.Log("improvementBuild: " + improvementBuild);
+            Debug.Log("deltaTimeBuild: " + deltaTimeBuild);
+
+            float improvementSituation = db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime / 10;
+            float deltaTimeSituation = db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime
+                - db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 1].totalTime;
+            Debug.Log("improvementSituation: " + improvementSituation);
+            Debug.Log("deltaTimeSituation: " + deltaTimeSituation);
+
+            if (deltaTimeBuild < improvementBuild)
                 recommendationImage.texture = buildIconImage;
-            else if (db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 2].totalTime
-                < db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.currentSituationLevelToPlay - 1].totalTime)
+            else if (deltaTimeSituation < improvementSituation)
                 recommendationImage.texture = situationIconImage;
         }
 
