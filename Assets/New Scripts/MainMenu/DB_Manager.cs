@@ -200,7 +200,8 @@ public class DB_Manager : MonoBehaviour
         FirebaseDatabase.DefaultInstance
             .GetReference(FinalValues.USERS_DB_NAME)
             .GetValueAsync()
-            .ContinueWith(task => {
+            .ContinueWith(task =>
+            {
 
                 if (task.IsFaulted)
                 {
@@ -217,6 +218,13 @@ public class DB_Manager : MonoBehaviour
                             .Child(me_User.userIndex + "")
                             .Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME)
                             .GetValueAsync().Result.GetRawJsonValue());
+
+                        me_User.totalBuildLevelPlayed =
+                        int.Parse(reference
+                            .Child(FinalValues.USERS_DB_NAME)
+                            .Child(me_User.userIndex + "")
+                            .Child(FinalValues.TOTAL_BUILD_LEVELS_PLAYED_DB_NAME)
+                            .GetValueAsync().Result.GetRawJsonValue());
                     }
 
                     else if (typeOfLevel == FinalValues.TypeOfLevel.SITUATION)
@@ -226,6 +234,13 @@ public class DB_Manager : MonoBehaviour
                             .Child(FinalValues.USERS_DB_NAME)
                             .Child(me_User.userIndex + "")
                             .Child(FinalValues.USER_CURRENT_SITUATION_LEVEL_DB_NAME)
+                            .GetValueAsync().Result.GetRawJsonValue());
+
+                        me_User.totalSituationLevelPlayed =
+                        int.Parse(reference
+                            .Child(FinalValues.USERS_DB_NAME)
+                            .Child(me_User.userIndex + "")
+                            .Child(FinalValues.TOTAL_SITUATION_LEVELS_PLAYED_DB_NAME)
                             .GetValueAsync().Result.GetRawJsonValue());
                     }
                 }
