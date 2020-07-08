@@ -90,7 +90,8 @@ public class FinalValues : MonoBehaviour
     public static int IMPROVEMENT_PRECENT = 10;
     public static int LEVEL_0 = 0;
     public static int LEVEL_1 = 1;
-
+    public static int MAX_MISTAKES_BUILD = 4;
+    public static int MAX_MISTAKES_SITUATION = 3;
 
     ////////// Build ///////////////////////////////
     public static string BUILD_TYPE = "build";
