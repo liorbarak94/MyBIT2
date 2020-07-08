@@ -2389,10 +2389,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u05D5\u05DC\u05D0\u05D7\u05E8 \u05DE\u05DB\u05DF \u05E2\u05DC\u05D9\u05DB\u05DD
     \u05DC\u05E2\u05E0\u05D5\u05EA \u05E2\u05DC 3 \u05E9\u05D0\u05DC\u05D5\u05EA
-    \u05E9\u05E7\u05E9\u05D5\u05E8\u05D5\u05EA \u05DC\u05E1\u05D9\u05E4\u05D5\u05E8.\n\n\u05DC\u05E8\u05E9\u05D5\u05EA\u05DB\u05DD
-    2 \u05D3\u05E7' \u05DC\u05E7\u05E8\u05D9\u05D0\u05EA \u05D4\u05E1\u05D9\u05E4\u05D5\u05E8
-    \n\u05D5\u05D3\u05E7\u05D4 \u05D0\u05D7\u05EA \u05DC\u05DE\u05E2\u05E0\u05D4
-    \u05E2\u05D1\u05D5\u05E8 \u05DB\u05DC \u05E9\u05D0\u05DC\u05D4.\n\u05D1\u05D4\u05E6\u05DC\u05D7\u05D4!"
+    \u05E9\u05E7\u05E9\u05D5\u05E8\u05D5\u05EA \u05DC\u05E1\u05D9\u05E4\u05D5\u05E8.\n\u05DC\u05E8\u05E9\u05D5\u05EA\u05DB\u05DD
+    \u05D3\u05E7\u05D4 \u05D0\u05D7\u05EA \u05DC\u05DE\u05E2\u05E0\u05D4 \u05E2\u05D1\u05D5\u05E8
+    \u05DB\u05DC \u05E9\u05D0\u05DC\u05D4.\n\n\u05D1\u05D4\u05E6\u05DC\u05D7\u05D4!"
   m_isRightToLeft: 1
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -2461,12 +2460,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 407415131}
-    characterCount: 115
+    characterCount: 93
     spriteCount: 0
-    spaceCount: 22
-    wordCount: 21
+    spaceCount: 17
+    wordCount: 17
     linkCount: 0
-    lineCount: 5
+    lineCount: 4
     pageCount: 1
     materialCount: 2
   m_isUsingLegacyAnimationComponent: 0
