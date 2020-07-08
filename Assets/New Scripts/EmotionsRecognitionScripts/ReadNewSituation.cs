@@ -294,7 +294,7 @@ public class ReadNewSituation : MonoBehaviour
         if (currentSituationLevel == 1)
             imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
         storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
-        TimerActivation(true);
+        //TimerActivation(true);
     }
 
     public void OnRestartButtonClick()
