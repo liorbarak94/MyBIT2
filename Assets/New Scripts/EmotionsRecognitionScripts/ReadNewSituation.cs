@@ -520,12 +520,15 @@ public class ReadNewSituation : MonoBehaviour
         answer4Text.gameObject.SetActive(b);
     }
 
-   public IEnumerator CheckAnswers()
+   public IEnumerator CheckAnswers(string ansClicked)
     {
         yield return new WaitForSeconds(0.5f);
-        if (FinalValues.TOTAL_TIME_ANSWER_QUESTION - currentTimer 
+        if (FinalValues.TOTAL_TIME_ANSWER_QUESTION - currentTimer
             <= FinalValues.DELTA_TIME_ANSWER)
             littleTimeCanvas.gameObject.SetActive(true);
+        else
+            StartCoroutine(IsRightAnswerClicked(ansClicked));
+
     }
 
     public IEnumerator IsRightAnswerClicked(string ansClicked)

@@ -68,8 +68,9 @@ public class TouchManegerScript : MonoBehaviour
         ReadNewSituation readNewSituation = GameObject.Find("GameController").GetComponent<ReadNewSituation>();
         if (touches[0].GetAnswer() == touches[1].GetAnswer())
         {
-            StartCoroutine(readNewSituation.CheckAnswers());
+            Debug.Log("enter here");
             ansClickedStr = touches[0].GetAnswer() + "";
+            StartCoroutine(readNewSituation.CheckAnswers(ansClickedStr)); 
         }
     }
 
