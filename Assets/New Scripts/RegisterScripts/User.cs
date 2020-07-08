@@ -12,9 +12,11 @@ public class User
 
     public Level[] buildLevels_Arr;
     public int currentBuildLevelToPlay;
+    public int totalBuildLevelPlayed;
 
     public Level[] situationLevels_Arr;
     public int currentSituationLevelToPlay;
+    public int totalSituationLevelPlayed;
 
     public User()
     {
@@ -37,6 +39,8 @@ public class User
 
         this.currentBuildLevelToPlay = currentBuildLevelToPlay;
         this.currentSituationLevelToPlay = currentSituationLevelToPlay;
+        this.totalBuildLevelPlayed = currentBuildLevelToPlay;
+        this.totalSituationLevelPlayed = currentSituationLevelToPlay;
     }
 
     public void InitArrOfBuildLevels(int buildCounter)

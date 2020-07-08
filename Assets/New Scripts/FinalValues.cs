@@ -45,6 +45,8 @@ public class FinalValues : MonoBehaviour
     public static string USER_EMAIL_DB_NAME = "userEmail";
     public static string USER_CURRENT_BUILD_LEVEL_DB_NAME = "currentBuildLevelToPlay";
     public static string USER_CURRENT_SITUATION_LEVEL_DB_NAME = "currentSituationLevelToPlay";
+    public static string TOTAL_BUILD_LEVELS_PLAYED_DB_NAME = "totalBuildLevelPlayed";
+    public static string TOTAL_SITUATION_LEVELS_PLAYED_DB_NAME = "totalSituationLevelPlayed";
 
     public static string LEVELS_DB_NAME = "Levels";
     public static string BUILD_LEVELS_DB_NAME = "BuildLevels";
@@ -62,6 +64,7 @@ public class FinalValues : MonoBehaviour
         "numberOfMistakesOrAverageNumberOfTouches";
     public static string LEVEL_IS_USER_DID_THE_LEVEL_DB_NAME = "isUserDidTheLevel";
     public static string LEVEL_TOTAL_TIME_DB_NAME = "totalTime";
+    public static string TIMES_THE_LEVEL_WAS_PLAYED_DB_NAME = "timesTheLevelWasPlayed";
 
     public const string SITUATIONS_DB_NAME = "Situations";
     public const string QUESTIONS_DB_NAME = "Questions";

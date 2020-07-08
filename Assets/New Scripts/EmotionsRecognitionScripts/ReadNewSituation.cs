@@ -422,6 +422,9 @@ public class ReadNewSituation : MonoBehaviour
                 reference.Child(FinalValues.USERS_DB_NAME).Child(currentUserIndex + "")
                     .Child(FinalValues.USER_CURRENT_SITUATION_LEVEL_DB_NAME).SetValueAsync(currentSituationLevel);
 
+                reference.Child(FinalValues.USERS_DB_NAME).Child(currentUserIndex + "")
+                    .Child(FinalValues.TOTAL_SITUATION_LEVELS_PLAYED_DB_NAME).SetValueAsync(currentSituationLevel);
+
                 Debug.LogFormat("Saved User Details To DB After Finished Level Successfully");
             }
         });

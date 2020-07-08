@@ -11,6 +11,7 @@ public class Level
     public string level_Type;
     public float level_Timer;
     public int numberOfMistakesOrAverageNumberOfTouches;
+    public int timesTheLevelWasPlayed;
 
     public bool isUserDidTheLevel;
     public float totalTime;
@@ -30,6 +31,7 @@ public class Level
         this.numberOfMistakesOrAverageNumberOfTouches = -1;
         this.isUserDidTheLevel = false;
         this.totalTime = 0;
+        this.timesTheLevelWasPlayed = 0;
     }
 
     public Level(int level_ID, int level_Index, string level_Name,
@@ -44,6 +46,7 @@ public class Level
         this.numberOfMistakesOrAverageNumberOfTouches = -1;
         this.isUserDidTheLevel = false;
         this.totalTime = 0;
+        this.timesTheLevelWasPlayed = 0;
     }
 
     public string GetTheTotalTimeUserDidTheLevel()
