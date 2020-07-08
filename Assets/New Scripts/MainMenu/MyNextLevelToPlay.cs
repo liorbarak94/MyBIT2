@@ -184,33 +184,32 @@ public class MyNextLevelToPlay : MonoBehaviour
                             db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
                         recommendationImage.texture = buildIconImage;
                     }
-                }
+                    // Checking at which stage there were more mistakes - build\situation 
+                    else if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                            .numberOfMistakesOrAverageNumberOfTouches >
+                            db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                            .numberOfMistakesOrAverageNumberOfTouches)
+                    {
+                        recommendationImage.texture = buildIconImage;
+                    }
 
-                // Checking at which stage there were more mistakes - build\situation 
-                else if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
-                        .numberOfMistakesOrAverageNumberOfTouches >
-                        db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
-                        .numberOfMistakesOrAverageNumberOfTouches)
-                {
-                    recommendationImage.texture = buildIconImage;
-                }
+                    else if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                            .numberOfMistakesOrAverageNumberOfTouches <
+                            db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                            .numberOfMistakesOrAverageNumberOfTouches)
+                    {
+                        recommendationImage.texture = situationIconImage;
+                    }
 
-                else if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
-                        .numberOfMistakesOrAverageNumberOfTouches <
-                        db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
-                        .numberOfMistakesOrAverageNumberOfTouches)
-                {
-                    recommendationImage.texture = situationIconImage;
+                    // Checks which stage the player played more time - build\situation 
+                    else if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1].totalTime >
+                            db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1].totalTime)
+                    {
+                        recommendationImage.texture = buildIconImage;
+                    }
+                    else
+                        recommendationImage.texture = situationIconImage;
                 }
-
-                // Checks which stage the player played more time - build\situation 
-                else if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1].totalTime >
-                        db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1].totalTime)
-                {
-                    recommendationImage.texture = buildIconImage;
-                }
-                else
-                    recommendationImage.texture = situationIconImage;
             }        
         }
 
