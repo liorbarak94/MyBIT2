@@ -16,16 +16,16 @@ public class ReadNewSituation : MonoBehaviour
 
     private string titleStr;
     private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes,
-        currentUserIndex, readStoryTime = 2, answerQuestTime = 1;
+        currentUserIndex, readStoryTime = 2, answerQuestTime = 1, showExplain = 0;
     private string[] partsOfStoryArr = new string[FinalValues.STORY_SIZE];
     private Situation situation;
     private Question[] questionsArr;
     private string[] answers;
 
     public TMP_Text firstIntroText, secondIntroText, storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
-        questionText, answer1Text, answer2Text, answer3Text, answer4Text;
+        questionText, answer1Text, answer2Text, answer3Text, answer4Text, startQuestionsText, explainHowToAnswerText;
     public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton, menuButton, pauseButton,
-        exitButton, pigyButton, finishQestionsButton;
+        exitButton, pigyButton, finishQestionsButton, restartExplainButton;
 
     private bool isLoaded = false, menuIsOpen = false;
 
@@ -71,7 +71,6 @@ public class ReadNewSituation : MonoBehaviour
             firstIntroText.gameObject.SetActive(false);
             secondIntroText.gameObject.SetActive(true);
         }
-
     }
 
     void Update()
@@ -191,8 +190,8 @@ public class ReadNewSituation : MonoBehaviour
 
     private void GetCurrentSituationLevelFromPlayerPrefs()
     {
-        //currentSituationLevel = 1;
-        currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
+        currentSituationLevel = 1;
+        //currentSituationLevel = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME, 0);
         partOfStoryIndex = 0;
         currentQuestionNumber = 0;
         Debug.Log("currentSituationNumber: " + currentSituationLevel);
@@ -370,13 +369,20 @@ public class ReadNewSituation : MonoBehaviour
     public void OnStartQuestionsClick()
     {
         Debug.Log("QusetionsManeger Starts");
-        qusetionsObjects.SetActive(true);
         restartButton.gameObject.SetActive(true);
         answerExplain.SetActive(false);
-        storyObjects.SetActive(false);
-        startQuestionsObjects.SetActive(false);
         previousQuestArrow.gameObject.SetActive(false);
-        QusetionsManeger();
+        startQuestionsText.gameObject.SetActive(false);
+        explainHowToAnswerText.gameObject.SetActive(true);
+        restartExplainButton.gameObject.SetActive(false);
+        showExplain++;
+        if (showExplain == 2)
+        {
+            storyObjects.SetActive(false);
+            qusetionsObjects.SetActive(true);
+            startQuestionsObjects.SetActive(false);
+            QusetionsManeger();
+        }
     }  
     
     public void QusetionsManeger()
@@ -398,7 +404,6 @@ public class ReadNewSituation : MonoBehaviour
 
     public void UpdateDatabasePlayerInfo()
     {
-
         DatabaseReference databaseReferenceForUpdate = reference.Child(FinalValues.USERS_DB_NAME)
             .Child(currentUserIndex + "").Child(FinalValues.LEVELS_DB_NAME).Child(FinalValues.SITUATION_LEVELS_DB_NAME)
             .Child(currentSituationLevel + "");
