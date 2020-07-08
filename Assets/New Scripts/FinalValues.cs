@@ -116,6 +116,8 @@ public class FinalValues : MonoBehaviour
     public static int NUMBER_OF_ANSWERS = 4;
     public static int SITUATION_NUMBER_0 = 0;
     public static int SITUATION_NUMBER_1 = 1;
+    public static int TOTAL_TIME_ANSWER_QUESTION = 60;
+    public static int DELTA_TIME_ANSWER = 5;
    
 
     ////////// PlayerPrefs ///////////////////////////////

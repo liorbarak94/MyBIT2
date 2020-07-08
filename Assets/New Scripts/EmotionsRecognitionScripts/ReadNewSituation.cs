@@ -520,20 +520,17 @@ public class ReadNewSituation : MonoBehaviour
         answer4Text.gameObject.SetActive(b);
     }
 
- /*   public IEnumerator CheckAnswers(string ansClicked)
+   public IEnumerator CheckAnswers()
     {
         yield return new WaitForSeconds(0.5f);
-        if (60 - currentTimer <= 5)
-        {
+        if (FinalValues.TOTAL_TIME_ANSWER_QUESTION - currentTimer 
+            <= FinalValues.DELTA_TIME_ANSWER)
             littleTimeCanvas.gameObject.SetActive(true);
-        }
-    }*/
+    }
 
     public IEnumerator IsRightAnswerClicked(string ansClicked)
     {
         Debug.Log("answerClicked: " + ansClicked);
-
-
 
         if (ansClicked.Equals(situation.GetQuestions()[currentQuestionNumber].GetRightAnswer()))
         {

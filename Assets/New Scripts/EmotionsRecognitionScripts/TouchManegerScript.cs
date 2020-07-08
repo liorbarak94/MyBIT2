@@ -10,6 +10,7 @@ public class TouchManegerScript : MonoBehaviour
     public List<TouchLocation> touches = new List<TouchLocation>();
     public Transform parent;
     public int answerClicked;
+    public string ansClickedStr;
     private Boolean isPressedRight = false;
 
     // Start is called before the first frame update
@@ -51,7 +52,10 @@ public class TouchManegerScript : MonoBehaviour
                 }
 
                 if (i == 1 && t.phase == TouchPhase.Began)
+                {
+                    Debug.Log("CheckAnswers() Starts");
                     CheckAnswers();
+                }
 
                 ++i;
             }
@@ -60,9 +64,19 @@ public class TouchManegerScript : MonoBehaviour
 
     private void CheckAnswers()
     {
+        Debug.Log("CheckAnswers() Starts");
         ReadNewSituation readNewSituation = GameObject.Find("GameController").GetComponent<ReadNewSituation>();
         if (touches[0].GetAnswer() == touches[1].GetAnswer())
-            StartCoroutine(readNewSituation.IsRightAnswerClicked(touches[0].GetAnswer()+""));
+        {
+            StartCoroutine(readNewSituation.CheckAnswers());
+            ansClickedStr = touches[0].GetAnswer() + "";
+        }
+    }
+
+    public void StartIsRightAnswerClicked()
+    {
+        ReadNewSituation readNewSituation = GameObject.Find("GameController").GetComponent<ReadNewSituation>();
+        StartCoroutine(readNewSituation.IsRightAnswerClicked(ansClickedStr));
     }
 
     GameObject CreateTouchImage(Touch t)
