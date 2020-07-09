@@ -346,6 +346,7 @@ public class GameManagerBuildScript : MonoBehaviour
                         .Child(levelIndex + "")
                         .Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME)
                         .SetValueAsync(timer);
+                    // TODO: update timesTheLevelWasPlayed:
 
                     levelIndex++;
                     reference
@@ -353,6 +354,12 @@ public class GameManagerBuildScript : MonoBehaviour
                        .Child(userIndex + "")
                        .Child(FinalValues.USER_CURRENT_BUILD_LEVEL_DB_NAME)
                        .SetValueAsync(levelIndex);
+
+                    reference
+                        .Child(FinalValues.USERS_DB_NAME)
+                        .Child(userIndex + "")
+                        .Child(FinalValues.TOTAL_BUILD_LEVELS_PLAYED_DB_NAME)
+                        .SetValueAsync(levelIndex);
 
                     Debug.LogFormat(
                         "Saved User Details To DB After Finished Level Successfully");

@@ -42,8 +42,8 @@ public class ReadNewSituation : MonoBehaviour
     public Sprite[] answers2Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
     public Image answer1Image, answer2Image, answer3Image, answer4Image;
 
-    public TMP_Text[] answers1Explains = new TMP_Text[6];
-    public TMP_Text[] answers2Explains = new TMP_Text[6];
+    public TMP_Text[] answersFullExplains = new TMP_Text[12];
+    public TMP_Text[] answersLessExplains = new TMP_Text[6];
 
     public Image previousQuestArrow, nextQuestionArrow;
     public Image returnToStory;
@@ -163,7 +163,7 @@ public class ReadNewSituation : MonoBehaviour
         }
 
         timeOutExplainCanvas.gameObject.SetActive(true);
-        rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+        rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
         Debug.Log(rightAnswerExplainText.text);
         worngAnswerExplainText.gameObject.SetActive(false);
     }
@@ -418,6 +418,14 @@ public class ReadNewSituation : MonoBehaviour
 
             if (task.IsCompleted)
             {
+                DataSnapshot snapshot = task.Result;
+
+                int timesTheLevelWasPlayed = int.Parse(snapshot.Child(FinalValues.TIMES_THE_LEVEL_WAS_PLAYED_DB_NAME)
+                    .GetValue(true).ToString());
+
+                timesTheLevelWasPlayed++;
+                databaseReferenceForUpdate.Child(FinalValues.TIMES_THE_LEVEL_WAS_PLAYED_DB_NAME).SetValueAsync(timesTheLevelWasPlayed);
+
                 databaseReferenceForUpdate.Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME).SetValueAsync(timer);
 
                 databaseReferenceForUpdate.Child(FinalValues.LEVEL_NUMBER_OF_MISTAKES_OR_AVERAGE_NUMBER_OF_TOUCHES_DB_NAME)
@@ -554,9 +562,9 @@ public class ReadNewSituation : MonoBehaviour
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
            if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
-                rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+                rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
            else
-                rightAnswerExplainText.text = answers2Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+                rightAnswerExplainText.text = answersLessExplains[currentQuestionNumber * 2].text;
 
             Vector3 answerPosition = new Vector3();
 
@@ -598,8 +606,10 @@ public class ReadNewSituation : MonoBehaviour
             worngAnswerExplainText.gameObject.SetActive(true);
             goBackToQuestButton.gameObject.SetActive(true);
             nextQuestionArrow.gameObject.SetActive(false);
-            worngAnswerExplainText.text = answers1Explains[(currentSituationLevel * 6) + ((currentQuestionNumber * 2) + 1)].text;
-
+            if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+                worngAnswerExplainText.text = answersFullExplains[(currentSituationLevel * 6) + ((currentQuestionNumber * 2) + 1)].text;
+            else
+                worngAnswerExplainText.text = answersLessExplains[(currentQuestionNumber * 2) + 1].text;
             switch (ansClicked)
             {
                 case "0":
