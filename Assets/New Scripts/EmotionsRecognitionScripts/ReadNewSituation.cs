@@ -8,11 +8,17 @@ using TMPro;
 using System;
 using Firebase.Auth;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class ReadNewSituation : MonoBehaviour
 {
     private DatabaseReference reference;
     protected FirebaseUser currentUser;
+
+    // Animation Settings
+    [Range(0.5f, 0.9f)] private float minAnimDuration;
+    [Range(0.9f, 2f)] private float maxAnimDuration;
 
     private string titleStr;
     private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes,
@@ -31,6 +37,10 @@ public class ReadNewSituation : MonoBehaviour
 
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
+    public GameObject animatedCoinPrefab;
+    public Transform target;
+    private Vector3 targetPosition;
+    public Ease easeType;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
         answersObjects, answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas, littleTimeCanvas;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
@@ -66,6 +76,7 @@ public class ReadNewSituation : MonoBehaviour
         GetSituationCounter();
         GetTimerFromPlayerPrefs();
         GetCurrentSituationLevelFromPlayerPrefs();
+
         if (currentSituationLevel > 0)
         {
             firstIntroText.gameObject.SetActive(false);
@@ -553,7 +564,39 @@ public class ReadNewSituation : MonoBehaviour
             AddCoinToPiggy();
             rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
 
-            if(currentQuestionNumber == 2)
+            Vector3 answerPosition = new Vector3();
+
+            switch (ansClicked)
+            {
+                case "0":
+                    answerPosition = answer1Image.gameObject.transform.position;
+                    Debug.Log("answer1Image.gameObject.transform.position: " + answer1Image.gameObject.transform.position);
+                    break;
+                case "1":
+                    answerPosition = answer2Image.gameObject.transform.position;
+                    break;
+                case "2":
+                    answerPosition = answer3Image.gameObject.transform.position;
+                    break;
+                case "3":
+                    answerPosition = answer4Image.gameObject.transform.position;
+                    break;
+            }
+
+            GameObject coin = Instantiate(animatedCoinPrefab);
+            coin.SetActive(true);
+
+            // Move coin to the piggy
+            coin.transform.position = answerPosition;
+            coin.transform.parent = answersObjects.transform;
+            // Animate coin to the piggy possition
+            float duration = Random.Range(minAnimDuration, maxAnimDuration);
+            coin.transform.DOMove(targetPosition, duration).SetEase(easeType).OnComplete(() =>
+            {
+               // coin.SetActive(false);
+            });
+
+            if (currentQuestionNumber == 2)
             {
                 nextQuestionArrow.gameObject.SetActive(false);
                 finishQestionsButton.gameObject.SetActive(true);

@@ -2872,6 +2872,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     audioSource: {fileID: 0}
+  - name: victory
+    audioClip: {fileID: 8300000, guid: 1f04a298be655a745b81e9ee650234c0, type: 3}
+    volume: 1
+    pitch: 1
+    audioSource: {fileID: 0}
 --- !u!4 &452774655
 Transform:
   m_ObjectHideFlags: 0
@@ -4385,6 +4390,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772910367}
   m_CullTransparentMesh: 0
+--- !u!1 &774891419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 774891421}
+  - component: {fileID: 774891420}
+  m_Layer: 0
+  m_Name: CoinManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &774891420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774891419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3be023f2e9102c4fbc5a9b30d78fbe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatedCoinPrefab: {fileID: 4160431690273445891, guid: 94fd15e0457e77844a2bae1a659442f7,
+    type: 3}
+  target: {fileID: 636545680}
+  maxCoins: 3
+  easeType: 28
+--- !u!4 &774891421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774891419}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 667.30664, y: 379.91885, z: -540.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &788040664
 GameObject:
   m_ObjectHideFlags: 0
@@ -7075,6 +7128,10 @@ MonoBehaviour:
   restartExplainButton: {fileID: 183298243}
   piggyAnimatorController: {fileID: 636545681}
   audioSource: {fileID: 0}
+  animatedCoinPrefab: {fileID: 4160431690273445891, guid: 94fd15e0457e77844a2bae1a659442f7,
+    type: 3}
+  target: {fileID: 636545680}
+  easeType: 28
   imagesSwap: {fileID: 300256375}
   storyObjects: {fileID: 55777069}
   qusetionsObjects: {fileID: 1316537072}
