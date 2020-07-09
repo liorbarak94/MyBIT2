@@ -12,8 +12,8 @@ public class CoinManager : MonoBehaviour
     private Queue<GameObject> coinsQueue;
 
     // Animation Settings
-    [Range(0.5f, 0.9f)] private float minAnimDuration;
-    [Range(0.9f, 2f)] private float maxAnimDuration;
+    [Range(0.5f, 0.9f)] public float minAnimDuration;
+    [Range(0.9f, 2f)] public float maxAnimDuration;
 
     private Vector3 targetPosition;
 
@@ -42,7 +42,7 @@ public class CoinManager : MonoBehaviour
         for (int i = 0; i < maxCoins; i++)
         {
             coin = Instantiate(animatedCoinPrefab);
-            coin.transform.parent = transform;
+            coin.transform.SetParent(transform);
             coin.SetActive(false);
             coinsQueue.Enqueue(coin);
         }
@@ -63,6 +63,7 @@ public class CoinManager : MonoBehaviour
             float duration = Random.Range(minAnimDuration, maxAnimDuration);
             coin.transform.DOMove(targetPosition, duration).SetEase(easeType).OnComplete(()=>
             {
+                Debug.Log("here");
                 coin.SetActive(false);
                 coinsQueue.Enqueue(coin);
             });

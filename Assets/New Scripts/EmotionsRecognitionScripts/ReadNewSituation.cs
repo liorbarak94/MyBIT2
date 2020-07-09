@@ -15,14 +15,11 @@ public class ReadNewSituation : MonoBehaviour
 {
     private DatabaseReference reference;
     protected FirebaseUser currentUser;
-
-    // Animation Settings
-    [Range(0.5f, 0.9f)] private float minAnimDuration;
-    [Range(0.9f, 2f)] private float maxAnimDuration;
-
+    public CoinManager coinManager;
+    
     private string titleStr;
     private int situationsCounter, partOfStoryIndex, currentSituationLevel, currentQuestionNumber, numberOfMistekes,
-        currentUserIndex, readStoryTime = 2, answerQuestTime = 1, showExplain = 0;
+        currentUserIndex, readStoryTime = 2, answerQuestTime = 1, showExplain = 0, totalSituationLevelPlayed;
     private string[] partsOfStoryArr = new string[FinalValues.STORY_SIZE];
     private Situation situation;
     private Question[] questionsArr;
@@ -37,10 +34,6 @@ public class ReadNewSituation : MonoBehaviour
 
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
-    public GameObject animatedCoinPrefab;
-    public Transform target;
-    private Vector3 targetPosition;
-    public Ease easeType;
     public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
         answersObjects, answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas, littleTimeCanvas;
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
@@ -76,12 +69,17 @@ public class ReadNewSituation : MonoBehaviour
         GetSituationCounter();
         GetTimerFromPlayerPrefs();
         GetCurrentSituationLevelFromPlayerPrefs();
-
+        GetTotalSituationsLevelsPlayed();
         if (currentSituationLevel > 0)
         {
             firstIntroText.gameObject.SetActive(false);
             secondIntroText.gameObject.SetActive(true);
         }
+    }
+
+    private void GetTotalSituationsLevelsPlayed()
+    {
+        totalSituationLevelPlayed = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_TOTAL_LEVELS_PLAYED_PREFS_NAME, 0);
     }
 
     void Update()
@@ -544,7 +542,6 @@ public class ReadNewSituation : MonoBehaviour
             littleTimeCanvas.gameObject.SetActive(true);
         else
             StartCoroutine(IsRightAnswerClicked(ansClicked));
-
     }
 
     public IEnumerator IsRightAnswerClicked(string ansClicked)
@@ -562,7 +559,10 @@ public class ReadNewSituation : MonoBehaviour
             goBackToQuestButton.gameObject.SetActive(false);
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
-            rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+           // if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+                rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+           // else
+           //     rightAnswerExplainText.text = answers2Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
 
             Vector3 answerPosition = new Vector3();
 
@@ -571,30 +571,21 @@ public class ReadNewSituation : MonoBehaviour
                 case "0":
                     answerPosition = answer1Image.gameObject.transform.position;
                     Debug.Log("answer1Image.gameObject.transform.position: " + answer1Image.gameObject.transform.position);
+                    coinManager.AddCoin(answerPosition);
                     break;
                 case "1":
                     answerPosition = answer2Image.gameObject.transform.position;
+                    coinManager.AddCoin(answerPosition);
                     break;
                 case "2":
                     answerPosition = answer3Image.gameObject.transform.position;
+                    coinManager.AddCoin(answerPosition);
                     break;
                 case "3":
                     answerPosition = answer4Image.gameObject.transform.position;
+                    coinManager.AddCoin(answerPosition);
                     break;
             }
-
-            GameObject coin = Instantiate(animatedCoinPrefab);
-            coin.SetActive(true);
-
-            // Move coin to the piggy
-            coin.transform.position = answerPosition;
-            coin.transform.parent = answersObjects.transform;
-            // Animate coin to the piggy possition
-            float duration = Random.Range(minAnimDuration, maxAnimDuration);
-            coin.transform.DOMove(targetPosition, duration).SetEase(easeType).OnComplete(() =>
-            {
-               // coin.SetActive(false);
-            });
 
             if (currentQuestionNumber == 2)
             {

@@ -4406,7 +4406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &774891420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4419,7 +4419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3be023f2e9102c4fbc5a9b30d78fbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatedCoinPrefab: {fileID: 4160431690273445891, guid: 94fd15e0457e77844a2bae1a659442f7,
+  animatedCoinPrefab: {fileID: 7455030709451730618, guid: df1db1bf968c8c04c8af475f00001359,
     type: 3}
   target: {fileID: 636545680}
   maxCoins: 3
@@ -4431,12 +4431,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774891419}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 667.30664, y: 379.91885, z: -540.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27.30664, y: 19.918854, z: -540.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 1778521874}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &788040664
 GameObject:
@@ -7102,6 +7102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939f93be47730674987453436e82bef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinManager: {fileID: 774891420}
   firstIntroText: {fileID: 1328569965}
   secondIntroText: {fileID: 1839833747}
   storyText: {fileID: 1669441713}
@@ -7128,10 +7129,6 @@ MonoBehaviour:
   restartExplainButton: {fileID: 183298243}
   piggyAnimatorController: {fileID: 636545681}
   audioSource: {fileID: 0}
-  animatedCoinPrefab: {fileID: 4160431690273445891, guid: 94fd15e0457e77844a2bae1a659442f7,
-    type: 3}
-  target: {fileID: 636545680}
-  easeType: 28
   imagesSwap: {fileID: 300256375}
   storyObjects: {fileID: 55777069}
   qusetionsObjects: {fileID: 1316537072}
@@ -11023,6 +11020,7 @@ RectTransform:
   - {fileID: 610237550}
   - {fileID: 57326397}
   - {fileID: 13807345}
+  - {fileID: 774891421}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

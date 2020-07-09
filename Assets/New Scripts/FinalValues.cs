@@ -129,6 +129,9 @@ public class FinalValues : MonoBehaviour
     public static string MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME =
       "MyBIT_Game_User_Current_Level_Index";
 
+    public static string MYBIT_GAME_USER_TOTAL_LEVELS_PLAYED_PREFS_NAME =
+     "MyBIT_Game_User_Total_Levels_Played";
+
     public static string CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME =
         "Current_Timer_Level";
 

@@ -63,6 +63,7 @@ public class MyNextLevelToPlay : MonoBehaviour
 
         SaveDitailsToPlayerPrefs(level_Index_InUnity,
             db_Manager.me_User.currentBuildLevelToPlay,
+            db_Manager.me_User.totalBuildLevelPlayed,
             db_Manager.me_User.buildLevels_Arr
             [db_Manager.me_User.currentBuildLevelToPlay].level_Timer);
     }
@@ -76,18 +77,23 @@ public class MyNextLevelToPlay : MonoBehaviour
 
         SaveDitailsToPlayerPrefs(level_Index_InUnity,
             db_Manager.me_User.currentSituationLevelToPlay,
+            db_Manager.me_User.totalSituationLevelPlayed,
             db_Manager.me_User.situationLevels_Arr
             [db_Manager.me_User.currentSituationLevelToPlay].level_Timer);
     }
 
     public void SaveDitailsToPlayerPrefs(int level_Index_InUnity, int currentLevelToPlay,
-        float timer)
+        int totalLevelsPlayed, float timer)
     {
         waitLoadingBarManager.WaitLoadingBar_Activation(true);
 
         PlayerPrefs.SetInt(
             FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
             currentLevelToPlay);
+
+        PlayerPrefs.SetInt(
+            FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
+            totalLevelsPlayed);
 
         PlayerPrefs.SetFloat(
             FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, timer);
