@@ -557,6 +557,7 @@ public class ReadNewSituation : MonoBehaviour
             {
                 nextQuestionArrow.gameObject.SetActive(false);
                 finishQestionsButton.gameObject.SetActive(true);
+                FindObjectOfType<AudioManager>().PlayAudio(FinalValues.VICTORY_AUDIO);
             }
         }
         else
