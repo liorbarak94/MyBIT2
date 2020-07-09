@@ -320,6 +320,18 @@ public class GameManagerBuildScript : MonoBehaviour
 
                 if (task.IsCompleted)
                 {
+                    DataSnapshot snapshot = task.Result;
+
+                    int timesTheLevelWasPlayed = int.Parse(snapshot.Child(FinalValues.TIMES_THE_LEVEL_WAS_PLAYED_DB_NAME)
+                        .GetValue(true).ToString());
+
+                    timesTheLevelWasPlayed++;
+                    reference.Child(userIndex + "")
+                        .Child(FinalValues.LEVELS_DB_NAME)
+                        .Child(FinalValues.BUILD_LEVELS_DB_NAME)
+                        .Child(levelIndex + "")
+                        .Child(FinalValues.TIMES_THE_LEVEL_WAS_PLAYED_DB_NAME).SetValueAsync(timesTheLevelWasPlayed);
+
                     reference
                         .Child(FinalValues.USERS_DB_NAME)
                         .Child(userIndex + "")
@@ -346,7 +358,6 @@ public class GameManagerBuildScript : MonoBehaviour
                         .Child(levelIndex + "")
                         .Child(FinalValues.LEVEL_TOTAL_TIME_DB_NAME)
                         .SetValueAsync(timer);
-                    // TODO: update timesTheLevelWasPlayed:
 
                     levelIndex++;
                     reference
