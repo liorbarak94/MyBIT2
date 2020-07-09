@@ -7,6 +7,7 @@ public class FinalValues : MonoBehaviour
     public enum TypeOfLevel { BUILD, SITUATION };
 
     public static string COIN_AUDIO = "coin";
+    public static string VICTORY_AUDIO = "victory";
     public static string PLAYER = "Player";
 
 
