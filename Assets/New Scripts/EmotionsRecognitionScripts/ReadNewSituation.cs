@@ -63,7 +63,6 @@ public class ReadNewSituation : MonoBehaviour
         reference = FirebaseDatabase.DefaultInstance.RootReference;
 
         numberOfMistekes = 0;
-        //animatorController = imagesSwap.GetComponent<Animator>();
         currentUserIndex = PlayerPrefs.GetInt(FinalValues.MYBIT_GAME_USER_INDEX_PLAYER_PREFS_NAME, 0);
         Debug.Log("currentUserIndex: " + currentUserIndex);
         GetSituationCounter();
@@ -298,11 +297,9 @@ public class ReadNewSituation : MonoBehaviour
         startLevelCanvas.SetActive(false);
         if (currentSituationLevel == 0)
             imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
-        //animatorController.SetInteger("partOfStory", partOfStoryIndex);
         if (currentSituationLevel == 1)
             imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
         storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
-        //TimerActivation(true);
     }
 
     public void OnRestartButtonClick()
@@ -329,7 +326,6 @@ public class ReadNewSituation : MonoBehaviour
                 backButton.gameObject.SetActive(true);
                 if (currentSituationLevel == 0)
                     imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
-                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
                 if (currentSituationLevel == 1)
                     imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 break;
@@ -338,7 +334,6 @@ public class ReadNewSituation : MonoBehaviour
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
                 if (currentSituationLevel == 0)
                     imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
-                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
                 if (currentSituationLevel == 1)
                     imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 break;
@@ -357,7 +352,6 @@ public class ReadNewSituation : MonoBehaviour
                 partOfStoryIndex--;
                 if (currentSituationLevel == 0)
                     imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
-                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
                 if (currentSituationLevel == 1)
                     imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
@@ -367,7 +361,6 @@ public class ReadNewSituation : MonoBehaviour
                 partOfStoryIndex--;
                 if (currentSituationLevel == 0)
                     imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
-                //animatorController.SetInteger("partOfStory", partOfStoryIndex);
                 if (currentSituationLevel == 1)
                     imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
                 storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
@@ -553,16 +546,17 @@ public class ReadNewSituation : MonoBehaviour
             Debug.Log("Right");
             yield return new WaitForSeconds(0.5f);
 
+            TimerActivation(false);
             answerExplain.SetActive(true);
             rightAnswerExplainText.gameObject.SetActive(true);
             worngAnswerExplainText.gameObject.SetActive(false);
             goBackToQuestButton.gameObject.SetActive(false);
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
-           // if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+           if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
                 rightAnswerExplainText.text = answers1Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
-           // else
-           //     rightAnswerExplainText.text = answers2Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+           else
+                rightAnswerExplainText.text = answers2Explains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
 
             Vector3 answerPosition = new Vector3();
 
