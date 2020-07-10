@@ -8130,7 +8130,7 @@ MonoBehaviour:
   answer2Image: {fileID: 969999340}
   answer3Image: {fileID: 1150178304}
   answer4Image: {fileID: 1114269587}
-  answers1Explains:
+  answersFullExplains:
   - {fileID: 1040181690}
   - {fileID: 1901532226}
   - {fileID: 1759244288}
@@ -8143,7 +8143,7 @@ MonoBehaviour:
   - {fileID: 881034511}
   - {fileID: 2143975349}
   - {fileID: 1769514702}
-  answers2Explains:
+  answersLessExplains:
   - {fileID: 1492575860}
   - {fileID: 716780146}
   - {fileID: 732624519}
