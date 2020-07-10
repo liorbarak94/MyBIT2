@@ -443,7 +443,6 @@ public class ReadNewSituation : MonoBehaviour
                 Debug.LogFormat("Saved User Details To DB After Finished Level Successfully");
             }
         });
-
         levelCompletedCanvas.gameObject.SetActive(true);
     }
 
