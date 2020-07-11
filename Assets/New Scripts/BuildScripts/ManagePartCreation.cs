@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,6 +8,7 @@ public class ManagePartCreation : MonoBehaviour
     public TutorialManagerScript tutorialManagerScript;
     public PartsManager partsManager;
     public GameManagerBuildScript gameManagerBuildScript;
+    public CoinManager coinManager;
 
     [HideInInspector]
     public bool partInPlace;
@@ -47,6 +47,12 @@ public class ManagePartCreation : MonoBehaviour
     {
         if (partInPlace && partsManager.currentPartIndex < partsManager.fixed_parts.Length)
         {
+            if (partsManager.currentPartIndex > 0)
+            {
+                coinManager.AddCoin(partsManager.buttonCreatorParts.gameObject.transform.position);
+                FindObjectOfType<AudioManager>().PlayAudio(FinalValues.COIN_AUDIO);
+            }
+
             SetTheNextPart();
 
             partsManager.currentPartIndex++;

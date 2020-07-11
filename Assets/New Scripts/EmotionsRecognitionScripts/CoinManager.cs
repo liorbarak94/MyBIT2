@@ -17,18 +17,6 @@ public class CoinManager : MonoBehaviour
 
     private Vector3 targetPosition;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void Awake()
     {
         coinsQueue = new Queue<GameObject>();
@@ -50,7 +38,7 @@ public class CoinManager : MonoBehaviour
 
     private void Animate(Vector3 collectedCoinPosition)
     {
-        Debug.Log("here");
+        //Debug.Log("here");
         if (coinsQueue.Count > 0)
         {
             GameObject coin = coinsQueue.Dequeue();
@@ -63,7 +51,7 @@ public class CoinManager : MonoBehaviour
             float duration = Random.Range(minAnimDuration, maxAnimDuration);
             coin.transform.DOMove(targetPosition, duration).SetEase(easeType).OnComplete(()=>
             {
-                Debug.Log("here");
+                //Debug.Log("here");
                 coin.SetActive(false);
                 coinsQueue.Enqueue(coin);
             });
@@ -72,8 +60,7 @@ public class CoinManager : MonoBehaviour
 
     public void AddCoin(Vector3 collectedCoinPosition)
     {
-        Debug.Log("collectedCoinPosition: " + collectedCoinPosition);
-
+        //Debug.Log("collectedCoinPosition: " + collectedCoinPosition);
         Animate(collectedCoinPosition);
     }
 }

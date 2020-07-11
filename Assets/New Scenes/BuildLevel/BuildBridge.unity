@@ -719,6 +719,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 110559705}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &121955796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 121955797}
+  - component: {fileID: 121955798}
+  m_Layer: 0
+  m_Name: Coin Image Creator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &121955797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121955796}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.019051, y: 7.119026, z: -41.198425}
+  m_LocalScale: {x: 0.625, y: 0.625, z: 0.625}
+  m_Children: []
+  m_Father: {fileID: 6963945637630403280}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &121955798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121955796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3be023f2e9102c4fbc5a9b30d78fbe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatedCoinPrefab: {fileID: 7455030709451730618, guid: df1db1bf968c8c04c8af475f00001359,
+    type: 3}
+  target: {fileID: 2584347530626736598}
+  maxCoins: 5
+  easeType: 28
+  minAnimDuration: 0.5
+  maxAnimDuration: 1
 --- !u!1 &122335420
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +837,7 @@ RectTransform:
   m_Children:
   - {fileID: 568116989}
   m_Father: {fileID: 6963945637630403280}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -5239,6 +5289,7 @@ MonoBehaviour:
   tutorialManagerScript: {fileID: 518884005}
   partsManager: {fileID: 1871948682}
   gameManagerBuildScript: {fileID: 671301995}
+  coinManager: {fileID: 121955798}
   partInPlace: 0
   panelAndImageTXT: {fileID: 6963945637284691334}
   partsCreationTXT: {fileID: 6963945638866341816}
@@ -6218,7 +6269,7 @@ MonoBehaviour:
   planeForPartsPos: {fileID: 1564851688}
   arrowForPartsPos: {fileID: 1376953672}
   arrowForPartsPosAnim: {fileID: 1533992327}
-  arrowAnimBigOrSmall: UpDownBig
+  arrowAnimBigOrSmall: 0
   circleForPartsPos: {fileID: 395249044}
   imageTutorialCanvas: {fileID: 6963945637970114975}
   coins_MoveJoyStick:
@@ -10022,7 +10073,7 @@ RectTransform:
   m_Children:
   - {fileID: 6963945638203174755}
   m_Father: {fileID: 6963945637630403280}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10274,6 +10325,7 @@ RectTransform:
   - {fileID: 6963945638479470512}
   - {fileID: 6963945638735228708}
   - {fileID: 6963945637034145253}
+  - {fileID: 121955797}
   - {fileID: 6963945638001054334}
   - {fileID: 122335423}
   - {fileID: 6963945637970114968}
@@ -10662,7 +10714,7 @@ RectTransform:
   m_Children:
   - {fileID: 6963945637650264697}
   m_Father: {fileID: 6963945637630403280}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11121,7 +11173,7 @@ RectTransform:
   - {fileID: 6963945638866341817}
   - {fileID: 6963945638569791355}
   m_Father: {fileID: 6963945637630403280}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -11244,7 +11296,7 @@ RectTransform:
   - {fileID: 247327391}
   - {fileID: 337186373}
   m_Father: {fileID: 6963945637630403280}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
