@@ -117,7 +117,8 @@ public class TouchManager : MonoBehaviour
             {
                 gameManagerBuildScript.waitForSecondTouchOnPart_Time += Time.deltaTime;
                 
-                if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >= 5)
+                if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >=
+                    FinalValues.WAIT_TIME_FOR_SECOND_TOUCH_OF_PART)
                 {
                     gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(true);
                 }
@@ -158,7 +159,8 @@ public class TouchManager : MonoBehaviour
                 if (firstPlane.Raycast(firstRayAfter, out float firstDistance) &&
                     secondPlane.Raycast(secoondRayAfter, out float secondDistance))
                 {
-                    if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >= 5)
+                    if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >=
+                        FinalValues.WAIT_TIME_FOR_SECOND_TOUCH_OF_PART)
                     {
                         gameManagerBuildScript.waitForSecondTouchOnPart_Time = 0;
                         gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(false);

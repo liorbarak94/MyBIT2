@@ -98,16 +98,16 @@ public class ManagePartCreation : MonoBehaviour
         partsManager.arrowForPartsPos.SetActive(true);
 
         if (partsManager.arrowAnimBigOrSmall == 
-            FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_BIG)
+            FinalValues.TypeOfArrowAnim.BIG)
         {
             partsManager.arrowForPartsPosAnim.SetBool(
-                FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_BIG, true);
+                FinalValues.TypeOfArrowAnim.BIG.ToString(), true);
         }
         else if (partsManager.arrowAnimBigOrSmall ==
-            FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_SMALL)
+            FinalValues.TypeOfArrowAnim.SMALL)
         {
             partsManager.arrowForPartsPosAnim.SetBool(
-                FinalValues.BRIDGE_BUILD_LEVEL_ARROW_ANIM_SMALL, true);
+                FinalValues.TypeOfArrowAnim.SMALL.ToString(), true);
         }
 
         partsManager.circleForPartsPos.SetActive(true);

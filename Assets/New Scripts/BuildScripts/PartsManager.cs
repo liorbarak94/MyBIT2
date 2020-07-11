@@ -14,7 +14,7 @@ public class PartsManager : MonoBehaviour
 
     public GameObject arrowForPartsPos;
     public Animator arrowForPartsPosAnim;
-    public string arrowAnimBigOrSmall;
+    public FinalValues.TypeOfArrowAnim arrowAnimBigOrSmall;
 
     public GameObject circleForPartsPos;
 

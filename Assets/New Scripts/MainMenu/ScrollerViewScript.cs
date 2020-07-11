@@ -18,11 +18,11 @@ public class ScrollerViewScript : MonoBehaviour
 
     private ExampleLevelItemView view;
 
-    public string myType;
+    public FinalValues.TypeOfLevel myType;
 
     private void Update()
     {
-        if (db_Manager.showBuildLevels && myType == FinalValues.BUILD_TYPE)
+        if (db_Manager.showBuildLevels && myType == FinalValues.TypeOfLevel.BUILD)
         {
             ShowLevelsInAchievements(db_Manager.me_User.buildLevels_Arr,
                 db_Manager.all_BuildLevels_Images);
@@ -30,7 +30,7 @@ public class ScrollerViewScript : MonoBehaviour
             db_Manager.isBuildShown = true;
         }
 
-        if (db_Manager.showSituationLevels && myType == FinalValues.SITUATION_TYPE)
+        if (db_Manager.showSituationLevels && myType == FinalValues.TypeOfLevel.SITUATION)
         {
             ShowLevelsInAchievements(db_Manager.me_User.situationLevels_Arr,
                 db_Manager.all_SituationLevels_Images);
