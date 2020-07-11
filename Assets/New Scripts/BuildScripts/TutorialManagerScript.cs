@@ -6,18 +6,21 @@ using TMPro;
 
 public class TutorialManagerScript : MonoBehaviour
 {
-    private enum SceneStatus { Start, MoveJoyStick, RotateJoyStick, PartsCreation }
+    private enum SceneStatus { None, MoveJoyStick, RotateJoyStick, PartsCreation }
     private SceneStatus sceneStatus;
 
     public ManagePartCreation managePartCreation;
     public PartsManager partsManager;
 
-    public TextMeshProUGUI startTXT;
-    public TextMeshProUGUI moveTXT;
-    public TextMeshProUGUI rotateTXT;
-    public TextMeshProUGUI panelAndImageTXT;
+    public TextMeshProUGUI moveTXT_1;
+    public Button moveBtn_1;
+    public TextMeshProUGUI moveTXT_2;
 
-    public Button nextBtn;
+    public TextMeshProUGUI rotateTXT_1;
+    public Button rotateBtn_1;
+    public TextMeshProUGUI rotateTXT_2;
+
+    public TextMeshProUGUI panelAndImageTXT;
 
     private int maxMoveCoins;
     private int maxRotateCoins;
@@ -32,15 +35,15 @@ public class TutorialManagerScript : MonoBehaviour
     {
         maxMoveCoins = partsManager.coins_MoveJoyStick.Length;
         maxRotateCoins = partsManager.coins_RotateJoyStick.Length;
-        sceneStatus = SceneStatus.Start;
+        sceneStatus = SceneStatus.None;
     }
 
     void Update()
     {
         switch (sceneStatus)
         {
-            case SceneStatus.Start:
-                SceneStatusStart();
+            case SceneStatus.None:
+                SceneStatus_Move1();
                 break;
 
             case SceneStatus.MoveJoyStick:
@@ -57,23 +60,23 @@ public class TutorialManagerScript : MonoBehaviour
         }
     }
 
-    private void SceneStatusStart()
+    public void SceneStatus_Move1()
     {
-        startTXT.gameObject.SetActive(true);
-        nextBtn.gameObject.SetActive(true);
+        moveTXT_1.gameObject.SetActive(true);
+        moveBtn_1.gameObject.SetActive(true);
     }
 
-    public void StartMoveCoins()
+    public void SceneStatus_Move2()
     {
-        startTXT.gameObject.SetActive(false);
-        nextBtn.gameObject.SetActive(false);
+        moveTXT_1.gameObject.SetActive(false);
+        moveBtn_1.gameObject.SetActive(false);
+
+        moveTXT_2.gameObject.SetActive(true);
         sceneStatus = SceneStatus.MoveJoyStick;
     }
 
-    private void SceneStatusMoveJoyStick()
+    public void SceneStatusMoveJoyStick()
     {
-        moveTXT.gameObject.SetActive(true);
-
         partsManager.moveJoyStick.SetActive(true);
         partsManager.moveJoyStickHand.gameObject.SetActive(true);
 
@@ -84,16 +87,32 @@ public class TutorialManagerScript : MonoBehaviour
 
         if (maxMoveCoins == 0)
         {
-            sceneStatus = SceneStatus.RotateJoyStick;
-            moveTXT.gameObject.SetActive(false);
-            partsManager.rotateJoyStickHand.gameObject.SetActive(true);
+            moveTXT_2.gameObject.SetActive(false);
+            SceneStatus_Rotate1();
         }
     }
 
-    private void SceneStatusRotateJoyStick()
+    public void SceneStatus_Rotate1()
+    {
+        rotateTXT_1.gameObject.SetActive(true);
+        rotateBtn_1.gameObject.SetActive(true);
+    }
+
+    public void SceneStatus_Rotate2()
+    {
+        rotateTXT_1.gameObject.SetActive(false);
+        rotateBtn_1.gameObject.SetActive(false);
+
+        rotateTXT_2.gameObject.SetActive(true);
+
+        partsManager.rotateJoyStickHand.gameObject.SetActive(true);
+
+        sceneStatus = SceneStatus.RotateJoyStick;
+    }
+
+    public void SceneStatusRotateJoyStick()
     {
         partsManager.rotateJoyStick.SetActive(true);
-        rotateTXT.gameObject.SetActive(true);
 
         if (maxRotateCoins < partsManager.coins_RotateJoyStick.Length)
         {
@@ -103,18 +122,21 @@ public class TutorialManagerScript : MonoBehaviour
         if (maxRotateCoins == 0)
         {
             sceneStatus = SceneStatus.PartsCreation;
-            rotateTXT.gameObject.SetActive(false);
+            rotateTXT_2.gameObject.SetActive(false);
         }
     }
 
-    private void SceneStatusPartsCreation()
+    public void SceneStatusPartsCreation()
     {
         panelAndImageTXT.gameObject.SetActive(true);
 
         partsManager.planeForPartsPos.SetActive(true);
         partsManager.buttonCreatorParts.gameObject.SetActive(true);
+
         managePartCreation.gameObject.SetActive(true);
+        managePartCreation.userDidTutorial = true;
     }
+
 
     public void RemoveCoinsFromArr()
     {

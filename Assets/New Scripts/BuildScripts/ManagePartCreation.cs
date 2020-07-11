@@ -22,24 +22,26 @@ public class ManagePartCreation : MonoBehaviour
     private Vector3 tmpCirclePos;
 
     public TextMeshProUGUI panelAndImageTXT;
-    public TextMeshProUGUI partsCreationTXT;
-    public TextMeshProUGUI slowTouchImageTXT;
+
+    public TextMeshProUGUI partCreationTXT_1;
+    public Button partCreationBtn_1;
+
+    public TextMeshProUGUI partCreationTXT_2;
+    public Button partCreationBtn_2;
+
+    public TextMeshProUGUI partCreationTXT_3;
+
+    public TextMeshProUGUI showSlowTouchmentTXT;
+
     public int arrowShiftHeight;
 
-    private void Awake()
-    {
-        partsManager = GameObject.FindObjectOfType<PartsManager>();
-        gameManagerBuildScript = FindObjectOfType<GameManagerBuildScript>();
-    }
+    public bool userDidTutorial;
 
     void Start()
     {
-        if (tutorialManagerScript != null)
-        {
-            tutorialManagerScript.gameObject.SetActive(false);
-        }
         objectInPlace = false;
         partInPlace = true;
+        userDidTutorial = false;
         partsManager.currentPartIndex = 0;
     }
 
@@ -135,22 +137,46 @@ public class ManagePartCreation : MonoBehaviour
 
         SetArropwAndCirclePos();
 
-        if (partsManager.currentPartIndex == 1)
+        if (userDidTutorial)
         {
-            panelAndImageTXT.gameObject.SetActive(false);
-            partsCreationTXT.gameObject.SetActive(true);
-            gameManagerBuildScript.TimerActivation(true);
+            if (partsManager.currentPartIndex == 1)
+            {
+                panelAndImageTXT.gameObject.SetActive(false);
+                partCreationTXT_1.gameObject.SetActive(true);
+                partCreationBtn_1.gameObject.SetActive(true);
+                gameManagerBuildScript.TimerActivation(true);
+
+                tutorialManagerScript.gameObject.SetActive(false);
+            }
+
+            if (partsManager.currentPartIndex == 2)
+            {
+                partCreationTXT_3.gameObject.SetActive(false);
+                showSlowTouchmentTXT.gameObject.SetActive(true);
+            }
+
+            if (partsManager.currentPartIndex >= 3)
+            {
+                partsManager.imageTutorialCanvas.gameObject.SetActive(false);
+            }
         }
-        if (partsManager.currentPartIndex == 2)
-        {
-            partsCreationTXT.gameObject.SetActive(false);
-            slowTouchImageTXT.gameObject.SetActive(true);
-        }
-        if (partsManager.currentPartIndex >= 3)
-        {
-            slowTouchImageTXT.gameObject.SetActive(false);
-            partsManager.imageTutorialCanvas.gameObject.SetActive(false);
-        }
+    }
+
+    public void PartCreationBtn_1_WasPressed()
+    {
+        partCreationTXT_1.gameObject.SetActive(false);
+        partCreationBtn_1.gameObject.SetActive(false);
+
+        partCreationTXT_2.gameObject.SetActive(true);
+        partCreationBtn_2.gameObject.SetActive(true);
+    }
+
+    public void PartCreationBtn_2_WasPressed()
+    {
+        partCreationTXT_2.gameObject.SetActive(false);
+        partCreationBtn_2.gameObject.SetActive(false);
+
+        partCreationTXT_3.gameObject.SetActive(true);
     }
 
     public void SetPartInPlace()
@@ -165,5 +191,5 @@ public class ManagePartCreation : MonoBehaviour
         {
             objectInPlace = true;
         }
-    }
+    }    
 }

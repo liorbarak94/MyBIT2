@@ -18,6 +18,7 @@ public class GameManagerBuildScript : MonoBehaviour
 
     public Image largeImageIntroCanvas;
     public Image smallImageCanvas;
+    public Image moreInfoCanvas;
 
     public TextMeshProUGUI introTXTMeshPro;
     public Button nextBtn;
@@ -26,8 +27,11 @@ public class GameManagerBuildScript : MonoBehaviour
     public Button v;
     public Button x;
 
-    public TextMeshProUGUI missionTXT;
-    public Button missionNextBtn;
+    public TextMeshProUGUI missionTXT_1;
+    public Button missionNextBtn_1;
+
+    public TextMeshProUGUI missionTXT_2;
+    public Button missionNextBtn_2;
 
     public Image pigMoneyImage;
     public Animator pigAnimator;
@@ -112,8 +116,11 @@ public class GameManagerBuildScript : MonoBehaviour
         v.gameObject.SetActive(false);
         x.gameObject.SetActive(false);
 
-        missionTXT.gameObject.SetActive(false);
-        missionNextBtn.gameObject.SetActive(false);
+        missionTXT_1.gameObject.SetActive(false);
+        missionNextBtn_1.gameObject.SetActive(false);
+
+        missionTXT_2.gameObject.SetActive(false);
+        missionNextBtn_2.gameObject.SetActive(false);
     }
 
     private void HideAllObjectPartsAndItsClliders()
@@ -180,7 +187,6 @@ public class GameManagerBuildScript : MonoBehaviour
         nextBtn.gameObject.SetActive(false);
 
         tutorialTXT.gameObject.SetActive(true);
-
         v.gameObject.SetActive(true);
         x.gameObject.SetActive(true);
     }
@@ -204,14 +210,23 @@ public class GameManagerBuildScript : MonoBehaviour
         v.gameObject.SetActive(false);
         x.gameObject.SetActive(false);
 
-        missionTXT.gameObject.SetActive(true);
-        missionNextBtn.gameObject.SetActive(true);
+        missionTXT_1.gameObject.SetActive(true);
+        missionNextBtn_1.gameObject.SetActive(true);
     }
 
-    public void StartTheGame()
+    public void Pressed_MissionNextBtn_1()
     {
-        missionTXT.gameObject.SetActive(false);
-        missionNextBtn.gameObject.SetActive(false);
+        missionTXT_1.gameObject.SetActive(false);
+        missionNextBtn_1.gameObject.SetActive(false);
+
+        missionTXT_2.gameObject.SetActive(true);
+        missionNextBtn_2.gameObject.SetActive(true);
+    }
+
+    public void Pressed_MissionNextBtn_2()
+    {
+        missionTXT_2.gameObject.SetActive(false);
+        missionNextBtn_2.gameObject.SetActive(false);
 
         partsManager.moveJoyStick.gameObject.SetActive(true);
         partsManager.rotateJoyStick.gameObject.SetActive(true);
@@ -227,6 +242,11 @@ public class GameManagerBuildScript : MonoBehaviour
         largeImageIntroCanvas.gameObject.SetActive(false);
 
         managePartCreation.gameObject.SetActive(true);
+    }
+
+    public void Pressed_ForMorInformation(bool showMoreInfo)
+    {
+        moreInfoCanvas.gameObject.SetActive(showMoreInfo);
     }
 
     public void MenuBtnWasPressed()
