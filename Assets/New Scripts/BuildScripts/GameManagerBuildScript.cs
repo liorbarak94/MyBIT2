@@ -39,6 +39,10 @@ public class GameManagerBuildScript : MonoBehaviour
     public TextMeshProUGUI finishedTheGameTXT;
     public Button finishedTheGameBtn;
 
+    public TextMeshProUGUI timeRunOutTXT;
+    public Button timeRunOut_Exit;
+    public Button timeRunOut_Refresh;
+
     public bool menuIsOpen;
     public Button menuBtn;
     public Button[] allBtnInMenu;
@@ -47,6 +51,8 @@ public class GameManagerBuildScript : MonoBehaviour
 
     public int userIndex;
     public int levelIndex;
+
+
 
     private void Awake()
     {
@@ -149,6 +155,7 @@ public class GameManagerBuildScript : MonoBehaviour
                 currentTimer = 0;
                 TimerActivation(false);
                 timerTXT.text = "";
+                TimeRunOut_Activation();
             }
         }
     }
@@ -273,8 +280,15 @@ public class GameManagerBuildScript : MonoBehaviour
         SceneManager.LoadScene(FinalValues.MAIN_MENU_SCENE_INDEX);
     }
 
+    public void RefreshThatScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void FinishedTheGame()
     {
+        FindObjectOfType<AudioManager>().PlayAudio(FinalValues.VICTORY_AUDIO);
+
         TimerActivation(false);
 
         imageIntroCanvas.gameObject.SetActive(true);
@@ -299,12 +313,22 @@ public class GameManagerBuildScript : MonoBehaviour
 
         averageNumberOfTouches = (int)(averageNumberOfTouches / touchManager.partsCounterTouches.Length);
 
-        finishedTheGameTXT.text = "כל הכבוד!!! \n\n";
+        finishedTheGameTXT.text = "כל הכבוד !!! \n\n";
         finishedTheGameTXT.text += "סיימתם את השלב תוך: " + tmp + "\n\n";
         finishedTheGameTXT.text += "עם ממוצע נגיעות בחלק: " + averageNumberOfTouches + "\n\n";
 
         SaveUserDetailsToDBAfterBuildLevel();
     }
+
+
+    public void TimeRunOut_Activation()
+    {
+        imageIntroCanvas.gameObject.SetActive(true);
+        timeRunOutTXT.gameObject.SetActive(true);
+        timeRunOut_Exit.gameObject.SetActive(true);
+        timeRunOut_Refresh.gameObject.SetActive(true);     
+    }
+
 
     public void SaveUserDetailsToDBAfterBuildLevel()
     {

@@ -10,7 +10,6 @@ public class CoinCollideWithPlayer : MonoBehaviour
     private void Start()
     {
         gameManagerBuildScript = FindObjectOfType<GameManagerBuildScript>();
-        //tutorialManagerScript = FindObjectOfType<TutorialManagerScript>();
     }
 
     private void OnTriggerEnter(Collider other)
