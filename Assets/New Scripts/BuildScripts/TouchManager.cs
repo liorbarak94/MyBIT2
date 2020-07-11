@@ -22,7 +22,7 @@ public class TouchManager : MonoBehaviour
     private TouchCounterStatus currentTouchCounterStatus;
     private TouchCounterStatus previousTouchCounterStatus;
 
-    private bool isCountingTouches;
+    public bool isCountingTouches;
 
     public int allOneTouchesCounter;
     public int[] partsCounterTouches;
@@ -142,59 +142,72 @@ public class TouchManager : MonoBehaviour
         Touch secondTouch = Input.GetTouch(1);
 
         Ray firstRayAfter = partsManager.mainCamera.ScreenPointToRay(firstTouch.position);
-        Ray secoondRayAfter = partsManager.mainCamera.ScreenPointToRay(secondTouch.position);
-
-        Ray firstRayBefore = partsManager.mainCamera.ScreenPointToRay(firstTouch.position - firstTouch.deltaPosition);
-        Ray secondRayBefore = partsManager.mainCamera.ScreenPointToRay(secondTouch.position - secondTouch.deltaPosition);
+        Ray secondRayAfter = partsManager.mainCamera.ScreenPointToRay(secondTouch.position);
 
         Plane firstPlane = new Plane(Vector3.up, transform.position);
         Plane secondPlane = new Plane(Vector3.up, transform.position);
 
-        if (Physics.Raycast(firstRayBefore, out RaycastHit hitFirst) &&
-            Physics.Raycast(secondRayBefore, out RaycastHit hitSecond))
+        RaycastHit[] firstFingerHits;
+        RaycastHit[] secondFingerHits;
+
+        firstFingerHits = Physics.RaycastAll(firstRayAfter, 100f);
+        secondFingerHits = Physics.RaycastAll(secondRayAfter, 100f);
+
+        for (int i = 0; i < firstFingerHits.Length; i++)
         {
-            if (CheckIfRayCollideWithParts(hitFirst) &&
-                CheckIfRayCollideWithParts(hitSecond))
+            RaycastHit firstFingerhit = firstFingerHits[i];
+
+            for (int j = 0; j < secondFingerHits.Length; j++)
             {
-                if (firstPlane.Raycast(firstRayAfter, out float firstDistance) &&
-                    secondPlane.Raycast(secoondRayAfter, out float secondDistance))
+                RaycastHit secondFingerhit = secondFingerHits[j];
+                
+                if (CheckIfRayCollideWithParts(firstFingerhit) 
+                    && CheckIfRayCollideWithParts(secondFingerhit))
                 {
-                    if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >=
-                        FinalValues.WAIT_TIME_FOR_SECOND_TOUCH_OF_PART)
+                    if (firstPlane.Raycast(firstRayAfter, out float firstDistance) &&
+                        secondPlane.Raycast(secondRayAfter, out float secondDistance))
                     {
-                        gameManagerBuildScript.waitForSecondTouchOnPart_Time = 0;
-                        gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(false);
+                        if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >=
+                            FinalValues.WAIT_TIME_FOR_SECOND_TOUCH_OF_PART)
+                        {
+                            gameManagerBuildScript.waitForSecondTouchOnPart_Time = 0;
+                            gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(false);
+                        }
+
+                        partsManager.finger1Indication.GetComponent<Image>().fillAmount = fillAmount;
+                        partsManager.finger2Indication.GetComponent<Image>().fillAmount = fillAmount;
+
+                        objectWasTouched = firstFingerhit.transform.gameObject;
+                        float yPos = objectWasTouched.transform.position.y;
+
+                        Vector3 firstPos = firstRayAfter.GetPoint(firstDistance);
+                        Vector3 secondPos = secondRayAfter.GetPoint(secondDistance);
+
+                        middle = (firstPos + secondPos) / 2;
+                        middle.y = yPos;
+
+                        objectWasTouched.transform.position = Vector3.Lerp(objectWasTouched.transform.position, middle, moveSpeed);
+
+                        CanvasPos();
+
+                        if (isCountingTouches)
+                        {
+                            isCountingTouches = false;
+                            currPartIndex = partsManager.currentPartIndex;
+                            currPartIndex--;
+                            partsCounterTouches[currPartIndex]++;
+                        }
                     }
-
-                    partsManager.finger1Indication.GetComponent<Image>().fillAmount = fillAmount;
-                    partsManager.finger2Indication.GetComponent<Image>().fillAmount = fillAmount;
-
-                    objectWasTouched = hitFirst.transform.gameObject;
-                    float yPos = objectWasTouched.transform.position.y;
-
-                    Vector3 firstPos = firstRayBefore.GetPoint(firstDistance);
-                    Vector3 secondPos = secondRayBefore.GetPoint(secondDistance);
-
-                    middle = (firstPos + secondPos) / 2;
-                    middle.y = yPos;
-
-                    objectWasTouched.transform.position = Vector3.Lerp(objectWasTouched.transform.position, middle, moveSpeed);
-
-                    CanvasPos();
+                }
+                else
+                {
+                    //Debug.Log(firstFingerhit.collider.name + ", " 
+                    //    + secondFingerhit.collider.name);
 
                     if (isCountingTouches)
                     {
-                        currPartIndex = partsManager.currentPartIndex;
-                        currPartIndex--;
-                        partsCounterTouches[currPartIndex]++;
+                        allOneTouchesCounter++;
                     }
-                }
-            }
-            else
-            {
-                if (isCountingTouches)
-                {
-                    allOneTouchesCounter++;
                 }
             }
         }
