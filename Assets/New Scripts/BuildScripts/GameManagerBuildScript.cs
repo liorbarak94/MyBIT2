@@ -8,7 +8,7 @@ using Firebase.Unity.Editor;
 
 public class GameManagerBuildScript : MonoBehaviour
 {
-    public DatabaseReference reference;
+    private DatabaseReference reference;
 
     public PartsManager partsManager;
     public TouchManager touchManager;
@@ -16,10 +16,8 @@ public class GameManagerBuildScript : MonoBehaviour
     public TutorialManagerScript tutorialManagerScript;
     public ManagePartCreation managePartCreation;
 
-    public TextMeshProUGUI timerTXT;
-    public float timer;
-    public float currentTimer;
-    public bool timerIsRunning;
+    public Image largeImageIntroCanvas;
+    public Image smallImageCanvas;
 
     public TextMeshProUGUI introTXTMeshPro;
     public Button nextBtn;
@@ -27,8 +25,6 @@ public class GameManagerBuildScript : MonoBehaviour
     public TextMeshProUGUI tutorialTXT;
     public Button v;
     public Button x;
-
-    public Image imageIntroCanvas;
 
     public TextMeshProUGUI missionTXT;
     public Button missionNextBtn;
@@ -39,20 +35,25 @@ public class GameManagerBuildScript : MonoBehaviour
     public TextMeshProUGUI finishedTheGameTXT;
     public Button finishedTheGameBtn;
 
+    public TextMeshProUGUI timerTXT;
+    public float timer;
+    public float currentTimer;
+    public bool timerIsRunning;
+
     public TextMeshProUGUI timeRunOutTXT;
     public Button timeRunOut_Exit;
     public Button timeRunOut_Refresh;
+
+    public TextMeshProUGUI waitForSecondTouchOnPartTXT;
+    public float waitForSecondTouchOnPart_Time;
 
     public bool menuIsOpen;
     public Button menuBtn;
     public Button[] allBtnInMenu;
 
     public int averageNumberOfTouches;
-
     public int userIndex;
     public int levelIndex;
-
-
 
     private void Awake()
     {
@@ -76,13 +77,14 @@ public class GameManagerBuildScript : MonoBehaviour
         HideAllObjectPartsAndItsClliders();
         GetTimerFromPlayerPrefs();
 
-        imageIntroCanvas.gameObject.SetActive(true);
+        largeImageIntroCanvas.gameObject.SetActive(true);
         introTXTMeshPro.gameObject.SetActive(true);
         nextBtn.gameObject.SetActive(true);
 
         menuIsOpen = false;
         TimerActivation(false);
         timer = 0;
+        waitForSecondTouchOnPart_Time = 0;
     }
 
     private void DeActiveAllGameObjectsAtStart()
@@ -165,7 +167,7 @@ public class GameManagerBuildScript : MonoBehaviour
         timerIsRunning = toRunTimer;
     }
 
-    private string DisplayTime(float timeToDisplay)
+    public string DisplayTime(float timeToDisplay)
     {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
@@ -189,7 +191,7 @@ public class GameManagerBuildScript : MonoBehaviour
         partsManager.imageTutorialCanvas.gameObject.SetActive(true);
         partsManager.fingerIndicationCanvas.gameObject.SetActive(true);
 
-        imageIntroCanvas.gameObject.SetActive(false);
+        largeImageIntroCanvas.gameObject.SetActive(false);
 
         tutorialTXT.gameObject.SetActive(false);
         v.gameObject.SetActive(false);
@@ -222,7 +224,7 @@ public class GameManagerBuildScript : MonoBehaviour
         v.gameObject.SetActive(false);
         x.gameObject.SetActive(false);
 
-        imageIntroCanvas.gameObject.SetActive(false);
+        largeImageIntroCanvas.gameObject.SetActive(false);
 
         managePartCreation.gameObject.SetActive(true);
     }
@@ -291,7 +293,7 @@ public class GameManagerBuildScript : MonoBehaviour
 
         TimerActivation(false);
 
-        imageIntroCanvas.gameObject.SetActive(true);
+        largeImageIntroCanvas.gameObject.SetActive(true);
         finishedTheGameTXT.gameObject.SetActive(true);
         finishedTheGameBtn.gameObject.SetActive(true);
 
@@ -320,15 +322,19 @@ public class GameManagerBuildScript : MonoBehaviour
         SaveUserDetailsToDBAfterBuildLevel();
     }
 
-
     public void TimeRunOut_Activation()
     {
-        imageIntroCanvas.gameObject.SetActive(true);
+        largeImageIntroCanvas.gameObject.SetActive(true);
         timeRunOutTXT.gameObject.SetActive(true);
         timeRunOut_Exit.gameObject.SetActive(true);
         timeRunOut_Refresh.gameObject.SetActive(true);     
     }
 
+    public void WaitForSecondTouchOfPart_Activation(bool toShowTXT)
+    {
+        smallImageCanvas.gameObject.SetActive(toShowTXT);
+        waitForSecondTouchOnPartTXT.gameObject.SetActive(toShowTXT);
+    }
 
     public void SaveUserDetailsToDBAfterBuildLevel()
     {

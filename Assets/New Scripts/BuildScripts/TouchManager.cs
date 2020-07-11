@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TouchManager : MonoBehaviour
 {
-    [HideInInspector]
     public PartsManager partsManager;
+    public GameManagerBuildScript gameManagerBuildScript;
 
     private readonly float fillAmount = 0.5f;
 
@@ -29,10 +29,6 @@ public class TouchManager : MonoBehaviour
 
     private int currPartIndex;
 
-    private void Awake()
-    {
-        partsManager = GameObject.FindObjectOfType<PartsManager>();
-    }
 
     void Start()
     {
@@ -89,7 +85,6 @@ public class TouchManager : MonoBehaviour
             currentTouchCounterStatus = TouchCounterStatus.TWO;
         }
 
-
         if (previousTouchCounterStatus == TouchCounterStatus.ZERO
             && currentTouchCounterStatus == TouchCounterStatus.TWO)
         {
@@ -100,13 +95,13 @@ public class TouchManager : MonoBehaviour
         {
             isCountingTouches = true;
         }
-
-
     }
-
 
     public void ZeroTouch()
     {
+        gameManagerBuildScript.waitForSecondTouchOnPart_Time = 0;
+        gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(false);
+
         partsManager.finger1Indication.GetComponent<Image>().fillAmount = 0;
         partsManager.finger2Indication.GetComponent<Image>().fillAmount = 0;
     }
@@ -120,6 +115,13 @@ public class TouchManager : MonoBehaviour
         {
             if (CheckIfRayCollideWithParts(hitFirst))
             {
+                gameManagerBuildScript.waitForSecondTouchOnPart_Time += Time.deltaTime;
+                
+                if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >= 5)
+                {
+                    gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(true);
+                }
+
                 partsManager.finger1Indication.GetComponent<Image>().fillAmount = fillAmount;
                 partsManager.finger2Indication.GetComponent<Image>().fillAmount = 0;
             }
@@ -156,6 +158,12 @@ public class TouchManager : MonoBehaviour
                 if (firstPlane.Raycast(firstRayAfter, out float firstDistance) &&
                     secondPlane.Raycast(secoondRayAfter, out float secondDistance))
                 {
+                    if (gameManagerBuildScript.waitForSecondTouchOnPart_Time >= 5)
+                    {
+                        gameManagerBuildScript.waitForSecondTouchOnPart_Time = 0;
+                        gameManagerBuildScript.WaitForSecondTouchOfPart_Activation(false);
+                    }
+
                     partsManager.finger1Indication.GetComponent<Image>().fillAmount = fillAmount;
                     partsManager.finger2Indication.GetComponent<Image>().fillAmount = fillAmount;
 
@@ -192,24 +200,23 @@ public class TouchManager : MonoBehaviour
 
     private bool CheckIfRayCollideWithParts(RaycastHit hit)
     {
-        bool ans = false;
         if (hit.collider != null)
         {
             if (hit.collider.gameObject.GetComponent<Rigidbody>() != null)
             {
-                for (int i = 0; i < partsManager.parts.Length; i++)
+                currPartIndex = partsManager.currentPartIndex;
+                currPartIndex--;
+
+                if (hit.transform.gameObject.tag == 
+                    partsManager.parts[currPartIndex].gameObject.tag)
                 {
-                    if (hit.transform.gameObject.tag == partsManager.parts[i].gameObject.tag)
-                    {
-                        objectWasTouched = hit.transform.gameObject;
-                        ans = true;
-                        CanvasPos();
-                        return ans;
-                    }
+                    objectWasTouched = hit.transform.gameObject;
+                    CanvasPos();
+                    return true;
                 }
             }
         }
-        return ans;
+        return false;
     }
 
     private void CanvasPos()
