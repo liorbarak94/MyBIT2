@@ -92,7 +92,7 @@ public class MyNextLevelToPlay : MonoBehaviour
             currentLevelToPlay);
 
         PlayerPrefs.SetInt(
-            FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
+            FinalValues.MYBIT_GAME_USER_TOTAL_LEVELS_PLAYED_PREFS_NAME,
             totalLevelsPlayed);
 
         PlayerPrefs.SetFloat(

@@ -165,6 +165,7 @@ public class ReadNewSituation : MonoBehaviour
         timeOutExplainCanvas.gameObject.SetActive(true);
         rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
         Debug.Log(rightAnswerExplainText.text);
+        rightAnswerExplainText.gameObject.SetActive(true);
         worngAnswerExplainText.gameObject.SetActive(false);
     }
 
@@ -547,6 +548,8 @@ public class ReadNewSituation : MonoBehaviour
     public IEnumerator IsRightAnswerClicked(string ansClicked)
     {
         Debug.Log("answerClicked: " + ansClicked);
+        Debug.Log("totalSituationLevelPlayed"+ totalSituationLevelPlayed);
+        Debug.Log("currentSituationLevel" + currentSituationLevel);
 
         if (ansClicked.Equals(situation.GetQuestions()[currentQuestionNumber].GetRightAnswer()))
         {
