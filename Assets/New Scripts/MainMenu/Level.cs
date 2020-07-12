@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-
+﻿
 public class Level
 {
     public int level_ID;
@@ -12,7 +8,6 @@ public class Level
     public float level_Timer;
     public int numberOfMistakesOrAverageNumberOfTouches;
     public int timesTheLevelWasPlayed;
-
     public bool isUserDidTheLevel;
     public float totalTime;
 
@@ -49,16 +44,11 @@ public class Level
         this.timesTheLevelWasPlayed = 0;
     }
 
-    public string GetTheTotalTimeUserDidTheLevel()
-    {
-        return ("0" + level_Timer + ":00");
-    }
-
     public override string ToString()
     {
         string str = "";
         str += level_ID + " " + level_Index + " " + level_Name + " "
-            + level_Type + " " + /*level_Image_Path + " " +*/ level_Timer;
+            + level_Type + " " + level_Timer;
         return str;
     }
 }

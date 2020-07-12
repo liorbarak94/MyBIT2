@@ -5,11 +5,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 using Firebase.Auth;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
-using Random = UnityEngine.Random;
 
 public class ReadNewSituation : MonoBehaviour
 {

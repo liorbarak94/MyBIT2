@@ -201,9 +201,6 @@ public class TouchManager : MonoBehaviour
                 }
                 else
                 {
-                    //Debug.Log(firstFingerhit.collider.name + ", " 
-                    //    + secondFingerhit.collider.name);
-
                     if (isCountingTouches)
                     {
                         allOneTouchesCounter++;
