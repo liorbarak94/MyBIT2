@@ -976,7 +976,7 @@ PrefabInstance:
     - target: {fileID: 8517071448246393406, guid: 29349c99a90fba1458d6ae85f4687788,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -321.69983
+      value: -464.88004
       objectReference: {fileID: 0}
     - target: {fileID: 8517071448246393406, guid: 29349c99a90fba1458d6ae85f4687788,
         type: 3}
@@ -1017,7 +1017,7 @@ PrefabInstance:
     - target: {fileID: 8517071448772640682, guid: 29349c99a90fba1458d6ae85f4687788,
         type: 3}
       propertyPath: myType
-      value: situation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8517071448772640682, guid: 29349c99a90fba1458d6ae85f4687788,
         type: 3}
@@ -7151,7 +7151,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 2.15
+  m_padding: 3.05
   m_canvasRenderer: {fileID: 1588466982}
   m_TextComponent: {fileID: 1128292918}
   m_materialReferenceIndex: 1
@@ -8515,7 +8515,7 @@ PrefabInstance:
     - target: {fileID: 8517071448246393406, guid: 29349c99a90fba1458d6ae85f4687788,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -320.72855
+      value: -462.86002
       objectReference: {fileID: 0}
     - target: {fileID: 8517071448246393406, guid: 29349c99a90fba1458d6ae85f4687788,
         type: 3}
