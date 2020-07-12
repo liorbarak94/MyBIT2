@@ -219,6 +219,15 @@ public class MyNextLevelToPlay : MonoBehaviour
             }        
         }
 
+        else if (db_Manager.me_User.totalBuildLevelPlayed > db_Manager.me_User.totalSituationLevelPlayed)
+        {
+            recommendationImage.texture = situationIconImage;
+        }
+
+        else if (db_Manager.me_User.totalBuildLevelPlayed < db_Manager.me_User.totalSituationLevelPlayed)
+        {
+            recommendationImage.texture = buildIconImage;
+        }
         // Shows the next levels
         StartCoroutine(ShowLevelsToPlay());
     }
