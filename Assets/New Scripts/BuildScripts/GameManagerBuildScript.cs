@@ -135,7 +135,7 @@ public class GameManagerBuildScript : MonoBehaviour
         }
     }
 
-    public void GetTimerFromPlayerPrefs()
+    private void GetTimerFromPlayerPrefs()
     {
         currentTimer = PlayerPrefs.GetFloat(
             FinalValues.CURRENT_TIMER_LEVEL_PLAYER_PREFS_NAME, 3);        
@@ -174,7 +174,7 @@ public class GameManagerBuildScript : MonoBehaviour
         timerIsRunning = toRunTimer;
     }
 
-    public string DisplayTime(float timeToDisplay)
+    private string DisplayTime(float timeToDisplay)
     {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
@@ -235,12 +235,7 @@ public class GameManagerBuildScript : MonoBehaviour
         partsManager.planeForPartsPos.gameObject.SetActive(true);
         partsManager.fingerIndicationCanvas.gameObject.SetActive(true);
 
-        tutorialTXT.gameObject.SetActive(false);
-        v.gameObject.SetActive(false);
-        x.gameObject.SetActive(false);
-
         largeImageIntroCanvas.gameObject.SetActive(false);
-
         managePartCreation.gameObject.SetActive(true);
     }
 
@@ -263,7 +258,7 @@ public class GameManagerBuildScript : MonoBehaviour
         }
     }
 
-    public void ShowAllIconsInMenu()
+    private void ShowAllIconsInMenu()
     {
         float maxTime = 4;
 
@@ -280,7 +275,7 @@ public class GameManagerBuildScript : MonoBehaviour
         menuIsOpen = true;
     }
 
-    public void HideAllIconsInMenu()
+    private void HideAllIconsInMenu()
     {
         float maxTime = 4;
 
@@ -342,7 +337,7 @@ public class GameManagerBuildScript : MonoBehaviour
         SaveUserDetailsToDBAfterBuildLevel();
     }
 
-    public void TimeRunOut_Activation()
+    private void TimeRunOut_Activation()
     {
         largeImageIntroCanvas.gameObject.SetActive(true);
         timeRunOutTXT.gameObject.SetActive(true);
@@ -356,7 +351,7 @@ public class GameManagerBuildScript : MonoBehaviour
         waitForSecondTouchOnPartTXT.gameObject.SetActive(toShowTXT);
     }
 
-    public void SaveUserDetailsToDBAfterBuildLevel()
+    private void SaveUserDetailsToDBAfterBuildLevel()
     {
         FirebaseDatabase.DefaultInstance
             .GetReference(FinalValues.USERS_DB_NAME)

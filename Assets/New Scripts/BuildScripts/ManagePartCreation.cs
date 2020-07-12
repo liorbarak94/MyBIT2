@@ -76,13 +76,13 @@ public class ManagePartCreation : MonoBehaviour
         }
     }
 
-    public IEnumerator FinisedTheGame()
+    private IEnumerator FinisedTheGame()
     {
         yield return new WaitForSeconds(2f);
         gameManagerBuildScript.FinishedTheGame();
     }
 
-    void SetTheNextPart()
+    private void SetTheNextPart()
     {
         partsManager.colliders[partsManager.currentPartIndex].SetActive(true);
         partsManager.buttonCreatorParts.GetComponent<Image>().sprite =

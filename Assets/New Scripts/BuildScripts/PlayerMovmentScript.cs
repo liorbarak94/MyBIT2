@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovmentScript : MonoBehaviour
 {
@@ -34,8 +32,14 @@ public class PlayerMovmentScript : MonoBehaviour
 
     void Update()
     {
-        MovePlayer();
-        RotatePlayer();  
+        if (joystick_move.gameObject.activeSelf)
+        {
+            MovePlayer();
+        }
+        if (joystick_rotate.gameObject.activeSelf)
+        {
+            RotatePlayer();
+        }
     }
 
     private void MovePlayer()

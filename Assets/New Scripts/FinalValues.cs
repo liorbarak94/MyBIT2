@@ -95,15 +95,10 @@ public class FinalValues : MonoBehaviour
     public static int MAX_MISTAKES_SITUATION = 3;
 
     ////////// Build ///////////////////////////////
-    
-    //public static string BUILD_TYPE = "build";
-    //public static int NUM_BUILD_SCENES = 10;
-    public static string TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR = "TakeMoney";
-    
-    //public static string BRIDGE_BUILD_LEVEL_ARROW_ANIM_BIG = "UpDownBig";
-    //public static string BRIDGE_BUILD_LEVEL_ARROW_ANIM_SMALL = "UpDownSmall";
+        
     public enum TypeOfArrowAnim {BIG, SMALL};
     public static float WAIT_TIME_FOR_SECOND_TOUCH_OF_PART = 4;
+    public static string TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR = "TakeMoney";
 
 
     ////////// Situation ///////////////////////////////

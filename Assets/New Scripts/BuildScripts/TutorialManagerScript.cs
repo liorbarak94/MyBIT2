@@ -6,7 +6,7 @@ using TMPro;
 
 public class TutorialManagerScript : MonoBehaviour
 {
-    private enum SceneStatus { None, MoveJoyStick, RotateJoyStick, PartsCreation }
+    private enum SceneStatus { Move1, MoveJoyStick, RotateJoyStick, PartsCreation }
     private SceneStatus sceneStatus;
 
     public ManagePartCreation managePartCreation;
@@ -26,23 +26,18 @@ public class TutorialManagerScript : MonoBehaviour
     private int maxRotateCoins;
 
 
-    private void Awake()
-    {
-        partsManager = GameObject.FindObjectOfType<PartsManager>();
-    }
-
     void Start()
     {
         maxMoveCoins = partsManager.coins_MoveJoyStick.Length;
         maxRotateCoins = partsManager.coins_RotateJoyStick.Length;
-        sceneStatus = SceneStatus.None;
+        sceneStatus = SceneStatus.Move1;
     }
 
     void Update()
     {
         switch (sceneStatus)
         {
-            case SceneStatus.None:
+            case SceneStatus.Move1:
                 SceneStatus_Move1();
                 break;
 
@@ -60,7 +55,7 @@ public class TutorialManagerScript : MonoBehaviour
         }
     }
 
-    public void SceneStatus_Move1()
+    private void SceneStatus_Move1()
     {
         moveTXT_1.gameObject.SetActive(true);
         moveBtn_1.gameObject.SetActive(true);
@@ -75,7 +70,7 @@ public class TutorialManagerScript : MonoBehaviour
         sceneStatus = SceneStatus.MoveJoyStick;
     }
 
-    public void SceneStatusMoveJoyStick()
+    private void SceneStatusMoveJoyStick()
     {
         partsManager.moveJoyStick.SetActive(true);
         partsManager.moveJoyStickHand.gameObject.SetActive(true);
@@ -92,7 +87,7 @@ public class TutorialManagerScript : MonoBehaviour
         }
     }
 
-    public void SceneStatus_Rotate1()
+    private void SceneStatus_Rotate1()
     {
         rotateTXT_1.gameObject.SetActive(true);
         rotateBtn_1.gameObject.SetActive(true);
@@ -110,7 +105,7 @@ public class TutorialManagerScript : MonoBehaviour
         sceneStatus = SceneStatus.RotateJoyStick;
     }
 
-    public void SceneStatusRotateJoyStick()
+    private void SceneStatusRotateJoyStick()
     {
         partsManager.rotateJoyStick.SetActive(true);
 
@@ -126,7 +121,7 @@ public class TutorialManagerScript : MonoBehaviour
         }
     }
 
-    public void SceneStatusPartsCreation()
+    private void SceneStatusPartsCreation()
     {
         panelAndImageTXT.gameObject.SetActive(true);
 
