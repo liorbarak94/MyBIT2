@@ -162,6 +162,7 @@ public class ReadNewSituation : MonoBehaviour
         timeOutExplainCanvas.gameObject.SetActive(true);
         rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
         Debug.Log(rightAnswerExplainText.text);
+        rightAnswerExplainText.gameObject.SetActive(true);
         worngAnswerExplainText.gameObject.SetActive(false);
     }
 
@@ -544,6 +545,8 @@ public class ReadNewSituation : MonoBehaviour
     public IEnumerator IsRightAnswerClicked(string ansClicked)
     {
         Debug.Log("answerClicked: " + ansClicked);
+        Debug.Log("totalSituationLevelPlayed"+ totalSituationLevelPlayed);
+        Debug.Log("currentSituationLevel" + currentSituationLevel);
 
         if (ansClicked.Equals(situation.GetQuestions()[currentQuestionNumber].GetRightAnswer()))
         {
@@ -557,10 +560,12 @@ public class ReadNewSituation : MonoBehaviour
             goBackToQuestButton.gameObject.SetActive(false);
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
-           if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+            if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
                 rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
-           else
+            else
                 rightAnswerExplainText.text = answersLessExplains[currentQuestionNumber * 2].text;
+
+            TimerActivation(false);
 
             Vector3 answerPosition = new Vector3();
 

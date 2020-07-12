@@ -91,7 +91,7 @@ public class MyNextLevelToPlay : MonoBehaviour
             currentLevelToPlay);
 
         PlayerPrefs.SetInt(
-            FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
+            FinalValues.MYBIT_GAME_USER_TOTAL_LEVELS_PLAYED_PREFS_NAME,
             totalLevelsPlayed);
 
         PlayerPrefs.SetFloat(
@@ -218,6 +218,15 @@ public class MyNextLevelToPlay : MonoBehaviour
             }        
         }
 
+        else if (db_Manager.me_User.totalBuildLevelPlayed > db_Manager.me_User.totalSituationLevelPlayed)
+        {
+            recommendationImage.texture = situationIconImage;
+        }
+
+        else if (db_Manager.me_User.totalBuildLevelPlayed < db_Manager.me_User.totalSituationLevelPlayed)
+        {
+            recommendationImage.texture = buildIconImage;
+        }
         // Shows the next levels
         StartCoroutine(ShowLevelsToPlay());
     }
