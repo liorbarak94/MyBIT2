@@ -90,7 +90,7 @@ public class MyNextLevelToPlay : MonoBehaviour
         PlayerPrefs.SetInt(
             FinalValues.MYBIT_GAME_USER_CURRENT_LEVEL_INDEX_PLAYER_PREFS_NAME,
             currentLevelToPlay);
-
+        
         PlayerPrefs.SetInt(
             FinalValues.MYBIT_GAME_USER_TOTAL_LEVELS_PLAYED_PREFS_NAME,
             totalLevelsPlayed);
@@ -228,6 +228,7 @@ public class MyNextLevelToPlay : MonoBehaviour
         {
             recommendationImage.texture = buildIconImage;
         }
+
         // Shows the next levels
         StartCoroutine(ShowLevelsToPlay());
     }
