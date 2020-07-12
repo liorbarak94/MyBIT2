@@ -8,7 +8,6 @@ public class Info
 {
     public int infoID;
     public string info_name;
-    //public string info_Image_Path;
     public Texture info_image;
     public string info_Text;
 
@@ -19,7 +18,6 @@ public class Info
     public Info(string info_name, string info_Text)
     {
         this.info_name = info_name;
-        //this.info_Image_Path = info_Image_Path;
         this.info_Text = info_Text;
     }
 

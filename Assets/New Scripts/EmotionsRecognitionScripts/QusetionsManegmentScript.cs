@@ -1,8 +1,6 @@
 ﻿using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +11,6 @@ public class QusetionsManegmentScript : MonoBehaviour
 
     private string str;
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("QusetionsManegmentScript Starts");
@@ -39,11 +36,5 @@ public class QusetionsManegmentScript : MonoBehaviour
                 QuestionText.text = str;
             }
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

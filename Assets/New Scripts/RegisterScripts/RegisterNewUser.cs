@@ -11,7 +11,7 @@ public class RegisterNewUser : MonoBehaviour
     public enum FeedbackTypeTXTToShow {GOOD, BAD, DEFAULT};
     public FeedbackTypeTXTToShow feedbackTypeTXTToShow;
 
-    DatabaseReference reference;
+    private DatabaseReference reference;
 
     protected Firebase.Auth.FirebaseAuth auth;
     protected Firebase.Auth.FirebaseUser myUser;

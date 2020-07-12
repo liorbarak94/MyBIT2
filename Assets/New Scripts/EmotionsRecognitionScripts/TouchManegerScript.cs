@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +12,6 @@ public class TouchManegerScript : MonoBehaviour
     public string ansClickedStr;
     private Boolean isPressedRight = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void OnPressedDown(int answerClicked)
     {
