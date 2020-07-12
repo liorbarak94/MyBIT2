@@ -560,10 +560,12 @@ public class ReadNewSituation : MonoBehaviour
             goBackToQuestButton.gameObject.SetActive(false);
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
-           if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+            if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
                 rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
-           else
+            else
                 rightAnswerExplainText.text = answersLessExplains[currentQuestionNumber * 2].text;
+
+            TimerActivation(false);
 
             Vector3 answerPosition = new Vector3();
 
