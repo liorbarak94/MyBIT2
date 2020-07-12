@@ -215,7 +215,11 @@ public class MyNextLevelToPlay : MonoBehaviour
                     else
                         recommendationImage.texture = situationIconImage;
                 }
-            }        
+            }
+
+            else if (db_Manager.me_User.totalSituationLevelPlayed == FinalValues.LEVEL_1
+                && db_Manager.me_User.totalBuildLevelPlayed == FinalValues.LEVEL_1)
+                recommendationImage.texture = buildIconImage;
         }
 
         else if (db_Manager.me_User.totalBuildLevelPlayed > db_Manager.me_User.totalSituationLevelPlayed)
