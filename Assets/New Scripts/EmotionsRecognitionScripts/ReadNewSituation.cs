@@ -307,6 +307,8 @@ public class ReadNewSituation : MonoBehaviour
         backButton.gameObject.SetActive(false);
         storyObjects.SetActive(true);
         qusetionsObjects.SetActive(false);
+        menuIsOpen = true;
+        MenuBtnWasPressed();
     }
 
     public void GoBackToQuestButtonClick()
@@ -381,7 +383,10 @@ public class ReadNewSituation : MonoBehaviour
             storyObjects.SetActive(false);
             qusetionsObjects.SetActive(true);
             startQuestionsObjects.SetActive(false);
+            startQuestionsText.gameObject.SetActive(true);
+            explainHowToAnswerText.gameObject.SetActive(false);
             QusetionsManeger();
+            showExplain = 0;
         }
     }  
     
