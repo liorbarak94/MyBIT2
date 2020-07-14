@@ -159,6 +159,7 @@ public class ReadNewSituation : MonoBehaviour
                 break;
         }
 
+        numberOfMistekes++;
         timeOutExplainCanvas.gameObject.SetActive(true);
         rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
         Debug.Log(rightAnswerExplainText.text);
