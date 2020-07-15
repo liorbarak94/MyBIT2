@@ -25,9 +25,9 @@ public class ReadNewSituation : MonoBehaviour
     public TMP_Text firstIntroText, secondIntroText, storyText, titleText, rightAnswerExplainText, worngAnswerExplainText,
         questionText, answer1Text, answer2Text, answer3Text, answer4Text, startQuestionsText, explainHowToAnswerText;
     public Image backButton, nextButton, restartButton, startButton, goBackToQuestButton, menuButton, pauseButton,
-        exitButton, pigyButton, finishQestionsButton, restartExplainButton;
+        exitButton, pigyButton, finishQestionsButton, restartExplainButton, extandButton;
 
-    private bool isLoaded = false, menuIsOpen = false;
+    private bool isLoaded = false, menuIsOpen = false, fullExplain = false;
 
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
@@ -571,10 +571,17 @@ public class ReadNewSituation : MonoBehaviour
             nextQuestionArrow.gameObject.SetActive(true);
             AddCoinToPiggy();
             if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+            {
+                extandButton.gameObject.SetActive(false);
                 rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
-            else
-                rightAnswerExplainText.text = answersLessExplains[currentQuestionNumber * 2].text;
+            }
 
+            else
+            {
+                fullExplain = false;
+                extandButton.gameObject.SetActive(true);
+                rightAnswerExplainText.text = answersLessExplains[currentQuestionNumber * 2].text;
+            }
             TimerActivation(false);
 
             Vector3 answerPosition = new Vector3();
@@ -617,9 +624,16 @@ public class ReadNewSituation : MonoBehaviour
             goBackToQuestButton.gameObject.SetActive(true);
             nextQuestionArrow.gameObject.SetActive(false);
             if (totalSituationLevelPlayed > currentSituationLevel || currentSituationLevel == FinalValues.LEVEL_0)
+            {
+                extandButton.gameObject.SetActive(false);
                 worngAnswerExplainText.text = answersFullExplains[(currentSituationLevel * 6) + ((currentQuestionNumber * 2) + 1)].text;
+            }
             else
+            {
+                fullExplain = false;
+                extandButton.gameObject.SetActive(true);
                 worngAnswerExplainText.text = answersLessExplains[(currentQuestionNumber * 2) + 1].text;
+            }
             switch (ansClicked)
             {
                 case "0":
@@ -639,6 +653,29 @@ public class ReadNewSituation : MonoBehaviour
                     answer4Text.gameObject.SetActive(false);
                     break;
             }
+        }
+    }
+
+    public void OnExtandButtonClicked()
+    {
+        Debug.Log("OnExtandButtonClicked() Starts");
+        if (fullExplain)
+        {
+            Debug.Log("fullExplain1: " + fullExplain);
+            fullExplain = false;
+            if (rightAnswerExplainText.gameObject.activeSelf)
+                rightAnswerExplainText.text = answersLessExplains[currentQuestionNumber * 2].text;
+            else
+                worngAnswerExplainText.text = answersLessExplains[(currentQuestionNumber * 2) + 1].text;
+        }
+        else
+        {
+            Debug.Log("fullExplain1: " + fullExplain);
+            fullExplain = true;
+            if (rightAnswerExplainText.gameObject.activeSelf)
+                rightAnswerExplainText.text = answersFullExplains[(currentQuestionNumber * 2) + (currentSituationLevel * 6)].text;
+            else
+                worngAnswerExplainText.text = answersFullExplains[(currentSituationLevel * 6) + ((currentQuestionNumber * 2) + 1)].text;
         }
     }
 
