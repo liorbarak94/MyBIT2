@@ -122,7 +122,9 @@ public class MyNextLevelToPlay : MonoBehaviour
         {
             // Check the numberOfMistakesOrAverageNumberOfTouches in the last played level
             if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
-                .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_BUILD)
+                .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_BUILD
+                 && db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                 .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
             {
                 if (db_Manager.me_User.currentBuildLevelToPlay != db_Manager.me_User.totalBuildLevelPlayed - 1)
                     db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
@@ -141,7 +143,9 @@ public class MyNextLevelToPlay : MonoBehaviour
                 Debug.Log("improvementBuild: " + improvementBuild);
                 Debug.Log("deltaTimeBuild: " + deltaTimeBuild);
 
-                if (deltaTimeBuild < improvementBuild)
+                if (deltaTimeBuild < improvementBuild 
+                    && db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                       .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                 {
                     if (db_Manager.me_User.currentBuildLevelToPlay != db_Manager.me_User.totalBuildLevelPlayed - 1)
                         db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
@@ -157,7 +161,9 @@ public class MyNextLevelToPlay : MonoBehaviour
             {
                 // Check the numberOfMistakesOrAverageNumberOfTouches in the last played level
                 if (db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
-                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_SITUATION)
+                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_SITUATION
+                    && db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                        .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                 {
                     if (db_Manager.me_User.currentSituationLevelToPlay != db_Manager.me_User.totalSituationLevelPlayed - 1)
                         db_Manager.UpdateCurrentSituationLevelToPlayInDatabase();
@@ -175,7 +181,9 @@ public class MyNextLevelToPlay : MonoBehaviour
                     Debug.Log("improvementSituation: " + improvementSituation);
                     Debug.Log("deltaTimeSituation: " + deltaTimeSituation);
 
-                    if (deltaTimeSituation < improvementSituation)
+                    if (deltaTimeSituation < improvementSituation
+                        && db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                           .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                     {
                         if (db_Manager.me_User.currentSituationLevelToPlay != db_Manager.me_User.totalSituationLevelPlayed - 1)
                             db_Manager.UpdateCurrentSituationLevelToPlayInDatabase();
@@ -189,7 +197,9 @@ public class MyNextLevelToPlay : MonoBehaviour
         {
             // Check the numberOfMistakesOrAverageNumberOfTouches in the last played level
             if (db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
-                .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_SITUATION)
+                .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_SITUATION
+                && db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                    .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
             {
                 if (db_Manager.me_User.currentSituationLevelToPlay != db_Manager.me_User.totalSituationLevelPlayed - 1)
                     db_Manager.UpdateCurrentSituationLevelToPlayInDatabase();
@@ -208,7 +218,9 @@ public class MyNextLevelToPlay : MonoBehaviour
                 Debug.Log("improvementSituation: " + improvementSituation);
                 Debug.Log("deltaTimeSituation: " + deltaTimeSituation);
 
-                if (deltaTimeSituation < improvementSituation)
+                if (deltaTimeSituation < improvementSituation
+                    && db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                    .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                 {
                     if (db_Manager.me_User.currentSituationLevelToPlay != db_Manager.me_User.totalSituationLevelPlayed - 1)
                         db_Manager.UpdateCurrentSituationLevelToPlayInDatabase();
@@ -224,7 +236,9 @@ public class MyNextLevelToPlay : MonoBehaviour
             {
                 // Check the numberOfMistakesOrAverageNumberOfTouches in the last played level
                 if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
-                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_BUILD)
+                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_BUILD
+                    && db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                        .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                 {
                     if (db_Manager.me_User.currentBuildLevelToPlay != db_Manager.me_User.totalBuildLevelPlayed - 1)
                         db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
@@ -242,7 +256,9 @@ public class MyNextLevelToPlay : MonoBehaviour
                     Debug.Log("improvementBuild: " + improvementBuild);
                     Debug.Log("deltaTimeBuild: " + deltaTimeBuild);
 
-                    if (deltaTimeBuild < improvementBuild)
+                    if (deltaTimeBuild < improvementBuild
+                        && db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                            .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                     {
                         if (db_Manager.me_User.currentBuildLevelToPlay != db_Manager.me_User.totalBuildLevelPlayed - 1)
                             db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
@@ -263,7 +279,9 @@ public class MyNextLevelToPlay : MonoBehaviour
             {
                 // Check the numberOfMistakesOrAverageNumberOfTouches in the last played level
                 if (db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
-                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_BUILD)
+                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_BUILD
+                    && db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                        .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                 {
                     if (db_Manager.me_User.currentBuildLevelToPlay != db_Manager.me_User.totalBuildLevelPlayed - 1)
                         db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
@@ -271,14 +289,16 @@ public class MyNextLevelToPlay : MonoBehaviour
                 }
 
                 else if (db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
-                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_SITUATION)
+                    .numberOfMistakesOrAverageNumberOfTouches > FinalValues.MAX_MISTAKES_SITUATION
+                    && db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                        .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                 {
                     if (db_Manager.me_User.currentSituationLevelToPlay != db_Manager.me_User.totalSituationLevelPlayed - 1)
                         db_Manager.UpdateCurrentSituationLevelToPlayInDatabase();
                     recommendationImage.texture = situationIconImage;
                 }
 
-                // Check if there is improvement in total time between two levels in build
+                // Check if there is improvement in total time between two levels in build & situation
                 else if (db_Manager.me_User.totalBuildLevelPlayed > FinalValues.LEVEL_1)
                 {
                     float improvementBuild =
@@ -299,13 +319,17 @@ public class MyNextLevelToPlay : MonoBehaviour
                     Debug.Log("improvementSituation: " + improvementSituation);
                     Debug.Log("deltaTimeSituation: " + deltaTimeSituation);
 
-                    if (deltaTimeBuild < improvementBuild)
+                    if (deltaTimeBuild < improvementBuild
+                        && db_Manager.me_User.buildLevels_Arr[db_Manager.me_User.totalBuildLevelPlayed - 1]
+                        .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                     {
                         if (db_Manager.me_User.currentBuildLevelToPlay != db_Manager.me_User.totalBuildLevelPlayed - 1)
                             db_Manager.UpdateCurrentBuildLevelToPlayInDatabase();
                         recommendationImage.texture = buildIconImage;
                     }
-                    else if (deltaTimeSituation < improvementSituation)
+                    else if (deltaTimeSituation < improvementSituation
+                        && db_Manager.me_User.situationLevels_Arr[db_Manager.me_User.totalSituationLevelPlayed - 1]
+                        .timesTheLevelWasPlayed < FinalValues.MAX_TIMES_THE_LEVEL_CAN_PLAYED)
                         recommendationImage.texture = situationIconImage;
                     else
                         recommendationImage.texture = buildIconImage;

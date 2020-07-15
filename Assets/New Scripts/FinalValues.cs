@@ -91,11 +91,12 @@ public class FinalValues : MonoBehaviour
     public static int IMPROVEMENT_PRECENT = 10;
     public static int LEVEL_0 = 0;
     public static int LEVEL_1 = 1;
-    public static int MAX_MISTAKES_BUILD = 4;
+    public static int MAX_MISTAKES_BUILD = 3;
     public static int MAX_MISTAKES_SITUATION = 3;
+    public static int MAX_TIMES_THE_LEVEL_CAN_PLAYED = 3;
 
     ////////// Build ///////////////////////////////
-        
+
     public enum TypeOfArrowAnim {BIG, SMALL};
     public static float WAIT_TIME_FOR_SECOND_TOUCH_OF_PART = 4;
     public static string TAKE_MONEY_TRIGGER_BUILD_SCENE_PIG_ANIMATOR = "TakeMoney";
