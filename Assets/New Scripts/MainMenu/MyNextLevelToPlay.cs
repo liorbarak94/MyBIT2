@@ -184,7 +184,7 @@ public class MyNextLevelToPlay : MonoBehaviour
             }
         }
 
-        // Play in more situatuion levels then build levels
+        // Play in more situation levels then build levels
         else if (db_Manager.me_User.totalBuildLevelPlayed < db_Manager.me_User.totalSituationLevelPlayed)
         {
             // Check the numberOfMistakesOrAverageNumberOfTouches in the last played level

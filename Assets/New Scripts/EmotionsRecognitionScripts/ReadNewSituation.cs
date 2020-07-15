@@ -579,7 +579,6 @@ public class ReadNewSituation : MonoBehaviour
             {
                 case "0":
                     answerPosition = answer1Image.gameObject.transform.position;
-                    Debug.Log("answer1Image.gameObject.transform.position: " + answer1Image.gameObject.transform.position);
                     coinManager.AddCoin(answerPosition);
                     break;
                 case "1":
