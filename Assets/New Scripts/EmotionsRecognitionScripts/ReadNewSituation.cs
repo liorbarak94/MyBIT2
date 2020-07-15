@@ -305,6 +305,10 @@ public class ReadNewSituation : MonoBehaviour
     {
         partOfStoryIndex = 0;
         storyText.text = situation.GetPartsOfTheStory()[partOfStoryIndex];
+        if (currentSituationLevel == 0)
+            imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
+        if (currentSituationLevel == 1)
+            imagesSwap.GetComponent<Image>().sprite = story2Images[partOfStoryIndex];
         backButton.gameObject.SetActive(false);
         storyObjects.SetActive(true);
         qusetionsObjects.SetActive(false);
