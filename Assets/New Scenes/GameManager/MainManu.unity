@@ -2499,7 +2499,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 2.15
+  m_padding: 3.05
   m_canvasRenderer: {fileID: 482324351}
   m_TextComponent: {fileID: 845504280}
   m_materialReferenceIndex: 1
