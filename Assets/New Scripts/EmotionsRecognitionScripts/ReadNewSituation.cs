@@ -31,8 +31,11 @@ public class ReadNewSituation : MonoBehaviour
 
     public Animator piggyAnimatorController;
     public AudioSource audioSource;
-    public GameObject imagesSwap, storyObjects, qusetionsObjects, startQuestionsObjects, startLevelCanvas,
-        answersObjects, answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas, littleTimeCanvas;
+    public GameObject imagesSwap, storyObjects, qusetionsObjects, 
+        startQuestionsObjects, startLevelCanvas, answersObjects, 
+        answerExplain, menuImageList, levelCompletedCanvas, timeOutExplainCanvas, 
+        littleTimeCanvas;
+
     public Sprite[] story1Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] story2Images = new Sprite[FinalValues.STORY_SIZE];
     public Sprite[] answers1Images = new Sprite[FinalValues.NUMBER_OF_ANSWERS * FinalValues.NUMBER_OF_QUESTIONS];
@@ -293,7 +296,9 @@ public class ReadNewSituation : MonoBehaviour
         storyObjects.SetActive(true);
         Debug.Log("currentSituationNumber: " + currentSituationLevel);
         nextButton.gameObject.SetActive(true);
+
         startLevelCanvas.SetActive(false);
+
         if (currentSituationLevel == 0)
             imagesSwap.GetComponent<Image>().sprite = story1Images[partOfStoryIndex];
         if (currentSituationLevel == 1)
@@ -387,7 +392,9 @@ public class ReadNewSituation : MonoBehaviour
         {
             storyObjects.SetActive(false);
             qusetionsObjects.SetActive(true);
+
             startQuestionsObjects.SetActive(false);
+
             startQuestionsText.gameObject.SetActive(true);
             explainHowToAnswerText.gameObject.SetActive(false);
             QusetionsManeger();
