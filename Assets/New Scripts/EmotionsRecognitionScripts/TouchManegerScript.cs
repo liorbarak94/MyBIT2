@@ -90,14 +90,14 @@ public class TouchManegerScript : MonoBehaviour
         {
             if (answerObjectClicked != null)
                 c.transform.position =
-                    new Vector2(answerObjectClicked.transform.position.x-50, answerObjectClicked.transform.position.y);
+                    new Vector2(answerObjectClicked.transform.position.x-70, answerObjectClicked.transform.position.y);
             c.GetComponent<Image>().color = Color.blue;
         }
         if (fingerId == 1)
         {
             if (answerObjectClicked != null)
                 c.transform.position =
-                    new Vector2(answerObjectClicked.transform.position.x+50, answerObjectClicked.transform.position.y);
+                    new Vector2(answerObjectClicked.transform.position.x+70, answerObjectClicked.transform.position.y);
             c.GetComponent<Image>().color = Color.green;
         }
     }
