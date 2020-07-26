@@ -394,6 +394,7 @@ public class ReadNewSituation : MonoBehaviour
             qusetionsObjects.SetActive(true);
 
             startQuestionsObjects.SetActive(false);
+            restartExplainButton.gameObject.SetActive(true);
 
             startQuestionsText.gameObject.SetActive(true);
             explainHowToAnswerText.gameObject.SetActive(false);
